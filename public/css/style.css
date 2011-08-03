@@ -314,7 +314,7 @@ aside p{
   margin: 0;
 }
 
-aside *{
+aside section{
 
   margin-bottom: 24px;
 }
@@ -338,7 +338,7 @@ aside nav{
 }
 
 
-#sticky-wrapper>*{
+#sticky-wrapper > *{
   display: inline-block;
 }
 
@@ -356,7 +356,6 @@ aside nav{
 
 /* - Pixel decoration ------------------------------------------------------ */
 #main-content:before{
-
   content: '';
   background: transparent url('../img/pixel-borders-right.gif') no-repeat right -36px;
   display:block;
@@ -367,7 +366,6 @@ aside nav{
 }
 
 #sticky-wrapper:before{
-
   content: '';
   display: block;
   position: relative;

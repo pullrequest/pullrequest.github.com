@@ -3,18 +3,25 @@ layout: default
 title: Pull Request
 ---
 
-{% for page in paginator.posts %}
+{% for post in paginator.posts %}
     <article>
-        <header>
-            <h1>{{ page.title }}</h1>
-            <p><time pubdate="pubdate" datetime="{{ page.date }}">{{ page.date | date_to_string }}</time></p>
-        </header>
-        {{ page.content }}
-        <footer>
-            {% include categories.html %}
-        </footer>
+      
+      <header>
+        <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+        <time class="publishing" data-timestamp="{{ post.date }}" datetime="{{ post.date }}" pubdate="pubdate" title="{{post.date}}">{{post.date | date_to_string}}</time>
+        <cite class="author">{{ post.author }}</cite>
+      </header>
+          
+      {{ post.content }}
+      
+      <a href="{{ post.url }}" class="read-more">Lire la suite</a>
+      
+      <footer>
+        {% include categories.html %}
+      </footer>
     </article>
 {% endfor %}
+
 
 <div class="pagination">
     {% if paginator.previous_page %}
