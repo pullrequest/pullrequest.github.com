@@ -107,7 +107,7 @@ body{
   font-family: CallunaSansRegular, sans-serif;
   height: 100%;
   line-height: 24px;
-  background: url('../images/background-pattern.gif');
+  background: url('../img/background-pattern.gif');
 }
 
 article h1, h2{
@@ -152,7 +152,7 @@ pre{
 
 /* - Site header ------------------------------------------------------------ */
 
-body header{
+body header.header{
 
   background: #252b33;
   height: 96px;
@@ -160,14 +160,14 @@ body header{
   z-index: 2;
 }
 
-body header h1{
+body header.header h1{
 
   margin: auto;
   padding-top: 15px;
   width: 252px;
 }
 
-body header h1 a:hover{
+body header.header h1 a:hover{
   border:none;
 }
 
@@ -214,7 +214,7 @@ article img{
 
 .author, .publishing, .category, .comments{
 
-  background: url('../images/sprite.png') 0 -17px no-repeat;
+  background: url('../img/sprite.png') 0 -17px no-repeat;
   padding-left: 20px;
   font-size: 12px;
 }
@@ -250,7 +250,7 @@ article img{
 
 .read-more{
 
-  background: url('../images/sprite.png') right -61px no-repeat;
+  background: url('../img/sprite.png') right -61px no-repeat;
   padding-right: 8px;
   color: #480c28; 
 }
@@ -281,7 +281,7 @@ article header{
   width: 168px;
   padding-left: 8px;
   padding-right: 3px;
-  background: #fafafa url('../images/commit-dot.png') 0 8px no-repeat;
+  background: #fafafa url('../img/commit-dot.png') 0 8px no-repeat;
   color: #b8c7cc;
 }
 
@@ -295,7 +295,7 @@ a.github-changeset:hover{
 
 aside{
 
-  width: 190px;
+  width: 185px;
   vertical-align: top;
   margin-top: 125px;
   margin-left: 48px;
@@ -358,7 +358,7 @@ aside nav{
 #main-content:before{
 
   content: '';
-  background: transparent url('../images/pixel-borders-right.gif') no-repeat right -36px;
+  background: transparent url('../img/pixel-borders-right.gif') no-repeat right -36px;
   display:block;
   height: 36px;
   position: relative;
@@ -373,7 +373,7 @@ aside nav{
   position: relative;
   top: 70px;
   height: 36px;
-  background: url('../images/pixel-borders-left.gif') no-repeat left -36px;
+  background: url('../img/pixel-borders-left.gif') no-repeat left -36px;
   margin-bottom: -36px;
   z-index: 3;
 }
@@ -386,7 +386,7 @@ aside nav{
   top: -36px;
   margin-bottom: -72px;
   height: 36px;
-  background: url('../images/pixel-borders-right.gif') no-repeat right 0px;
+  background: url('../img/pixel-borders-right.gif') no-repeat right 0px;
   z-index: 3;
 }
 
@@ -398,7 +398,7 @@ aside nav{
   top: -18px;
   height: 36px;
   margin-bottom: -36px;
-  background: url('../images/pixel-borders-left.gif') no-repeat left 0px;
+  background: url('../img/pixel-borders-left.gif') no-repeat left 0px;
   z-index: 3;
 }
 
@@ -462,7 +462,7 @@ body footer{
   line-height: 24px;
   padding-bottom: 5px;
   margin: 6px 0;
-  background: url('../images/article-nav-sprite.png') no-repeat;
+  background: url('../img/article-nav-sprite.png') no-repeat;
 }
 
 a.previous-posts{
