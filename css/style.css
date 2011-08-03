@@ -1,0 +1,523 @@
+/**
+ *
+ * Stylesheet for pullrequest.org
+ *
+ * @author rpascal
+ *
+ *
+ *
+ * - Color Index ----------------------------------
+ * 
+ * Header & Footer background : #252b33 (dark grey)
+ * Article background : #fafafa (almost white) 
+ * Article titles : #480c28 (redish purple)
+ * Links : #5cb0cc (greyish blue)
+ * Icons : #6db900 (green)
+ *
+ * ------------------------------------------------
+ * 
+ */
+
+/* - Fonts ------------------------------------------------------------------ */
+
+@font-face {
+    font-family: 'MavenProMedium';
+    src: url('../fonts/maven_pro_medium-webfont.eot');
+    src: url('../fonts/maven_pro_medium-webfont.eot?iefix') format('eot'),
+         url('../fonts/maven_pro_medium-webfont.woff') format('woff'),
+         url('../fonts/maven_pro_medium-webfont.ttf') format('truetype'),
+         url('../fonts/maven_pro_medium-webfont.svg#webfontyQA0TEWF') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'CallunaSansRegular';
+    src: url('../fonts/callunasansregular-webfont.eot');
+    src: url('../fonts/callunasansregular-webfont.eot?#iefix') format('eot'),
+         url('../fonts/callunasansregular-webfont.woff') format('woff'),
+         url('../fonts/callunasansregular-webfont.ttf') format('truetype'),
+         url('../fonts/callunasansregular-webfont.svg#webfontW850hM1B') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+/* - Reset ------------------------------------------------------------------ */
+
+/* http://meyerweb.com/eric/tools/css/reset/
+ *    v2.0b1 | 201101
+ *    NOTE:WORK IN PROGRESS
+ *    USE WITH CAUTION AND TEST WITH ABANDON */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,  footer, header, hgroup, menu, nav, section {
+	display:block;
+}
+
+ol, ul {
+	list-style:none;
+}
+blockquote, q {
+	quotes:none;
+}
+blockquote:before, blockquote:after,  q:before, q:after {
+	content:'';
+	content:none;
+}
+
+ins {
+	text-decoration:none;
+}
+del {
+	text-decoration:line-through;
+}
+
+strong {
+	font-weight:bold;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+/* - Main ------------------------------------------------------------------- */
+
+html{
+  height: 100%;
+}
+
+body{
+
+  color: #252b33;
+  font-family: CallunaSansRegular, sans-serif;
+  height: 100%;
+  line-height: 24px;
+  background: url('../images/background-pattern.gif');
+}
+
+article h1, h2{
+
+  font-size: 24px;
+  font-family: 'MavenProMedium', sans-serif;
+  color: #480c28;
+  text-shadow: transparent 0 0 1px;
+}
+
+
+section h2, article h2, h3{
+  line-height: 24px;
+  margin: 12px auto;
+  font-size: 18px;
+}
+
+p{
+
+  margin-top: 24px;   
+}
+
+a{
+
+  color: #5cb0cc;
+  text-decoration: none;
+}
+
+a:hover{
+
+  border-bottom: solid 1px #5cb0cc;
+}
+
+pre{
+
+  font-family: monospace;
+  background: #e6e6e6;
+  color: #999999;
+  padding: 11px;
+  border: solid 1px #999999;
+}
+
+/* - Site header ------------------------------------------------------------ */
+
+body>header{
+
+  background: #252b33;
+  height: 96px;
+  position:relative;
+  z-index: 2;
+}
+
+body>header h1{
+
+  margin: auto;
+  padding-top: 15px;
+  width: 252px;
+}
+
+body>header h1 a:hover{
+  border:none;
+}
+
+/* - Articles -------------------------------------------------------------- */
+
+article{
+
+  border-bottom: solid 3px #e6e6e6;
+  padding: 0 24px 9px;
+  margin-bottom: 36px;
+}
+
+article h1 a{
+
+  color: inherit;
+}
+
+article h1 a:hover{
+
+  border-color: #480c28;
+}
+
+article ul, article ol {
+  list-style-type: square;
+  margin:24px 0;
+}
+
+article ul li {
+  margin-top: 0.5em;
+}
+
+article img{
+
+  max-width: 100%;
+}
+
+.snippet{
+
+  background: #e6e6e6;
+}
+
+
+/* - Article publishing infos (author, date, category & comments) ---------- */
+
+.author, .publishing, .category, .comments{
+
+  background: url('../images/sprite.png') 0 -17px no-repeat;
+  padding-left: 20px;
+  font-size: 12px;
+}
+
+
+.publishing{
+
+  background-position: 0 -2px;
+}
+
+.author{
+
+  background-position: 0 -17px;
+}
+
+.category{
+
+  background-position: 0 -32px;
+}
+
+.comments{
+
+  background-position: 0 -49px;
+}
+
+.publishing:after, .author:after, .category:after{
+
+  content: "•";
+  margin-left: 6px;
+}
+
+/* - Read more -------------------------------------------------------------- */
+
+.read-more{
+
+  background: url('../images/sprite.png') right -61px no-repeat;
+  padding-right: 8px;
+  color: #480c28; 
+}
+
+a.read-more:hover{
+
+  border-color: #480c28;
+}
+
+article>header{
+
+  margin-bottom: 24px;
+}
+
+/* - Github changeset ------------------------------------------------------ */
+
+.github-changeset{
+
+  font-family: monospace;
+  display: block;
+  font-size: 12px;
+  height: 16px;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  top: 15px;
+  left: -8px;
+  width: 168px;
+  padding-left: 8px;
+  padding-right: 3px;
+  background: #fafafa url('../images/commit-dot.png') 0 8px no-repeat;
+  color: #b8c7cc;
+}
+
+a.github-changeset:hover{
+
+  border-bottom: none;
+  color: #5cb0cc;
+}
+
+/* - Sidebar ---------------------------------------------------------------- */
+
+aside{
+
+  width: 190px;
+  vertical-align: top;
+  margin-top: 125px;
+  margin-left: 48px;
+  font-size: 14px;
+}
+
+aside h1{
+
+  font-size: 16px;
+  color: #480c28;
+  font-family: MavenProMedium, sans-serif;
+}
+
+aside p{
+
+  margin: 0;
+}
+
+aside>*{
+
+  margin-bottom: 24px;
+}
+
+aside nav{
+
+  font-family: MavenProMedium, sans-serif;
+  font-size: 24px;
+  line-height: 48px;
+  margin-bottom: -24px;
+}
+
+/* - Sticky footer ---------------------------------------------------------- */
+#sticky-wrapper{
+  min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: -88px auto -24px;
+  width: 960px;
+  position: relative;
+}
+
+
+#sticky-wrapper>*{
+  display: inline-block;
+}
+
+#sticky-wrapper>script{
+  display: none;
+}
+
+#main-content{
+  padding-bottom: 24px;
+  padding-top: 88px;
+  background: #fafafa;
+  height: 100%;
+  max-width: 720px;
+}
+
+/* - Pixel decoration ------------------------------------------------------ */
+#main-content:before{
+
+  content: '';
+  background: transparent url('../images/pixel-borders-right.gif') no-repeat right -36px;
+  display:block;
+  height: 36px;
+  position: relative;
+  top: -18px;
+  z-index: 3;
+}
+
+#sticky-wrapper:before{
+
+  content: '';
+  display: block;
+  position: relative;
+  top: 70px;
+  height: 36px;
+  background: url('../images/pixel-borders-left.gif') no-repeat left -36px;
+  margin-bottom: -36px;
+  z-index: 3;
+}
+
+#main-content:after{
+  
+  content: '';
+  display: block;
+  position: relative;
+  top: -36px;
+  margin-bottom: -72px;
+  height: 36px;
+  background: url('../images/pixel-borders-right.gif') no-repeat right 0px;
+  z-index: 3;
+}
+
+#sticky-wrapper:after{
+
+  content: '';
+  display: block;
+  position: relative;
+  top: -18px;
+  height: 36px;
+  margin-bottom: -36px;
+  background: url('../images/pixel-borders-left.gif') no-repeat left 0px;
+  z-index: 3;
+}
+
+/* - OpenSource ------------------------------------------------------------ */
+
+#opensource{
+
+}
+
+#opensource a{
+
+  display: block;
+}
+
+#opensource a:hover{
+
+  border: none;
+}
+
+/* - Footer ---------------------------------------------------------------- */
+
+body>footer{
+  
+  text-align: center;
+  line-height: 24px;
+  width: 100%;
+  height: 24px;
+  background-color: #252b33;
+}
+
+#poweredby{
+  float: leftt;
+  font-size: 12px;
+  color: #fafafa;
+}
+
+#legal{
+
+  float: right;
+  font-size: 12px;
+  color: #fafafa;
+}
+
+/* - Prev/Next navigation --------------------------------------------------- */
+
+.articles-nav{
+
+  margin-top: -24px;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+.articles-nav a{
+
+  display:inline-block;
+  text-transform: uppercase;
+  color: #252b33;
+  font-size: 17px;
+  letter-spacing: 1px;
+  padding-top: 7px;
+  line-height: 24px;
+  padding-bottom: 5px;
+  margin: 6px 0;
+  background: url('../images/article-nav-sprite.png') no-repeat;
+}
+
+a.previous-posts{
+
+  margin-left: 12px;
+  padding-left: 30px;
+  background-position: left -72px;
+}
+
+a.previous-posts:hover{
+
+  border: none;
+  background-position: left -108px;
+  color: #5cb0cc;
+}
+
+a.next-posts{
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 12px;
+  padding-right: 30px;
+  background-position: right 0;
+}
+
+a.next-posts:hover{
+
+  border: none;
+  background-position: right -36px;
+  color: #5cb0cc;
+}
+
+/* Code */
+#main-content pre{margin:1em 0 1em;font-size:12px;background-color:#fff;border:1px solid #ccc;padding:.5em;line-height:1.5em;color:#ccc;overflow:auto;}
+#main-content pre code{padding:1.5em;font-size:12px;background-color:#333;border:none; display: block;}
+#main-content code{font-size:12px;background-color:#f8f8f8;color:#444;padding:0 .2em;border:1px solid #dedede; overflow: auto;}
+#main-content a code,#main-content a:link code,#main-content a:visited code{color:#4183c4;}
+
+/* Prettify -- desert scheme ported from vim to google prettify */
+
+pre { display: block; background-color: #333 }
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #bada55 } /* string  - bad ass */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #98fb98 } /* type    - lightgreen */
+pre .lit { color: #cd5c5c } /* literal - darkred */
+pre .pun { color: #fff }    /* punctuation */
+pre .pln { color: #fff }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+#disqus_thread {
+	padding-bottom:50px;
+}

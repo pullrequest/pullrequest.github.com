@@ -1,0 +1,103 @@
+---
+layout: default
+---
+<div id="sticky-wrapper">
+<section id="main-content">
+  <article>
+    <header>
+    <h1><a href="/article/${article.name}">{{ page.title }}</a></h1>
+    <time class="publishing" data-timestamp="{{ page.date }}" datetime="${article.parsedDate}" pubdate="pubdate" title="{{ page.date }}">{{ page.date | date_to_string }}</time>
+    <cite class="author"><a href="#">{{ page.author }}</a></cite>
+    </header>
+    {{ content }}
+    <!--
+    <a class="github-changeset" href="#">5500e5f3ea1f3485c496</a>
+    -->
+  </article>
+  <div id="disqus_thread">
+    <script>
+      var disqus_shortname = 'pullrequest';
+      var disqus_identifier = '${article.name}';
+      $.getScript("http://pullrequest.disqus.com/embed.js");
+    </script>
+  </div>
+  <!--
+  <nav class="articles-nav">
+    <a href="#" class="previous-posts">Anciens posts</a>
+    <a href="#" class="next-posts">Posts r&eacute;cents</a>
+  </nav>
+  -->
+</section>
+<aside>
+  <section class="about">
+   <h1>Auteur</h1>
+    <dl>
+      <dt>Nom</dt>
+      <dd>${author.name}</dd>
+    </dl>
+  <section class="about">
+    <h1>Billet</h1>
+    {{if article.date}}
+      <dl>
+        <dt>Publi&eacute; </dt>
+        <dd><time class="publishing" data-timestamp="${article.date}" datetime="${article.date}" pubdate="pubdate" title="${article.date}">${article.parsedDate}</time></dd>
+      </dl>
+    {{/if}}
+    
+    {{if article.lastUpdated}}
+      <dl>
+        <dt>Derni&egrave;re mise &agrave; jour</dt>
+        <dd><time data-timestamp="${article.lastUpdated}" datetime="${article.lastUpdated}" title="${article.lastUpdated}">${article.lastUpdated}</time></dd>
+      </dl>
+    {{/if}}
+    <!--
+    {{if article.categories}}
+      <dl>
+        <dt>Cat&eacute;gories</dt>
+        <dd>
+          {{each article.categories}}
+              <a href="/category/${$value}">${$value}</a>
+          {{/each}}
+        </dd>
+      </dl>
+    {{/if}}
+    -->
+    {{if article.log}}
+      <dl>
+        <dt>Revisions</dt>
+        <dd>
+          <ul>
+            {{each(version, stat) article.log}}
+              <li title="${stat.message}"></li>
+                <a href="/${version}/${article.name}">${stat.date}</a>
+            {{/each}}
+          </ul>
+        </dd>
+      </dl>
+    {{/if}}
+  </section>
+  <section id="participate">
+    <h1>Participer</h1>
+    <p>Les articles sont écrits en <a href="http://daringfireball.net/projects/markdown/syntax">MarkDown</a> et stock&eacute;s dans un repository Git sur <a href="http://github.com/pullrequest/pullrequest.org">Github</a>.
+    N'h&eacute;sitez pas &agrave; <strong>forker</strong> puis à faire une <strong><a href="https://github.com/pullrequest/pullrequest.org/pull/new/master">Pull Request</a></strong> ;)</p>
+  </section>
+  <section class="licensing">
+    <h1>Licence</h1>
+    <p>
+    Les articles sont mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by/2.0/fr/">Licence Creative Commons Paternité 2.0 France</a>.
+    <a rel="license" href="http://creativecommons.org/licenses/by/2.0/fr/">
+       <br><img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/fr/88x31.png" />
+    </a>
+    </p>
+  </section>
+  <section id="opensource">
+    <h1>OpenSource</h1>
+    <p>Les auteurs de PullRequest sont à l'origine, ou contributeurs, entre autre de ces projets:</p>
+    <a href="http://openscales.org">OpenScales</a>
+    <a href="http://resthub.org">RestHub</a>
+    <a href="https://github.com/loicfrering/losolib">LoSoLib</a>
+    <a href="https://bitbucket.org/feugy/myth">Myth</a>
+    <a href="https://github.com/mklabs/node-yabe">Node Yabe</a>
+  </section>
+</aside>
+</div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{{ page.title }}</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="/"><img src="/images/pullrequest-logo.png" alt="Pull Request"/></a></h1>
+        </header>
+        <div id="main">
+            {{ content }}
+        </div>
+        <footer>
+            <small id="legal">&copy; 2011 pullrequest.org</small> -
+            <small id="poweredby">Powered by <a href="https://github.com/mojombo/jekyll" title="Jekyll on Github">Jekyll</a></small>
+        </footer>
+    </body>
+    <script>
+        var _gaq=[["_setAccount","UA-22833612-1"],["_trackPageview"]];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+            g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
+            s.parentNode.insertBefore(g,s)}(document,"script"));
+    </script>
+</html>

@@ -1,0 +1,88 @@
+---
+layout: post
+title: RESThub 1.1
+author: Sébastien Deleuze
+Categories: resthub, java, javascript 
+
+---
+
+Title: RESThub 1.1
+Author: Sébastien Deleuze 
+Date: Jun 28 2011 23:30:00 GMT-0200 (CDT)
+Categories: resthub, java, javascript
+
+Après 6 mois de développement, j'ai le plaisir de vous annoncer la sortie de [RESThub](http://resthub.org) 1.1. Le framework a beaucoup évolué ces derniers mois, notamment suite à son utilisation sur de gros projets qui ont permis, sur base de retours développeurs, une amélioration significative du framework.
+
+La documentation, les exemples ainsi que les modèles de projet sont disponibles sur [http://resthub.org](http://resthub.org).
+
+## 2 projets distincts
+
+Comme annoncé il y a quelques temps, RESThub est maintenant constitué de 2 projets complémentaires mais indépendants :
+
+*   [RESThub](http://resthub.org/java/) : une stack Java basée sur Spring 3.0 et sur des webservices REST JAX-RS qui vise à fournir un socle cohérent pour le développement d'applications Java modulaires
+*   [RESThub JS](http://resthub.org/javascript/) : une stack Javascript basée sur jQuery, visant à fournir l'outillage et les repères nécessaires au développement d'applications professionnelles (cf. l'excellent article [Building Large-Scale jQuery Applications](http://addyosmani.com/blog/large-scale-jquery/)). Elle peut se câbler sur n'importe quelle technologie serveur qui expose des webservices REST (Java, Scala, Python, Ruby, NodeJS).
+
+Les 2 projets suivent pour l'instant les mêmes versions.
+
+## Changelog
+
+### RESThub 1.1
+
+*   La [documentation](http://resthub.org/java/) a été complétement retravaillée et couvre maintenant l'ensemble des fonctionnalités disponibles dans le framework
+*   Déjà présent dans la version 1.0, une fonctionnalité clé de RESThub 1.1 est de scanner vos entités JPA dans le classpath afin de les gérer via une seule persistence unit, ce qui n'est pas possible avec JPA. Cette fonctionnalité permet un découpage fonctionnel plus simple de vos applications, notamment via des projets multi-modules Maven où chaque module correspond à une fonctionnalité automatiquement découverte dans le classpath
+*   Une classe SerializationHelper vous permet de tester simplement, c'est à dire dans avoir à lancer un serveur Jersey complet, la sérialisation/désérialisation de vos objets en XML et JSON. C'est primordial afin de vérifier que ces opérations ne provoquent de boucles infinies ou d'erreur liées au polymorphisme
+*   Nouvelle archetype resthub-archetype-js-webapp qui propose une exemple simple d'application RESThub + RESThub JS. Cet exemple contient maintenant un Repository et un Controller Javascript qui font appel au webservice REST implémenté en Java
+*   Une intégration Spring DBUnit permet une gestion simple et puissante des données de tests (jeux de donnée propres à chaque méthode de test)
+*   Le client Jersey intégré est maintenant basé sur un moteur HttpClient 4
+*   La sérialisation JSON a été changée. Toujours basée sur l'excellent [Jackson](http://jackson.codehaus.org/) (mis à jour pour l'occasion en version 1.7), les annotations Jackson sont maintenant utilisées par défaut au lieu des annotations JAXB. Ces dernières étaient pratiques (une seule annotation pour les sérialisations XML et JSON) mais pas assez souples pour les besoins liés au développement d'application riches Javascripts
+* La [nouvelle stratégie de génération d'ID Hibernate](http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html_single/#ann-setup-properties) est désormais activée par défaut
+* Un nouveau système de gestion des properties, basé sur les PropertyPlaceHolder de Spring, permet de définir simplement des valeurs par défaut (idéal pour l'environnement local), qui peuvent être écrasée par un fichier properties dans le classpath s'il existe. Ce système permet nativement une injection par annotation (@Value)
+* Le serveur [OAuth2](http://tools.ietf.org/html/draft-ietf-oauth-v2) est basée sur l'implémentation [Spring Security OAuth2](http://static.springsource.org/spring-security/oauth/oauth2.html)
+* Une gestion de la sécurité de type ACL (droits portant sur un objet en particulier, pas seulement des rôles globaux à l'application) implémentée via le module resthub-identity-acl. Ce dernier est basé sur Spring Security ACL
+* Un ContextLoader pemrettant de désactiver la validation des fichiers applicationContext.xml (comportement par défaut de Spring 3, non désactivable) est fourni, afin de permettr l'utilisation d'expression dynamique comme ${param1}
+*   Les classes génériques (test, dao, service, controller) sont plus puissantes et peuvent être étendues plus facilement. Par exemple, les classes Controller génériques REST utilisent désormais uniquement des types natifs (vos objets métiers) avec des ExceptionMapper Jersey.
+
+Côté licence, RESThub passe de la license LGPL3 à la license Apache 2.
+
+### RESThub JS 1.1
+
+La [stack Javascript](http://resthub.org/javascript/) a été complétement réécrite afin de ne plus dépendre de [Sammy.JS](http://sammyjs.org/) qui comportait de nombreuses fonctionnalités inutiles. Nous avons donc réimplémenté une gestion des routes qui garde le même principe, mais qui est beaucoup plus légère. L'autre point gênant avec Sammy.JS était sa notion de contexte, assez problématique quand on essaye de développer une application modulaire utilisant des composants.
+
+La nouvelle stack RESThub JS 1.1 est composés des modules suivants développés sur une base [jQuery 1.6](http://jquery.com/) et [jQuery UI 1.8](http://jqueryui.com/) :
+
+*   Chargement des scripts : gestion des dépendances transitives et de l'ordre de chargement des fichiers Javascript (basé sur [RequireJS](http://requirejs.org))
+*   Logging : fonctionnalité de gestion des logs conforme à la norme CommonJS et proposant un fonctionnel se rapprochant de ce qu'on connait dans le monde Java avec log4j
+*   Routes : gestion des routes à la Sammy.JS, permettant l'utilisation de marques pages même sur une interface riche. Actuellement basé sur les évènements hashchange, le support du Push State HTML5 est prévu prochainement
+*   Bus d'évènement : bus d'évènement permettant de découpler les fonctionnalités de votre application (principe classique publish/subscribe)
+*   Templating : Dynamisation de templates côté client, basé sur [jQuery Tmpl](http://api.jquery.com/jquery.tmpl/)
+*   Repositories : permet de regrouper tous les échanges avec le serveur. Très utile pour Mocker votre application JS pour la tester sans serveur 
+*   Controller : implémentation côté client du pattern MVC, librement inspiré de Javascript MVC
+*   Class : héritage en Javascript, basé sur la version améliorée par Javascript MVC du code proposé par John Resig dans son article [Simple JavaScript Inheritance](http://ejohn.org/blog/simple-javascript-inheritance/)
+*   Stockage : abstrait les différents moyens de stockage disponibles dans le navigateur (cookie, localstorage, sessionstorage ...)
+*   Internationalisation : gestion de l'internationalisation (similaire à ce qui se fait en Java)
+
+Côté licence, RESThub JS passe de la license LGPL3 à la license New BSD, beaucoup plus souple en termes  de conditions d'utilisation.
+
+## GitHub
+
+ Auparavant hébergées sur [BitBucket](http://bitbucket.com/), les sources du projet sont désormais hébergées sur [GitHub](http://github.com/pullrequest) afin d'augmenter la visibilité du projet, faciliter les contributions et bénéficier des services bien supérieurs à BitBucket (pull request, issue tracker ...).
+
+ Le détail des versions est désormais détaillé sur GitHub, comme c'est le cas pour la mise à jour mineure 1.1.1 qui vient d'être publiée :
+
+ *  [RESThub 1.1.1](https://github.com/pullrequest/resthub/issues?milestone=&state=closed1)
+ *  [RESThub JS 1.1.1](https://github.com/pullrequest/resthub-js/issues?milestone=2&state=closed)
+    
+## What's next ?
+
+La roadmap RESThub 2.0 sera présentée prochainement sur [pullrequest.org](http://pullrequest.org) par [@loicfrering](http://twitter.com/loicfrering/). Je vous donne quelques éléments pour patienter :
+
+*   Basé sur Spring 3.1
+*   Passage d'un modèle de 3 couches à 2 couches
+*   Utilisation massive de Spring Data (basés relationnels et NoSql)
+*   Mise à jour de bases de données incrémentales
+*   Nouvelle version de l'exemple booking en Scala
+*   Monitoring
+*   Profils (dev, prod) modifiables à chaud et par instance
+*   Côté RESThub JS : support du push state, bus de message STOMP + Websocket, support de Coffee Script
+
+N'hésitez pas à proposez vos idées ou à contribuer ...
