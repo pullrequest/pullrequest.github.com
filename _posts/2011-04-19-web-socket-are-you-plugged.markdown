@@ -27,6 +27,7 @@ Il y a quelques serveurs Java qui implémentent le protocole : jWebSocket, Kaazi
   
 Sans rentrer dans les détails, Jetty est un serveur Http+Servlet+WebSocket très puissant écrit en java, qui peut être utilisé en mode embarqué ou standalone. Il implémente le brouillon de la norme Websocket depuis un petit moment, et [plutôt simplement](http://blogs.webtide.com/gregw/entry/jetty_websocket_server).
 
+{% highlight java %}
 	public class WebSocketDummyServlet extends WebSocketServlet{
 		
 		/**
@@ -71,6 +72,7 @@ Sans rentrer dans les détails, Jetty est un serveur Http+Servlet+WebSocket trè
 			public void onDisconnect(){}
 		}
 	}
+{% endhighlight %}
 
 Plutôt facile, non ? Cette servlet doit être déclarée dans le descripteur web.xml :
 
