@@ -152,7 +152,7 @@ pre{
 
 /* - Site header ------------------------------------------------------------ */
 
-body>header{
+body header{
 
   background: #252b33;
   height: 96px;
@@ -160,14 +160,14 @@ body>header{
   z-index: 2;
 }
 
-body>header h1{
+body header h1{
 
   margin: auto;
   padding-top: 15px;
   width: 252px;
 }
 
-body>header h1 a:hover{
+body header h1 a:hover{
   border:none;
 }
 
@@ -260,7 +260,7 @@ a.read-more:hover{
   border-color: #480c28;
 }
 
-article>header{
+article header{
 
   margin-bottom: 24px;
 }
@@ -314,7 +314,7 @@ aside p{
   margin: 0;
 }
 
-aside>*{
+aside *{
 
   margin-bottom: 24px;
 }
@@ -342,7 +342,7 @@ aside nav{
   display: inline-block;
 }
 
-#sticky-wrapper>script{
+#sticky-wrapper script{
   display: none;
 }
 
@@ -420,7 +420,7 @@ aside nav{
 
 /* - Footer ---------------------------------------------------------------- */
 
-body>footer{
+body footer{
   
   text-align: center;
   line-height: 24px;
