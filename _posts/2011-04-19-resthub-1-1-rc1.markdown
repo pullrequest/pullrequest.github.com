@@ -2,8 +2,7 @@
 layout: post
 title: Sortie de RESThub 1.1-rc1
 author: Sébastien Deleuze
-Categories: resthub, java, javascript 
-
+tags: [resthub, java, javascript]
 ---
 
 A l'occasion de la sortie de la première Release Candidate de [RESThub](http://resthub.org) 1.1 , voici une synthèse des principales améliorations par rapport à la version 1.0.

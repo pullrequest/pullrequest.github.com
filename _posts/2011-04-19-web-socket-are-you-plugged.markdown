@@ -2,10 +2,8 @@
 layout: post
 title: RESThub 1.1
 author: Sébastien Deleuze
-Categories: java, javascript, mythicforge, graniteds, jetty, JMS, STOMP, websocket
-
+tags: [java, javascript, mythicforge, graniteds, jetty, JMS, STOMP, websocket]
 ---
-
 
 Depuis à peu près deux ans, je réalise un [MMORPG](https://bitbucket.org/feugy/myth/wiki/Home) gratuit et OpenSource avec un serveur Java et deux clients Flex (un d'administration et un de jeu).
 

@@ -2,14 +2,8 @@
 layout: post
 title: RESThub 1.1
 author: Sébastien Deleuze
-Categories: resthub, java, javascript 
-
+tags: [resthub, java, javascript]
 ---
-
-Title: RESThub 1.1
-Author: Sébastien Deleuze 
-Date: Jun 28 2011 23:30:00 GMT-0200 (CDT)
-Categories: resthub, java, javascript
 
 Après 6 mois de développement, j'ai le plaisir de vous annoncer la sortie de [RESThub](http://resthub.org) 1.1. Le framework a beaucoup évolué ces derniers mois, notamment suite à son utilisation sur de gros projets qui ont permis, sur base de retours développeurs, une amélioration significative du framework.
 
