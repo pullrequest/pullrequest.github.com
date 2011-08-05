@@ -3,7 +3,7 @@ layout: default
 title: Pull Request
 ---
 <h1>Liste des tags</h1>
-<ul>
+<ul id="tag-list">
     {% for tag in site.tags %}
     <li id="{{ tag[0] }}">{{ tag[0] }}:
         <ul>
