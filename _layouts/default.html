@@ -6,29 +6,17 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-
-  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-       More info: h5bp.com/b/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <title>.::PullRequest.org::. {{ page.title }}</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-  <meta name="viewport" content="width=device-width,initial-scale=1">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CSS: implied media=all -->
-  <!-- CSS concatenated and minified via ant build script-->
   <link rel="stylesheet" href="/public/css/style.css">
   <link rel="stylesheet" href="/public/css/syntax.css">
-  <!-- end CSS-->
 
-  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-
-  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
   <script src="/public/js/libs/modernizr.custom.47336.js"></script>
 </head>
 
@@ -38,13 +26,13 @@
     <header class="header">
       <h1><a href="/"><img src="/public/img/pullrequest-logo.png" alt="Pull Request"/></a></h1>
     </header>
-    
+
     <div id="main" role="main">
       <div id="sticky-wrapper">
         <section id="main-content">
           {{ content }}
         </section>
-        
+
         <aside>
           <!--
           <section class="about">
@@ -59,8 +47,8 @@
           <section class="follow">
             <h1>Suivez nous!</h1>
             <ul>
-            	<li><a href="http://twitter.com/pullrequest">Sur Twitter</a></li>
-            	<li><a rel="alternate" type="application/rss+xml" href="http://feeds.feedburner.com/pullrequest/blog-posts">Via RSS</a></li>
+                <li><a href="http://twitter.com/pullrequest">Sur Twitter</a></li>
+                <li><a rel="alternate" type="application/rss+xml" href="http://feeds.feedburner.com/pullrequest/blog-posts">Via RSS</a></li>
             </ul>
           </section>
           <section id="participate">
@@ -86,12 +74,10 @@
             <a href="https://bitbucket.org/feugy/myth">Myth</a>
           </section>
         </aside>
-        
+
       </div>
     </div>
-    
-    
-    
+
     <footer>
       <small id="legal">&copy; 2011 pullrequest.org</small>—
       <small id="poweredby">Propuls&eacute; par <a href="https://github.com/mojombo/jekyll">Jekyll</a></small>
@@ -99,34 +85,22 @@
   </div>
 
 
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/public/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
-
-  <!-- scripts concatenated and minified via ant build script-->
   <script defer src="/public/js/tags.js"></script>
-  <!-- end scripts-->
 
-	
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
-  var _gaq=[["_setAccount","UA-22833612-1"],["_trackPageview"], ['_trackPageLoadTime']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+      var _gaq=[["_setAccount","UA-22833612-1"],["_trackPageview"]];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
       g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
       s.parentNode.insertBefore(g,s)}(document,"script"));
   </script>
-  
 
-
-  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-       chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7 ]>
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
-  
+
 </body>
 </html>
