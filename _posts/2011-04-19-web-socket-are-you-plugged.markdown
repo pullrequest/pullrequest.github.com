@@ -1,6 +1,6 @@
 ---
 layout: post
-title: RESThub 1.1
+title: Web Socket - Are you plugged ?
 author: Sébastien Deleuze
 tags: [java, javascript, mythicforge, graniteds, jetty, JMS, STOMP, websocket]
 ---
