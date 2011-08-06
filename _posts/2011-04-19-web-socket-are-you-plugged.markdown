@@ -85,7 +85,7 @@ Plutôt facile, non ? Cette servlet doit être déclarée dans le descripteur we
     </servlet-mapping>
 
 
-Vous avez besoin d'envoyer des messages à tous les clients connectés ? Vous n'avez qu'à stocker les instances de  DummyWebSocket créées, et ajouter une méthode qui utilisera _outbound.sendMessage().
+Vous avez besoin d'envoyer des messages à tous les clients connectés ? Vous n'avez qu'à stocker les instances de  DummyWebSocket créées, et ajouter une méthode qui utilisera \_outbound.sendMessage().
 
 ## Je suis connecté ! Mais je peux rien faire...
 

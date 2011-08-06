@@ -65,8 +65,8 @@ Côté licence, RESThub JS passe de la license LGPL3 à la license New BSD, beau
 
  *  [RESThub 1.1.1](https://github.com/pullrequest/resthub/issues?milestone=&state=closed1)
  *  [RESThub JS 1.1.1](https://github.com/pullrequest/resthub-js/issues?milestone=2&state=closed)
-    
-## What's next ?
+
+## What's next?
 
 La roadmap RESThub 2.0 sera présentée prochainement sur [pullrequest.org](http://pullrequest.org) par [@loicfrering](http://twitter.com/loicfrering/). Je vous donne quelques éléments pour patienter :
 

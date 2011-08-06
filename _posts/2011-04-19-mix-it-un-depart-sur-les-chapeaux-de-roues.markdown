@@ -111,7 +111,7 @@ A quoi ça ressemble ? Accrochez-vous. Voila une ligne qui permet d'additionner 
 
     (map fn[it] (+ it 2) [1 2 3])
 
-Et la console interactive affichera [3 4 5]
+Et la console interactive affichera \[3 4 5\]
 
 ### Déclarer une function
 
