@@ -1,6 +1,10 @@
 Tags:
 <ul>
-    {% for tag in post.tags %}
-        <a href="{{ tag }}.html" title="View posts tagged with &quot;{{ tag }}&quot;">{{ tag }}, </a>
-    {% endfor %}
+  {% for tag in post.tags %}
+    {% unless forloop.last %}
+      <a href="tags.html#{{ tag }}" title="Voir les posts ayant le tag {{ tag }} ">{{ tag }}</a> ,
+    {% else %}
+      <a href="tags.html#{{ tag }}" title="Voir les posts ayant le tag {{ tag }} ">{{ tag }}</a>.
+    {% endunless %}
+  {% endfor %}
 </ul>

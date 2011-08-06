@@ -10,7 +10,7 @@
 
   <title>.::PullRequest.org::. {{ page.title }}</title>
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="PullRequest team">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -23,66 +23,57 @@
 <body>
 
   <div id="container">
-    <header class="header">
-      <h1><a href="/"><img src="/public/img/pullrequest-logo.png" alt="Pull Request"/></a></h1>
+    <header>
+      <h1><a href="/"><img src="/public/img/pullrequest-logo.png" alt="PullRequest"/></a></h1>
     </header>
 
     <div id="main" role="main">
-      <div id="sticky-wrapper">
-        <section id="main-content">
-          {{ content }}
+      {{ content }}
+
+      <aside>
+        <section id="about">
+          <h1>A propos</h1>
+          <p>PullRequest est un blog de développeurs ouvert à toute contribution appropriée.</p>
         </section>
+        <section id="follow">
+          <h1>Suivez nous!</h1>
+          <ul>
+            <li><a href="http://twitter.com/pullrequest">Sur Twitter</a></li>
+            <li><a rel="alternate" type="application/rss+xml" href="http://feeds.feedburner.com/pullrequest/blog-posts">Via RSS</a></li>
+          </ul>
+        </section>
+        <section id="contribute">
+          <h1>Participer</h1>
+          <p>
+            Les articles sont écrits en <a href="http://daringfireball.net/projects/markdown/syntax">MarkDown</a> et stockés dans un repository Git sur <a href="http://github.com/pullrequest/pullrequest.github.com">Github</a>.
+            N'hésitez pas à <strong>forker</strong> puis à faire une <strong><a href="https://github.com/pullrequest/pullrequest.github.com/pull/new/master">Pull Request</a></strong> ;)
+          </p>
+        </section>
+        <section id="licensing">
+          <h1>Licence</h1>
+          <p>
+            Les articles sont mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by/2.0/fr/">Licence Creative Commons Paternité 2.0 France</a>.
+            <a rel="license" href="http://creativecommons.org/licenses/by/2.0/fr/">
+              <br><img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/fr/88x31.png" />
+            </a>
+          </p>
+        </section>
+        <section id="opensource">
+          <h1>OpenSource</h1>
+          <p>Les auteurs de PullRequest sont à l'origine, ou contributeurs, entre autre, de ces projets:</p>
+          <a href="http://openscales.org">OpenScales</a>
+          <a href="http://resthub.org">RestHub</a>
+          <a href="https://github.com/loicfrering/LosoBundle">LosoBundle</a>
+          <a href="https://github.com/loicfrering/losolib">LoSoLib</a>
+          <a href="https://bitbucket.org/feugy/myth">Myth</a>
+        </section>
+      </aside>
 
-        <aside>
-          <!--
-          <section class="about">
-            <h1>About</h1>
-            <p>Pull Request, c'est un blog ... &lt;placer la suite ici&gt;</p>
-          </section>
-          -->
-          <section class="about">
-            <h1>A propos</h1>
-            <p>PullRequest est un blog de développeur ouvert à toute contribution que nous jugerons intéressante.</p>
-          </section>
-          <section class="follow">
-            <h1>Suivez nous!</h1>
-            <ul>
-              <li><a href="http://twitter.com/pullrequest">Sur Twitter</a></li>
-              <li><a rel="alternate" type="application/rss+xml" href="http://feeds.feedburner.com/pullrequest/blog-posts">Via RSS</a></li>
-            </ul>
-          </section>
-          <section id="participate">
-            <h1>Participer</h1>
-            <p>
-              Les articles sont écrits en <a href="http://daringfireball.net/projects/markdown/syntax">MarkDown</a> et stockés dans un repository Git sur <a href="http://github.com/pullrequest/pullrequest.github.com">Github</a>.
-              N'hésitez pas à <strong>forker</strong> puis à faire une <strong><a href="https://github.com/pullrequest/pullrequest.github.com/pull/new/master">Pull Request</a></strong> ;)
-            </p>
-          </section>
-          <section class="licensing">
-            <h1>Licence</h1>
-            <p>
-              Les articles sont mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by/2.0/fr/">Licence Creative Commons Paternité 2.0 France</a>.
-              <a rel="license" href="http://creativecommons.org/licenses/by/2.0/fr/">
-                <br><img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/fr/88x31.png" />
-              </a>
-            </p>
-          </section>
-          <section id="opensource">
-            <h1>OpenSource</h1>
-            <p>Les auteurs de PullRequest sont à l'origine, ou contributeurs, entre autre, de ces projets:</p>
-            <a href="http://openscales.org">OpenScales</a>
-            <a href="http://resthub.org">RestHub</a>
-            <a href="https://github.com/loicfrering/losolib">LoSoLib</a>
-            <a href="https://bitbucket.org/feugy/myth">Myth</a>
-          </section>
-        </aside>
-
-      </div>
     </div>
 
     <footer>
-      <small id="legal">&copy; 2011 pullrequest.org</small>—
-      <small id="poweredby">Propuls&eacute; par <a href="https://github.com/mojombo/jekyll">Jekyll</a></small>
+      <small id="legal">© 2011 pullrequest.org</small>—
+      <small id="poweredby">Propulsé par <a href="https://github.com/mojombo/jekyll">Jekyll</a></small>
     </footer>
   </div>
 
