@@ -165,31 +165,31 @@ a:hover { color: #036; }
 /**
  * Primary styles
  *
- * Author: 
+ * Authors: rpascal, loicfrering
  */
 
 /* ---- Fonts ---- */
 
 @font-face {
-    font-family: 'MavenProMedium';
-    src: url('../fonts/maven_pro_medium-webfont.eot');
-    src: url('../fonts/maven_pro_medium-webfont.eot?iefix') format('eot'),
-         url('../fonts/maven_pro_medium-webfont.woff') format('woff'),
-         url('../fonts/maven_pro_medium-webfont.ttf') format('truetype'),
-         url('../fonts/maven_pro_medium-webfont.svg#webfontyQA0TEWF') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MavenProMedium';
+  src: url('../fonts/maven_pro_medium-webfont.eot');
+  src: url('../fonts/maven_pro_medium-webfont.eot?iefix') format('eot'),
+       url('../fonts/maven_pro_medium-webfont.woff') format('woff'),
+       url('../fonts/maven_pro_medium-webfont.ttf') format('truetype'),
+       url('../fonts/maven_pro_medium-webfont.svg#webfontyQA0TEWF') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'CallunaSansRegular';
-    src: url('../fonts/callunasansregular-webfont.eot');
-    src: url('../fonts/callunasansregular-webfont.eot?#iefix') format('eot'),
-         url('../fonts/callunasansregular-webfont.woff') format('woff'),
-         url('../fonts/callunasansregular-webfont.ttf') format('truetype'),
-         url('../fonts/callunasansregular-webfont.svg#webfontW850hM1B') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'CallunaSansRegular';
+  src: url('../fonts/callunasansregular-webfont.eot');
+  src: url('../fonts/callunasansregular-webfont.eot?#iefix') format('eot'),
+       url('../fonts/callunasansregular-webfont.woff') format('woff'),
+       url('../fonts/callunasansregular-webfont.ttf') format('truetype'),
+       url('../fonts/callunasansregular-webfont.svg#webfontW850hM1B') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* ---- General ---- */
@@ -229,6 +229,30 @@ ul {
 
 #container > header h1 a:hover {
   border-bottom: none;
+}
+
+/* ---- Pixel decoration ---- */
+
+#content:before {
+  content: '';
+  background:
+    url('../img/pixel-borders-left.gif') no-repeat left -36px,
+    url('../img/pixel-borders-right.gif') no-repeat right -36px;
+  display:block;
+  height: 36px;
+  position: relative;
+  top: -34px;
+}
+
+#content:after {
+  content: '';
+  background:
+    url('../img/pixel-borders-left.gif') no-repeat left 0,
+    url('../img/pixel-borders-right.gif') no-repeat right 0;
+  display:block;
+  height: 36px;
+  position: relative;
+  top: 34px;
 }
 
 /* ---- Main ---- */
