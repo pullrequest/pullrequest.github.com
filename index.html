@@ -9,11 +9,12 @@ title: Pull Request
       <p>
         <time datetime="{{ post.date | date:'%Y-%m-%d' }}" pubdate="pubdate">{{ post.date | date_to_string }}</time>
         <span class="author"><a href="#">{{ post.author }}</a></span>
+        <span class="comments"><a href="{{ post.url }}#comments" title="Voir les commentaires">Commentaires</a></span>
       </p>
     </header>
     {{ post.content | truncatewords:60 }}
+    <p><a href="{{ post.url }}" class="read-more" title="Lire l'article complet">Lire la suite</a></p>
     <footer>
-      <p><a href="{{ post.url }}" class="read-more" title="Lire l'article complet">Lire la suite</a></p>j
       <section class="tags">
         {% include tags.html %}
       </section>

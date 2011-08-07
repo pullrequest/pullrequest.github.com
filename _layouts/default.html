@@ -24,11 +24,13 @@
 
   <div id="container">
     <header>
-      <h1><a href="/"><img src="/public/img/pullrequest-logo.png" alt="PullRequest"/></a></h1>
+      <h1><a href="/" title="Page d'accueil"><img src="/public/img/pullrequest-logo.png" alt="PullRequest"/></a></h1>
     </header>
 
     <div id="main" role="main">
-      {{ content }}
+      <section id="content">
+        {{ content }}
+      </section>
 
       <aside>
         <section id="about">
@@ -38,8 +40,13 @@
         <section id="follow">
           <h1>Suivez nous!</h1>
           <ul>
-            <li><a href="http://twitter.com/pullrequest">Sur Twitter</a></li>
-            <li><a rel="alternate" type="application/rss+xml" href="http://feeds.feedburner.com/pullrequest/blog-posts">Via RSS</a></li>
+            <li>
+              <a href="http://twitter.com/pullrequest" class="twitter-follow-button" data-show-count="false" data-lang="fr">Follow @pullrequest</a>
+              <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+            </li>
+            <li class="feed">
+              <a rel="alternate" type="application/rss+xml" href="http://feeds.feedburner.com/pullrequest/blog-posts">abonnement RSS</a>
+            </li>
           </ul>
         </section>
         <section id="contribute">
@@ -61,18 +68,20 @@
         <section id="opensource">
           <h1>OpenSource</h1>
           <p>Les auteurs de PullRequest sont à l'origine, ou contributeurs, entre autre, de ces projets:</p>
-          <a href="http://openscales.org">OpenScales</a>
-          <a href="http://resthub.org">RestHub</a>
-          <a href="https://github.com/loicfrering/LosoBundle">LosoBundle</a>
-          <a href="https://github.com/loicfrering/losolib">LoSoLib</a>
-          <a href="https://bitbucket.org/feugy/myth">Myth</a>
+          <ul>
+            <li><a href="http://openscales.org">OpenScales</a></li>
+            <li><a href="http://resthub.org">RestHub</a></li>
+            <li><a href="https://github.com/loicfrering/LosoBundle">LosoBundle</a></li>
+            <li><a href="https://github.com/loicfrering/losolib">LoSoLib</a></li>
+            <li><a href="https://bitbucket.org/feugy/myth">Myth</a></li>
+          </ul>
         </section>
       </aside>
 
     </div>
 
     <footer>
-      <small id="legal">© 2011 pullrequest.org</small>—
+      <small id="legal">© 2011 pullrequest.org</small>
       <small id="poweredby">Propulsé par <a href="https://github.com/mojombo/jekyll">Jekyll</a></small>
     </footer>
   </div>
