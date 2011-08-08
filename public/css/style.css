@@ -247,14 +247,14 @@ ul {
 /* ---- Main ---- */
 
 #main {
-  max-width: 960px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
 #content {
   display: inline-block;
   background-color: #fafafa;
-  max-width: 720px;
+  max-width: 768px;
   padding: 0;
 }
 
@@ -268,7 +268,6 @@ article {
 article h1, article h2, article h3, article h4 {
   font-family: 'MavenProMedium', sans-serif;
   color: #480c28;
-  text-shadow: transparent 0 0 1px;
 }
 
 article h1 {
@@ -386,7 +385,7 @@ article > footer {
   display: inline-block;
   vertical-align: top;
   width: 190px;
-  margin: 0 0 0 46px;
+  margin: 0 0 0 22px;
 }
 
 #main aside section {
