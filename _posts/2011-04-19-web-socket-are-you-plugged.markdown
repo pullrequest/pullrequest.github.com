@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Web Socket - Are you plugged ?
-author: Sébastien Deleuze
+author: sdeleuze
 tags: [java, javascript, mythicforge, graniteds, jetty, JMS, STOMP, websocket]
 ---
 

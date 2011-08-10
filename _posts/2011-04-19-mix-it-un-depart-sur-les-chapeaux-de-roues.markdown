@@ -1,7 +1,7 @@
 ---
 layout: post
 title: MIX-IT Un départ sur les chapeaux de roues
-author: Damien Feugas
+author: feugy
 tags: [conference, mix-it, agile, spock, tests, tdd, bdd, ergonomie, clojure, machine-learning, mahout, devops]
 ---
 

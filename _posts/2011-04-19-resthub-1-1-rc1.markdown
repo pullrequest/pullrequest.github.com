@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Sortie de RESThub 1.1-rc1
-author: Sébastien Deleuze
+author: sdeleuze
 tags: [resthub, java, javascript]
 ---
 

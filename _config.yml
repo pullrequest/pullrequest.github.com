@@ -1,2 +1,33 @@
 pygments: true
 paginate: 4
+authors:
+  loicfrering:
+    fullname: Loïc Frering
+    twitter: loicfrering
+    github: loicfrering
+    gravatar: c536079d77146d0902bdef0fcd1cbc25
+  sdeleuze:
+    fullname: Sébastien Deleuze
+    twitter: sdeleuze
+    github: sdeleuze
+    gravatar: 04bf197ddd198f4ff3a50e93ebd37272
+  bclozel:
+    fullname: Brian Clozel
+    twitter: brianclozel
+    github: bclozel
+    gravatar: 54cb7460a3adf91440f854b832ca9d9a
+  jvillanti:
+    fullname: Julien Villanti
+    twitter: pullrequest
+    github: jvillanti
+    gravatar:
+  bmeurant:
+    fullname: Baptiste Meurant
+    twitter: bmeurant
+    github: bmeurant
+    gravatar: c28e672be1580d9cb3dc6f7dc7f370c4
+  feugy:
+    fullname: Damien Feugas
+    twitter: pullrequest
+    github: feugy
+    gravatar:

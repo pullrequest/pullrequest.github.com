@@ -1,7 +1,7 @@
 ---
 layout: post
 title: RESThub 1.1
-author: Sébastien Deleuze
+author: sdeleuze
 tags: [resthub, java, javascript]
 ---
 
