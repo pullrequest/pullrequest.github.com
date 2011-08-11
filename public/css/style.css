@@ -316,9 +316,10 @@ article h1 {
 }
 
 article pre {
-  font-family: monospace;
-  background: #e6e6e6;
-  color: #999;
+  font-family: 'Bitstream Vera Sans Mono', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  background: #eee;
   padding: 1em;
   border: solid 1px #999;
 }
