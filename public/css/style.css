@@ -382,12 +382,11 @@ article > footer {
 }
 
 .tags li {
-  font-weight: bold;
   display: inline-block;
   background-color: #6db900;
   border-radius: 4px;
   padding: 0 0.6em;
-  margin: 0 0.2em;
+  margin: 0.1em 0.2em;
 }
 
 .tags li a, .tags li a:hover, .tags li a:visited {
@@ -470,6 +469,21 @@ article > footer {
   background-color: #e6e6e6;
   box-shadow: 0 0 6px #7d7d7d;
   border-radius: 4px;
+}
+
+/* ---- Tags ---- */
+
+#tags header {
+  font-size: 80%;
+  margin-bottom: 1em;
+}
+
+#tags header ul {
+  margin: 0;
+}
+
+#tags header li.selected {
+  background-color: #5cb0cc;
 }
 
 /* ---- Site footer ---- */

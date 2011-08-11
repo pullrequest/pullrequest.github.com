@@ -4,6 +4,15 @@ title: Pull Request
 ---
 <section id="tags">
   <h1>Tags</h1>
+  <header>
+    <ul class="tags">
+      {% for tag in site.tags %}
+        <li id="tag-{{ tag[0] }}">
+          <a href="tags.html#{{ tag[0] }}" title="Voir les posts ayant le tag {{ tag[0] }}">{{ tag[0] }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </header>
   <ul id="tag-list">
     {% for tag in site.tags %}
       <li id="{{ tag[0] }}">{{ tag[0] }}:
