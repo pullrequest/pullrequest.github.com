@@ -1,23 +1,23 @@
 ---
 layout: default
 ---
+{% assign post = page %}
 <article>
   <header>
-  <h1><a href="/article/${article.name}">{{ page.title }}</a></h1>
-  <time class="publishing" data-timestamp="{{ page.date }}" datetime="${article.parsedDate}" pubdate="pubdate" title="{{ page.date }}">{{ page.date | date_to_string }}</time>
-  <cite class="author"><a href="#">{{ page.author }}</a></cite>
+    <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+    <p>
+      <time datetime="{{ post.date | date:'%Y-%m-%d' }}" pubdate="pubdate">{{ post.date | date_to_string }}</time>
+      <span class="author"><a href="/authors.html#{{ post.author }}">{{ site.authors[post.author].fullname }}</a></span>
+      <span class="comments"><a href="#comments" title="Voir les commentaires">Commentaires</a></span>
+    </p>
   </header>
   {{ content }}
+  <footer>
+    <section class="tags">
+      {% include tags.html %}
+    </section>
+    <section class="comments">
+      {% include comments.html %}
+    </section>
+  </footer>
 </article>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'pullrequest';
-    var disqus_developer = 1;
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>

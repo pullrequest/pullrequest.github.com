@@ -1,0 +1,16 @@
+---
+layout: default
+title: Pull Request
+---
+<section id="authors">
+  <ul>
+    {% for author in site.authors %}
+      <li id="{{ author[0] }}">
+        <p><img src="http://www.gravatar.com/avatar/{{ author[1].gravatar }}" alt="{{ author[1].fullname }} avatar" />
+        <h1>{{ author[1].fullname }}</h1>
+        <p><a class="twitter" href="https://twitter.com/{{ author[1].twitter }}" title="Compte Twitter">@{{ author[1].twitter }}</a></p>
+        <p><a class="github" href="https://github.com/{{ author[1].github }}" title="Compte Github">Github</a></p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

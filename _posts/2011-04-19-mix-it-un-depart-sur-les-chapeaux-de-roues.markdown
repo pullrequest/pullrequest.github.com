@@ -1,7 +1,7 @@
 ---
 layout: post
 title: MIX-IT Un départ sur les chapeaux de roues
-author: Damien Feugas
+author: feugy
 tags: [conference, mix-it, agile, spock, tests, tdd, bdd, ergonomie, clojure, machine-learning, mahout, devops]
 ---
 
@@ -35,22 +35,24 @@ Je retiendrais juste une phrase qui m'a fait beaucoup rire :  "Le client est roi
 
 Mlle Mathilde Lemee (JDuchess) nous a cueillis de bon matin avec un grand bol de code. Et c'était bien :)
 
-[Spock ][3]est un framework de B(ehaviour) D(riven) D(eveloppement) en [Groovy][4].  
+[Spock ][3] est un framework de B(ehaviour) D(riven) D(eveloppement) en [Groovy][4].  
 En clair, un framework de test compatible Java ou l'on décrit ses tests sous la forme "mon application doit XXX. Etant donné YYYY, lorsque ZZZ alors WWW"
 
 Exemple:
 
-	def "liste should add new elem" () {
-        given:
-            def list = new ArrayList()
-            def elem = "push me"
-        when:
-            list .add(elem)
-        then:
-            !list .empty
-            list.size() == 1
-            list.[0] == elem
-    }
+{% highlight groovy %}
+def "liste should add new elem" () {
+    given:
+        def list = new ArrayList()
+        def elem = "push me"
+    when:
+        list .add(elem)
+    then:
+        !list .empty
+        list.size() == 1
+        list.[0] == elem
+}
+{% endhighlight %}
 
 Normalement, cela se passe de commentaire : le code est autodocumenté.  
 C'est du groovy et ça utilise les labels (Ahhh, le grand retour du goto).  
@@ -58,26 +60,28 @@ L'idée est de faire du code de test ultra lisible, à partir des spécification
 
 Je n'entre pas dans les détails, mais on peut très facilement, Mocker, Stubber, faire du D(ata)D(riven)D(eveloppment), et même du test d'IHM avec GED (surcouche à Selenium).
 
-	def "user should be well filed" () {
-        setup:
-            UserService service = new UserService()
-        expect:
-            User user = service.get(username)
-            user.firstName == firstName
-            user.id == userId
-        where:
-            username    | firstname | userId
-            'user1'     | 'a'       | 1
-            'user2'     | 'b'       | 2
-    }
+{% highlight groovy %}
+def "user should be well filed" () {
+    setup:
+        UserService service = new UserService()
+    expect:
+        User user = service.get(username)
+        user.firstName == firstName
+        user.id == userId
+    where:
+        username    | firstname | userId
+        'user1'     | 'a'       | 1
+        'user2'     | 'b'       | 2
+}
+{% endhighlight %}
 
 
 Affaire à suivre !!
 
 ## Session 2 : Les outils de l'ergonome Agile
 
-Session proposée par Cyrille Deruel (ergonome), Florent Chavanat ([chef de projet Agile][5]), tout deux de chez Micropole.  
-  
+Session proposée par Cyrille Deruel (ergonome), Florent Chavanat ([chef de projet Agile][5]), tout deux de chez Micropole.
+
 Après une petite introduction sur ce qu'est, et n'est pas l'ergonomie (ce n'est pas un ensemble de recettes, ni une composition de widgets graphiques), les speaker nous expliquent pourquoi ils estiment que les démarches d'un ergonome et celles d'un SCRUM master convergent.
 
 Tout tient en quelques mots :
@@ -91,11 +95,9 @@ Florent, l'ergonome, en profite pour passer quelques messages toujours bons à r
 *   "le produit doit répond au besoin de l'utilisateur". C'est bête, mais souvent on répond au besoin du client. Notez la nuance.
 *   Trop de fonctionnel nuit : il faut focaliser l'utilisateur sur l'essentiel.
 
- 
-
 ## Session 3 : Introduction a Clojure
 
-[Clojure ][6]est un de ces "nouveaux langages de la JVM". Comprenez que c'est un langage avec sa syntaxe et son compilateur propre, mais qui produit du bytecode interprétable sur une JVM classique.
+[Clojure ][6] est un de ces "nouveaux langages de la JVM". Comprenez que c'est un langage avec sa syntaxe et son compilateur propre, mais qui produit du bytecode interprétable sur une JVM classique.
 
 Clojure a été inventé par Rich Hikey avec 4 objectifs :
 
@@ -109,9 +111,11 @@ C'est aussi un langage de la famille de [Lisp][7].
 
 A quoi ça ressemble ? Accrochez-vous. Voila une ligne qui permet d'additionner 2 à 2 tous les éléments d'un tableau, et de renvoyer le tableau résultat.
 
-    (map fn[it] (+ it 2) [1 2 3])
+{% highlight clojure %}
+(map fn[it] (+ it 2) [1 2 3])
+{% endhighlight %}
 
-Et la console interactive affichera [3 4 5]
+Et la console interactive affichera \[3 4 5\]
 
 ### Déclarer une function
 
@@ -135,12 +139,10 @@ Je ne vous le fait pas dire, c'est illisible lorsqu'on a pas l'habitude. Ca fait
 *   Interopérable. Aucun problème pour remplacer la couche service de son service Web, et conserver la persistance avec Hibernate et la présentation avec Tapestry.
 *   Outillée. On utilise un plugin Eclipse pour éditer le code, et on rassemble tout au sein du même IDE.
 
- 
-
 ## Session 4 : Intelligence collective avec apache Mahout
 
-> -Pourquoi les généraux se baladent-ils toujours à cheval ? 
-> -Parce qu'il y a plus de choses dans deux têtes que dans une.
+* Pourquoi les généraux se baladent-ils toujours à cheval ?
+* Parce qu'il y a plus de choses dans deux têtes que dans une.
 
 L'idée est donc d'exploiter les informations dispatchées dans nos SI et d'en extraire des choses remarquables.  
 [Michaël Figuière][9] (xebia) nous parle de "Machine Learning", de NoSQL, et de moteur de recherche (ce que les américains regroupent sous le vocable "BigData").

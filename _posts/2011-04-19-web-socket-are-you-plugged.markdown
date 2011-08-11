@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Web Socket - Are you plugged ?
-author: Sébastien Deleuze
+author: sdeleuze
 tags: [java, javascript, mythicforge, graniteds, jetty, JMS, STOMP, websocket]
 ---
 
@@ -26,66 +26,67 @@ Il y a quelques serveurs Java qui implémentent le protocole : jWebSocket, Kaazi
 Sans rentrer dans les détails, Jetty est un serveur Http+Servlet+WebSocket très puissant écrit en java, qui peut être utilisé en mode embarqué ou standalone. Il implémente le brouillon de la norme Websocket depuis un petit moment, et [plutôt simplement](http://blogs.webtide.com/gregw/entry/jetty_websocket_server).
 
 {% highlight java %}
-	public class WebSocketDummyServlet extends WebSocketServlet{
-		
-		/**
-		 * Invoked by Jetty during the handshake: Return a WebSocket object to allow 
-		 * the connection establishement.
-		 *
-		 * <em>@param request</em> Http upgrade request
-		 * <em>@return</em> The WebSocket Channel.
-		 */
-		protected WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
-			return new DummyWebSocket();
-		}
-		
-		/**
-		 * Websocket channel dummy implementation.
-		 */
-		implements WebSocket {
+public class WebSocketDummyServlet extends WebSocketServlet {
 
-			/**
-			 * Object that sends message to the connected client with method 
-			 * sendMessage(String message).
-			 *
-			 */
-			Outbound _outbound;
+    /**
+     * Invoked by Jetty during the handshake: Return a WebSocket object to allow 
+     * the connection establishement.
+     *
+     * <em>@param request</em> Http upgrade request
+     * <em>@return</em> The WebSocket Channel.
+     */
+    protected WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
+        return new DummyWebSocket();
+    }
 
-			/**
-			 * Channel connexion.
-			 */
-			public void onConnect(Outbound outbound) {
-				_outbound=outbound;
-			}
-		  
-			/**
-			 * Invoked when the client sends a message.
-			 * <em>@param</em> <em>data </em>The sent data
-			 */
-			public void onMessage(byte frame, String data){}
+    /**
+     * Websocket channel dummy implementation.
+     */
+    implements WebSocket {
 
-			/**
-			 * Channel disconnexion.
-			 */
-			public void onDisconnect(){}
-		}
-	}
+        /**
+         * Object that sends message to the connected client with method 
+         * sendMessage(String message).
+         *
+         */
+        Outbound _outbound;
+
+        /**
+         * Channel connexion.
+         */
+        public void onConnect(Outbound outbound) {
+            _outbound=outbound;
+        }
+
+        /**
+         * Invoked when the client sends a message.
+         * <em>@param</em> <em>data </em>The sent data
+         */
+        public void onMessage(byte frame, String data){}
+
+        /**
+         * Channel disconnexion.
+         */
+        public void onDisconnect(){}
+    }
+}
 {% endhighlight %}
 
 Plutôt facile, non ? Cette servlet doit être déclarée dans le descripteur web.xml :
 
-    <servlet>
-        </servlet-name>
-        <servlet-class>org.dummy.WebSocketDummyServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>wsServlet</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+{% highlight xml %}
+<servlet>
+    </servlet-name>
+    <servlet-class>org.dummy.WebSocketDummyServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>wsServlet</servlet-name>
+    <url-pattern>/*</url-pattern>
+</servlet-mapping>
+{% endhighlight %}
 
-
-Vous avez besoin d'envoyer des messages à tous les clients connectés ? Vous n'avez qu'à stocker les instances de  DummyWebSocket créées, et ajouter une méthode qui utilisera _outbound.sendMessage().
+Vous avez besoin d'envoyer des messages à tous les clients connectés ? Vous n'avez qu'à stocker les instances de  DummyWebSocket créées, et ajouter une méthode qui utilisera \_outbound.sendMessage().
 
 ## Je suis connecté ! Mais je peux rien faire...
 
@@ -99,63 +100,65 @@ Une minute ! Google donne quelques résultats pour "STOMP Websocket Java". Notam
 Alors j'ai implémenté le protocole STOMP (sans la gestion transactionnelle) et ça m'a pris deux jours. En fait, STOMP est vraiment très simple (tout est en texte, et les sauts de lignes sont significatifs) :
 
 **client X, client Y :**
-	
-	CONNECT
-	login: X <or> Y
-	passcode: <passcode>
 
-	^@
+    CONNECT
+    login: X <or> Y
+    passcode: <passcode>
+
+    ^@
 
 **client Y:**
-	
-	SUBSCRIBE
-	destination: /topic-1
-	ack: client
 
-	^@
+    SUBSCRIBE
+    destination: /topic-1
+    ack: client
+
+    ^@
 
 **client X:**
-	
-	SEND
-	destination: /topic-1
 
-	hello everyone !
-	^@
+    SEND
+    destination: /topic-1
+
+    hello everyone !
+    ^@
 
 **et le client Y reçoit:**
-	
-	MESSAGE
-	destination:/topic-1
-	message-id: <message-identifier>
 
-	hello everyone !
-	^@
+    MESSAGE
+    destination:/topic-1
+    message-id: <message-identifier>
+
+    hello everyone !
+    ^@
 
 ## Et coté client justement ?
 
 Le client en javascript est vraiment simple :
 
-	var location = document.location.toString().replace('http:','ws:');
-	this._ws=new WebSocket(location);
-	this._ws.onopen=this._onopen;
-	this._ws.onmessage=this._onmessage;
-	this._ws.onclose=this._onclose;
+{% highlight javascript %}
+    var location = document.location.toString().replace('http:','ws:');
+    this._ws=new WebSocket(location);
+    this._ws.onopen=this._onopen;
+    this._ws.onmessage=this._onmessage;
+    this._ws.onclose=this._onclose;
 
-	_onopen: function(){
-	},
+    _onopen: function(){
+    },
 
-	_send: function(message){
-	  this._ws.send(message);
-	},
+    _send: function(message){
+      this._ws.send(message);
+    },
 
-	_onmessage: function(message) {}
-  
+    _onmessage: function(message) {}
+{% endhighlight %}
+
 Je n'ai pas encore choisi d'implémentation STOMP coté client et dès que je l'aurai fait, je mettrai cet article à jour.  
-  
+
 Juste un avertissement : nous l'avons testé à travers des proxies, et ça fonctionne très bien.  
 Pas de déconnexion intempestives, pas de ralentissements.  
 Mais cela nécessite que le client envoie un keep-alive à travers le socket. Le serveur n'a pas besoin de répondre.  
-  
+
 Un message de keep-alive toutes les 10 secondes marche bien, mais j'imagine que cela dépend des configurations des proxies et firewall traversés.
 
 ## J'adore ! Où est le code ?

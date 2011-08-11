@@ -2,38 +2,22 @@
 layout: default
 title: Pull Request
 ---
-{% for post in paginator.posts %}
-    <article>
-
-        <header>
-            <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-            <time class="publishing" datetime="{{ post.date | date:'%Y-%m-%d' }}" pubdate="pubdate" title="{{ post.date | date_to_string }}">{{ post.date | date_to_string }}</time>
-            <cite class="author">{{ post.author }}</cite>
-        </header>
-
-        {{ post.content | truncatewords:60 }}
-        <a href="{{ post.url }}" class="read-more">Lire la suite</a>
-
-        <footer>
-            {% include tags.html %}
-        </footer>
-
-    </article>
+{% for post in site.posts %}
+  <article>
+    <header>
+      <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+      <p>
+        <time datetime="{{ post.date | date:'%Y-%m-%d' }}" pubdate="pubdate">{{ post.date | date_to_string }}</time>
+        <span class="author"><a href="/authors.html#{{ post.author }}">{{ site.authors[post.author].fullname }}</a></span>
+        <span class="comments"><a href="{{ post.url }}#comments" title="Voir les commentaires">Commentaires</a></span>
+      </p>
+    </header>
+    {{ post.content | truncatewords:60 }}
+    <p><a href="{{ post.url }}" class="read-more" title="Lire l'article complet">Lire la suite</a></p>
+    <footer>
+      <section class="tags">
+        {% include tags.html %}
+      </section>
+    </footer>
+  </article>
 {% endfor %}
-
-
-<div class="pagination">
-    {% if paginator.previous_page %}
-        <a href="/page{{paginator.previous_page}}" class="previous">Previous</a>
-    {% else %}
-        <span class="previous">Previous</span>
-    {% endif %}
-
-    <span class="page_number ">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
-
-    {% if paginator.next_page %}
-        <a href="/page{{paginator.next_page}}" class="next ">Next</a>
-    {% else %}
-        <span class="next ">Next</span>
-    {% endif %}
-</div>
