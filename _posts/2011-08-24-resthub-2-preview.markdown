@@ -6,8 +6,6 @@ tags: [resthub, java]
 published: false
 ---
 
-# RESThub 2
-
 Après la [sortie récente de RESThub
 1.1](http://pullrequest.org/2011/06/28/resthub-1-1.html), nous
 commencons à étudier les nouveautés que nous souhaiterions intégrer à
