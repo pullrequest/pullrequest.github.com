@@ -135,4 +135,4 @@ que vous aimeriez voir arriver avec cette prochaine version !
 D'autre part RESThub est un projet ouvert au contribution alors
 n'hésitez pas à [cloner le projet sur
 Github](https://github.com/pullrequest/resthub) et à proposer des **pull
-request** !
+requests** !
