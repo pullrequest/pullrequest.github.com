@@ -8,7 +8,7 @@ layout: default
     <p>
       <time datetime="{{ post.date | date:'%Y-%m-%d' }}" pubdate="pubdate">{{ post.date | date_to_string }}</time>
       <span class="author"><a href="/authors.html#{{ post.author }}">{{ site.authors[post.author].fullname }}</a></span>
-      <span class="comments"><a href="#comments" title="Voir les commentaires">Commentaires</a></span>
+      <span class="comments"><a href="#disqus_thread" title="Voir les commentaires">Commentaires</a></span>
     </p>
   </header>
   {{ content }}
