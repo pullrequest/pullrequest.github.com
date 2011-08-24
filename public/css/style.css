@@ -397,6 +397,16 @@ article > footer {
   border-bottom-color: white;
 }
 
+/* ---- Disqus comments ---- */
+
+#disqus_thread {
+  background: none;
+}
+
+#disqus_thread a:hover {
+  border-bottom-style: none;
+}
+
 /* ---- Main aside ---- */
 
 #main aside {
