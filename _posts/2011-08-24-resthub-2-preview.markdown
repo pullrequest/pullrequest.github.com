@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Un aperçu de RESThub 2
-author: lfrering
+author: loicfrering
 tags: [resthub, java]
 published: false
 ---
