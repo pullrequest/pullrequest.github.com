@@ -8,7 +8,7 @@ published: false
 
 Après la [sortie récente de RESThub
 1.1](http://pullrequest.org/2011/06/28/resthub-1-1.html), nous
-commencons à étudier les nouveautés que nous souhaiterions intégrer à
+commençons à étudier les nouveautés que nous souhaiterions intégrer à
 RESThub 2.
 
 ## Spring 3.1
@@ -17,7 +17,7 @@ Tout d'abord, RESThub 2 se basera sur Spring 3.1 et essaiera de tirer
 parti des nombreuses fonctionnalités amenées par cette nouvelle version.
 La première nouveauté de Spring 3.1 dont profitera RESThub 2 sera la
 possibilité de configurer entièrement votre application Spring en Java.
-Ainsi tous les élément de configuration de l'ApplicationContext mis à
+Ainsi tous les éléments de configuration de l'ApplicationContext mis à
 disposition par RESThub auront un équivalent en annotation du type
 @Enable\* comme @EnableEntityScan.  Pour plus de détails sur la
 configuration en Java de Spring, je vous invite à consulter [cet
@@ -94,7 +94,7 @@ un refactoring aisé de celles-ci au besoin.
 
 ## Monitoring
 
-Nous souhaitons intégré dans RESThub le support de JMX dans Spring.
+Nous souhaitons intégrer dans RESThub le support de JMX dans Spring.
 Couplé avec les profils Spring 3.1, RESThub pourrait grandement
 faciliter le monitoring de vos applications : il suffirait d'activer un
 profil 'monitor' par exemple pour bénéficier automatiquement du
@@ -103,14 +103,14 @@ monitoring JMX pour votre application RESThub.
 ## Rapid Application Development
 
 Avec RESThub, nous souhaitons mettre à disposition des développeurs Java
-une stack de technologies cohérentes dont la mise en oeuvre est
+une stack de technologies cohérente dont la mise en oeuvre est
 simplifiée au maximum. Nous souhaitons aller encore plus loin dans cette
 démarche et s'inspirer du principe
 [YAGNI](http://fr.wikipedia.org/wiki/YAGNI) avec RESThub 2 en proposant
 des profils de configuration limitant le nombre de couches logicielles
 lorsque cela n'est pas nécessaire. Ainsi il serait possible de très
 rapidement mettre en place des applications Web en se passant du code
-superflu inutile.
+superflu.
 
 ## Roadmap
 
