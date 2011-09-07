@@ -3,7 +3,7 @@ layout: post
 title: Un aperçu de RESThub 2
 author: loicfrering
 tags: [resthub, java]
-published: false
+published: true
 ---
 
 Après la [sortie récente de RESThub
@@ -112,27 +112,46 @@ lorsque cela n'est pas nécessaire. Ainsi il serait possible de très
 rapidement mettre en place des applications Web en se passant du code
 superflu.
 
+## Documentation et modularisation
+
+Pour faciliter l'utilisation de RESThub et son adoption, un effort
+important sera fait sur la [documentation](http://resthub.org/) des
+prochaines versions. En plus de celle-ci, des exemples et tutoriels
+documentés mettront en avant les bonnes pratiques de développement avec
+RESThub alors que des archetypes Maven permettront de rapidement mettre
+en place votre projet basé sur RESThub.
+
+Afin de favoriser son intégration nous travaillerons également sur la
+modularisation de RESThub. Cela permettra d'utiliser des modules
+spécifiques de RESThub sans pour autant charger tout RESThub en
+dépendance transitive. Enfin nous veillerons à séparer les exemples pour
+les pousser dans leur propre repository sur Github.
+
 ## Roadmap
 
-Une version alpha de RESThub 2 est prévue pour les prochaines semaines.
-Elle se basera sur la branche
+Une première version alpha de RESThub 2 est prévue pour les prochaines
+semaines. Elle se basera sur la branche
 [spring-data](https://github.com/pullrequest/resthub/tree/spring-data)
 actuellement en développement et apportera donc l'intégration de Spring
 Data JPA en remplacement de Hades.
 
 Nous prévoyons ensuite de sortir une nouvelle alpha par fonctionnalité
-intégrée avec en feuille de route prévisionnelle :
+intégrée avec en feuille de route prévisionnelle (suivez les liens pour
+avoir le détail des milestones sur Github) :
 
-1. Intégration de QueryDSL
-2. Support de Spring 3.1
-3. Java-based configuration
-4. A planifier...
+* [1.1.2](https://github.com/pullrequest/resthub/issues?milestone=2&state=open)
+* [1.1.3](https://github.com/pullrequest/resthub/issues?milestone=4&state=open)
+* [2.0.0-alpha1](https://github.com/pullrequest/resthub/issues?milestone=3&state=open)
+* [2.0.0-alpha2](https://github.com/pullrequest/resthub/issues?milestone=5&state=open)
+* [2.0.0-alpha3](https://github.com/pullrequest/resthub/issues?milestone=6&state=open)
+* [2.0.0-alpha4](https://github.com/pullrequest/resthub/issues?milestone=7&state=open)
+* [2.0.0-beta1](https://github.com/pullrequest/resthub/issues?milestone=8&state=open)
 
 N'hésitez pas à nous donner votre avis sur ce que nous prévoyons
 d'intégrer dans RESThub 2 ainsi qu'à nous proposer les fonctionnalités
 que vous aimeriez voir arriver avec cette prochaine version !
 
-D'autre part RESThub est un projet ouvert au contribution alors
+D'autre part RESThub est un projet ouvert aux contributions alors
 n'hésitez pas à [cloner le projet sur
 Github](https://github.com/pullrequest/resthub) et à proposer des **pull
 requests** !
