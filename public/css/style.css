@@ -401,6 +401,7 @@ article > footer {
 
 #disqus_thread {
   background: none;
+  font-size: 100%;
 }
 
 #disqus_thread a:hover {
