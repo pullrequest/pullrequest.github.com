@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Créer une API REST
-author: brianclozel
+author: bclozel
 tags: [rest, api]
 published: true
 ---
