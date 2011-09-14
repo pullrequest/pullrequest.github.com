@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Web Socket - Are you plugged ?
-author: sdeleuze
+author: feugy
 tags: [java, javascript, mythicforge, graniteds, jetty, JMS, STOMP, websocket]
 ---
 
@@ -13,7 +13,7 @@ Malheureusement, j'ai surtout besoin de flexibilité coté client de jeu (tout l
 
 Les 3 grandes fonctionnalités de GraniteDS qui doivent donc être remplacées sont les suivantes :
 
-1.  L'invocation distante de méthodes Java, remplacée par une API REST. Chaque méthode du serveur est une url qui produit et consomme du XML ou du JSON. J'ai choisi [Jersey ](http://jersey.java.net/) pour cela (implémentation de référence de la spécification JAX-RS).  
+1.  L'invocation distante de méthodes Java, remplacée par une API REST. Chaque méthode du serveur est une url qui produit et consomme du XML ou du JSON. J'ai choisi [Jersey ](http://jersey.java.net/) pour cela (implémentation de référence de la spécification JAX-RS).
 2.  Le MCV client "tide", remplacé par [RESTHub-js](https://bitbucket.org/ilabs/resthub-js/src).
 3.  Le push serveur : les clients flex sont constamment connectés au serveur qui leur envoi les mises à jour déclenchées par les autres joueurs. Ce billet explique comment j'ai remplacé cette partie par l'utilisation des WebSockets.
  
@@ -22,7 +22,7 @@ Les 3 grandes fonctionnalités de GraniteDS qui doivent donc être remplacées s
 Les Web sockets sont juste... des sockets. C'est un canal connecté entre le navigateur et le serveur, ni plus, ni moins. Vous avez donc besoin d'un navigateur récent (Chrome, IE9 ou Firefox 4 correctement configuré) et d'un serveur.
 
 Il y a quelques serveurs Java qui implémentent le protocole : jWebSocket, Kaazing, webbit... Mais aucun d'entre eux n'est aussi un conteneur de Servlet, la base de nos serveurs java. A l'exception de [Jetty](http://jetty.codehaus.org/jetty/).  
-  
+
 Sans rentrer dans les détails, Jetty est un serveur Http+Servlet+WebSocket très puissant écrit en java, qui peut être utilisé en mode embarqué ou standalone. Il implémente le brouillon de la norme Websocket depuis un petit moment, et [plutôt simplement](http://blogs.webtide.com/gregw/entry/jetty_websocket_server).
 
 {% highlight java %}
