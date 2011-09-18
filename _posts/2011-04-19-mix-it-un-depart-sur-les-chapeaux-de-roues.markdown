@@ -22,7 +22,6 @@ Vous trouverez sur [le site][1] le programme et les speakers.
 
 Autant leur dire tout de suite un grand bravo : l'organisation a été très pro et sans aucuns accrocs. Fluide, facile, locaux nickels, conditions excellentes pour les speaches.
 
-
 ## Keynote : vous reprendrez bien un verre de Mart-i-gnole ?
 
 Nicolas Martignole, alias "[Le touilleur express][2]", nous a fait un condensé fort intéressant sur le "Industrialized software craftmanship" : en gros, nous sommes tous des développeurs, professionnels, outillés, responsables, autonomes. Alors revendiquons-le, et conduisons-nous comme tel.
@@ -40,7 +39,7 @@ En clair, un framework de test compatible Java ou l'on décrit ses tests sous la
 
 Exemple:
 
-{% highlight groovy %}
+{% highlight ruby %}
 def "liste should add new elem" () {
     given:
         def list = new ArrayList()
