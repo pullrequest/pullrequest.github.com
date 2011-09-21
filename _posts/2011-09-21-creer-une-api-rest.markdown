@@ -102,7 +102,7 @@ efforts sur l'utilisation de [JSONP](http://en.wikipedia.org/wiki/JSONP) ou [COR
 Certains problèmes de conception sont récurrents dans les APIs REST, et
 les opinions sont souvent bien trop tranchées.
 
-Le versioning revient souvent dans les préoccupations:
+### Le versioning revient souvent dans les préoccupations
 
 * pour identifier différentes versions d'une API, l'utilisation d'un
   préfixe est [souvent
@@ -113,7 +113,22 @@ recommandé](http://stackoverflow.com/questions/389169/best-practices-for-api-ve
   ressource particulière), l'utilisation des Etags (pour le cache) et/ou
 d'un numéro de version dans votre ressource sont suffisants
 
-En cas de doute, il est souvent utile de se référer à une API REST très
+### Documentation et "découvrabilité"
+
+La documentation est un aspect essentiel d'une API REST. Certains
+prennent le parti d'automatiser et d'outiller un maximum la
+documentation: par exemple, avec [jax-doclets](http://www.lunatech-labs.com/open-source/jax-doclets).
+
+Pour aller plus loin, les APIs peuvent apporter une "découvrabilité":
+permettre au protocole HTTP de documenter l'utilisation de l'API. En
+clair, donner au client REST des indications sur les actions possibles
+via les headers réponse HTTP. Martin Fowler l'explique bien dans un
+article sur le [Richardson Maturity
+Model](http://martinfowler.com/articles/richardsonMaturityModel.html).
+
+### En cas de doute...
+
+Il est souvent utile de se référer à une API REST très
 utilisée et reconnue: l'[API github](http://developer.github.com/) est considérée comme une des
 meilleures à ce jour.
 
@@ -125,19 +140,16 @@ Aussi, je vous recommande la lecture des articles de Steve Klabnik:
   HTTP"](http://blog.steveklabnik.com/2011/08/07/some-people-understand-rest-and-http.html)
 
 
-## Bibliographie
+## Ressources utiles
 
-Quelques ressources utiles:
-
-* documenter son API REST avec
-  [jax-doclets](http://www.lunatech-labs.com/open-source/jax-doclets)
-* tester son API REST depuis son navigateur avec une [extension Chrome](https://chrome.google.com/webstore/detail/cokgbflfommojglbmbpenpphppikmonn) ou
+* Tester son API REST depuis son navigateur avec une [extension Chrome](https://chrome.google.com/webstore/detail/cokgbflfommojglbmbpenpphppikmonn) ou
   avec CURL!
 * Google a beaucoup travaillé sur les aspects RDF/atomPUB avec
   [Gdata](http://code.google.com/intl/fr-FR/apis/gdata/)
-* le projet Jersey a de [nombreux exemples d'APIs
+* Le projet Jersey a de [nombreux exemples d'APIs
   REST](http://download.java.net/maven/2/com/sun/jersey/samples/jersey-samples/)
-sur des aspects particuliers
+sur des aspects particuliers, dont
+[Hypermedia](http://download.java.net/maven/2/com/sun/jersey/experimental/hypermedia-action/hypermedia-action-sample/)
 * Mettre en place un ["rate
   limiting"](http://stackoverflow.com/questions/667508/whats-a-good-rate-limiting-algorithm)
 sur son API peut aussi bénéficier d'un cache distribué (memcached,
