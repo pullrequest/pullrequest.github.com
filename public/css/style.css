@@ -299,6 +299,10 @@ ul {
   border-bottom-color: #480c28;
 }
 
+#content img {
+  border: solid 3px #999;
+}
+
 /* ---- Article ---- */
 
 article {
@@ -322,6 +326,7 @@ article pre {
   background: #eee;
   padding: 1em;
   border: solid 1px #999;
+  margin: 2em 0pt;
 }
 
 article p, article ul {
