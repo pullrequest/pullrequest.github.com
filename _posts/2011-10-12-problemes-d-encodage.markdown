@@ -15,7 +15,7 @@ peut en retrouver la/les sources(s) et les corriger.
 Tous les développeurs devraient lire au moins une fois ces articles:
 
 * [les chaînes de caractères et
-  l'encodage](http://diveintopython3.org/strings.html#htmlboring-stuff) (les paragraphes 4.1 et 4.2 suffisent)
+  l'encodage](http://diveintopython3.ep.io/strings.html#htmlboring-stuff) (les paragraphes 4.1 et 4.2 suffisent)
 * [Unicode](http://joelonsoftware.com/Articles/Unicode.html)
 
 Avec ces articles vous comprendrez (entre autres!) pourquoi **vous rencontrez ce problème**, pourquoi **il faut toujours connaître l'encodage d'un texte** et pourquoi **l'UTF-8 vous sauvra**.
