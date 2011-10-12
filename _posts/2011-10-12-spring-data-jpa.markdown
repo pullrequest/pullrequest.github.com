@@ -1,21 +1,21 @@
 ---
 layout: post
-title: Spring-data-jpa
+title: Spring Data JPA
 author: jvillanti
 tags: [resthub, spring-data, QueryDsl]
 published: false
 ---
 
-La préparation [de la version 2 de RESThub](http://pullrequest.org/2011/09/07/resthub-2-preview.html) et l’objectif de remplacer [Hades](http://redmine.synyx.org/) par [Spring-data](http://www.springsource.org/spring-data) nous a emmené à étudier le module spring-data-jpa et ses capacités.
+La préparation [de la version 2 de RESThub](http://pullrequest.org/2011/09/07/resthub-2-preview.html) et l’objectif de remplacer [Hades](http://redmine.synyx.org/) par [Spring-data](http://www.springsource.org/spring-data) nous a amené à étudier le module spring-data-jpa et ses capacités.
 
 ## Présentation
 
-Le projet [Spring-data](http://www.springsource.org/spring-data) est un projet visant à simplifier l’utilisation des bases relationnelles et des bases NO SQL (Graph, Key-Value, Document).
-En plus des facilités de manipulation de données offertes par le project, Spring-data supporte le framework [QueryDsl](http://www.querydsl.com/) et ainsi la possibilité de donner [une orientation DDD](http://en.wikipedia.org/wiki/Domain-driven_design) introduit par *Eric Evans* à son travail. Sans rentrant dans les détails, on assiste peut être à la fin de nos modèles métiers anémiques !
+Le projet [Spring-data](http://www.springsource.org/spring-data) est un projet visant à simplifier l’utilisation des bases relationnelles et des bases NoSQL (Graph, Key-Value, Document).
+En plus des facilités de manipulation de données offertes par le projet, Spring Data supporte le framework [QueryDsl](http://www.querydsl.com/) et ainsi la possibilité de donner [une orientation DDD](http://en.wikipedia.org/wiki/Domain-driven_design). Sans rentrer dans les détails, on assiste peut être à la fin de nos modèles métiers anémiques !
 
 ## Cas d’utilisation basique
 
-Maintenant on rentre dans le vif du sujet avec un projet exemple montrant les possibilités offertes par Spring-data-jpa.
+Maintenant on rentre dans le vif du sujet avec un projet exemple montrant les possibilités offertes par Spring Data JPA.
 
 ### 1) Objet domain
 
@@ -56,23 +56,23 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 {% endhighlight %}
 
-Le travail au niveau du repository se limite à l'écriture de l'interface et c'est Spring-data-jpa qui se charge de faire l'implémentation. Les habitués du framework [Hades](http://redmine.synyx.org/) reconnaitrons sans mal ce mode de fonctionnement.
+Le travail au niveau du repository se limite à l'écriture de l'interface et c'est Spring-data-jpa qui se charge de faire l'implémentation. Les habitués du framework [Hades](http://redmine.synyx.org/) reconnaitront sans mal ce mode de fonctionnement.
 Pour les autres, plusieurs modes sont disponibles :
 
-* le framework compose automatiquement les requêtes en se basant sur des mots clés (ByXXX, Order, …) (ex : findByUsernameAndAge, ...) [liste de mots clés](http://static.springsource.org/spring-data/data-jpa/docs/1.0.0.RC1/reference/html/#repositories.query-methods.property-expressions)
+* le framework compose automatiquement les requêtes en se basant sur des mots clés (byXXX, Order, …) (ex : findByUsernameAndAge, ...) [liste de mots clés](http://static.springsource.org/spring-data/data-jpa/docs/1.0.0.RC1/reference/html/#repositories.query-methods.property-expressions)
 * l’utilisateur écrit directement la requête (utilisation de @Query) avec la posibilité d'utiliser des paramètres nommés
 
-A savoir, qu’il est possible de gérer les Pages pour les requêtes qui peuvent ramener beaucoup de résultats.
+A savoir, qu’il est possible de gérer la pagination pour les requêtes qui peuvent ramener beaucoup de résultats.
 
-### 3)Configuration Spring
+### 3) Configuration Spring
 
-Il faut juste indiquer à Spring-data-jpa le package ou se trouve vos repositories qu'il doit gérer :
+Il faut juste indiquer à Spring-data-jpa le package où se trouvent vos repositories qu'il doit gérer :
 
 {% highlight xml %}
 <jpa:repositories base-package="fr.test.repository" />
 {% endhighlight %}
 
-### 4)Tests
+### 4) Tests
 
 Maintenant on passe aux tests unitaires de notre "userRepository"
 
@@ -105,24 +105,21 @@ public class UserRepositoryTest {
 }
 {% endhighlight %}
 
-Rien de spécial, on injecte notre repository et on peut ensuite tester toutes les fonctions.
+Rien de spécial, on injecte notre repository et on peut ensuite tester toutes les méthodes.
 
 ## 1er bilan :
 
 * Avantages :
+  * pour ceux qui connaissent Hades, on est très proche du mode de fonctionnement;
+  * les fonctions CRUD déjà implémentées;
+  * le mode implémentation automatique permet de gagner du temps dans les petits développements.
 
-    * pour ceux qui connaissent Hades, on est très proche du mode de fonctionnement;
-    * les fonctions CRUD déjà implémentées;
-    * le mode implémentation automatique permet de gagner du temps dans les petits développements.
-
-* Limitations :
-
-    * les interfaces peuvent vite devenir confuses avec des FindByXXXandYYY,  FindByXXXandYYYOrderBy, ...
-    * les requêtes persos ne sont pas vérifiées avant l’exécution (aie aux tests unitaires oubliés)
+* Inconvénients :
+  * les interfaces peuvent vite devenir confuses avec des FindByXXXandYYY, FindByXXXAndYYYOrderBy, ...
 
 ## Cas d’utilisation avancé
 
-### 1) Ajouter des comportements au repository
+### 1) Ajouter des méthodes spécifiques au repository
 
 {% highlight java %}
 public interface UserRepositoryCustom {
@@ -150,7 +147,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 }
 {% endhighlight %}
 
-Que du classique : A savoir la déclaration et l'implémentation des comportements que l'on souhaite ajouter à notre repository. Il s'agit d'un bean classique que l'on pourrait injecter dans une classe indépendamment de notre repository.
+Que du classique : A savoir la déclaration et l'implémentation des méthodes que l'on souhaite ajouter à notre repository. Il s'agit d'un bean classique que l'on pourrait injecter dans une classe indépendamment de notre repository.
 
 {% highlight java %}
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom{
@@ -167,7 +164,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
 }
 {% endhighlight %}
 
-On rajoute à notre repository "UserRepository" un extends sur notre repository UserRepositoryCustom et hop on profite des fonctionnalités de spring-data-jpa plus celles de notre implémentation de UserRepositoryCustom
+On rajoute à notre repository "UserRepository" un extends sur notre repository UserRepositoryCustom et hop on profite des fonctionnalités de spring-data-jpa en plus celles de notre implémentation spécifique.
 
 A savoir qu'il est possible d'ajouter des comportements "par défaut" à tous les repositories. [(cf la doc de spring-data)]( http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/#repositories.custom-behaviour-for-all-repositories).
 
@@ -192,7 +189,7 @@ Rien de particulier, on teste que notre UserRepository profite bien de la foncti
 ### 2) Utilisation de queryDsl
 
 QueryDsl est un framework qui permet d'écrire des requêtes type-safe dans un langage humainement compréhensible.
-Grâce à QueryDsl on va pouvoir supprimer une des limites énoncée dans le 1er bilan et éviter pas mal de surprise à l'éxécution. On va même discrètement rajouter un peu de métier dans autre objet domain.
+Grâce à QueryDsl on va pouvoir supprimer une des limites énoncées dans le 1er bilan et éviter pas mal de surprises à l'exécution. On va même discrètement rajouter un peu de métier dans autre objet domain.
 
 #### 1ère étape : Génération des classes Q\*
 
@@ -218,7 +215,7 @@ Afin de pouvoir utiliser les classes QXXX (ici QUser) il faut les générer. Il 
     </plugin>
 {% endhighlight %}
 
-Rem : Pour les personnes sous Eclipse il faut penser à faire un "update project configuaration".
+Rem : Pour les utilisateurs d'Eclipse il faut penser à faire un "update project configuaration".
 
 #### 2ème étape : Utilisation de QueryDsl dans les repositories
 
@@ -260,7 +257,7 @@ public class UserRepositoryTest {
 }
 {% endhighlight %}
 
-Et hop, on peut profiter de tout un langage pour générer ses requêtes type-safe! [voir la document QueryDsl]( http://source.mysema.com/static/querydsl/2.2.0/reference/html). La complétion rajoute vraiment un confort non négligeable.
+Et hop, on peut profiter de tout un langage (DSL) pour générer ses requêtes type-safe! [voir la document QueryDsl]( http://source.mysema.com/static/querydsl/2.2.0/reference/html). La complétion rajoute vraiment un confort non négligeable.
 
 #### 4ème étape : Enrichissement du modèle avec les prédicats
 
@@ -279,7 +276,7 @@ public class User {
     private Integer age;
 
     public static BooleanExpression isMinor() {
-        return QUser.user.age.lt(18);
+        return QUser.user.age.lt(18); // ??????? à déporter dans une spec ?
     }
     //GET et SET
 }
@@ -312,6 +309,6 @@ On peut maintenant utiliser les prédicats prédéfinis pour générer des requ�
 
 ## 2ème bilan :
 
-* On retrouve biens les concepts d'Hades et la possibilité d'étendre les repositories afin de rajouter des comportements.
-* L'utilisation du QueryDsl est vraiment intéressante. On peut fabriquer des requêtes type-safe et dans un langue proche de langage courant et on profite de la complétion!. On évite aussi de rajouter toutes les 5secondes une nouvelle méthode dans le repostitory (cela évite d'avoir plusieurs dizaines findByXXXandYYY, ...).
+* On retrouve bien les concepts d'Hades et la possibilité d'étendre les repositories afin de rajouter des méthodes spécifiques.
+* L'utilisation du QueryDsl est vraiment intéressante. On peut fabriquer des requêtes type-safe et dans un langue proche du langage courant et on profite de la complétion ! On évite aussi de rajouter toutes les 5 secondes une nouvelle méthode dans le repostitory (cela évite d'avoir plusieurs dizaines findByXXXandYYY, ...).
 
