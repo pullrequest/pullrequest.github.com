@@ -3,6 +3,7 @@ layout: post
 title: Spring-data-jpa
 author: jvillanti
 tags: [resthub, spring-data, QueryDsl]
+published: false
 ---
 
 La préparation [de la version 2 de RESThub](http://pullrequest.org/2011/09/07/resthub-2-preview.html) et l’objectif de remplacer [Hades](http://redmine.synyx.org/) par [Spring-data](http://www.springsource.org/spring-data) nous a emmené à étudier le module spring-data-jpa et ses capacités.
@@ -13,9 +14,11 @@ Le projet [Spring-data](http://www.springsource.org/spring-data) est un projet v
 En plus des facilités de manipulation de données offertes par le project, Spring-data supporte le framework [QueryDsl](http://www.querydsl.com/) et ainsi la possibilité de donner [une orientation DDD](http://en.wikipedia.org/wiki/Domain-driven_design) introduit par *Eric Evans* à son travail. Sans rentrant dans les détails, on assiste peut être à la fin de nos modèles métiers anémiques !
 
 ## Cas d’utilisation basique
+
 Maintenant on rentre dans le vif du sujet avec un projet exemple montrant les possibilités offertes par Spring-data-jpa.
 
 ### 1)Objet domain
+
 	@Entity
 	public class User {
 		@Id
@@ -26,7 +29,7 @@ Maintenant on rentre dans le vif du sujet avec un projet exemple montrant les po
 		private String username;
 
 		@Column(nullable = false)
-		private Integer age;     
+		private Integer age;
 
 		//Get et Set
 	}
@@ -34,15 +37,16 @@ Maintenant on rentre dans le vif du sujet avec un projet exemple montrant les po
 Ici, Pojo classique pour ne pas dire "anémique". Aucune référence à spring-data n'est nécessaire.
 
 ### 2)Repository
+
 	public interface UserRepository extends JpaRepository<User, Long> {
-		User findByUsername(String username);     
+		User findByUsername(String username);
 		
-		List<User> findByUsernameAndAge(String username, Integer age);     
+		List<User> findByUsernameAndAge(String username, Integer age);
 		
-		Page<User> findByUsernameLike(String username, Pageable pageable);     
+		Page<User> findByUsernameLike(String username, Pageable pageable);
 
 		@Query("SELECT u FROM User u WHERE u.username like ?1")
-		Page<User> findByUsernameLikeCusom(String username, Pageable pageable);     
+		Page<User> findByUsernameLikeCusom(String username, Pageable pageable);
 		
 		List<User> findByAgeBetween(Integer min, Integer max);
 	}
@@ -56,11 +60,13 @@ Pour les autres, plusieurs modes sont disponibles :
 A savoir, qu’il est possible de gérer les Pages pour les requêtes qui peuvent ramener beaucoup de résultats.
 
 ### 3)Configuration Spring
+
 Il faut juste indiquer à Spring-data-jpa le package ou se trouve vos repositories qu'il doit gérer 
 	
 	<jpa:repositoriesbase-package="fr.test.repository" />
 
 ### 4)Tests
+
 Maintenant on passe aux tests unitaires de notre "userRepository"
 	public class UserRepositoryTest {
 		  @Autowired
@@ -105,6 +111,7 @@ Rien de spécial, on injecte notre repository et on peut ensuite tester toutes l
 	* les requêtes persos ne sont pas vérifiées avant l’exécution (aie aux tests unitaires oubliés)
 
 ## Cas d’utilisation avancé
+
 ### 1)Ajouter des comportements au repository
 	
 	public interface UserRepositoryCustom {
@@ -163,13 +170,15 @@ A savoir qu'il est possible d'ajouter des comportements "par défaut" à tous le
 	   }
 		//.....
 	}
+
 Rien de particulier, on teste que notre UserRepository profite bien de la fonction définie dans notre UserRepositoryCustom.
 
 ### 2)Utilisation de queryDsl
+
 QueryDsl est un framework qui permet d'écrire des requêtes type-safe dans un langage humainement compréhensible.
 Grâce à QueryDsl on va pouvoir supprimer une des limites énoncée dans le 1er bilan et éviter pas mal de surprise à l'éxécution. On va même discrètement rajouter un peu de métier dans autre objet domain.
- 
-#### 1er étape : Génération des classes Q*
+
+#### 1er étape : Génération des classes Q\*
 
 Afin de pouvoir utiliser les classes QXXX (ici QUser) il faut les générer. Il existe un plugin Maven dédié à ce travail.
 
@@ -275,5 +284,6 @@ Ici, on voit le côté DDD et l'ajout de métier dans le modèle.
 On peut maintenant utiliser les prédicats prédéfinis pour générer des requêtes.
 
 ## 2ème bilan :
+
 * On retrouve biens les concepts d'Hades et la possibilité d'étendre les repositories afin de rajouter des comportements.
 * L'utilisation du QueryDsl est vraiment intéressante. On peut fabriquer des requêtes type-safe et dans un langue proche de langage courant et on profite de la complétion!. On évite aussi de rajouter toutes les 5secondes une nouvelle méthode dans le repostitory (cela évite d'avoir plusieurs dizaines findByXXXandYYY, ...).
