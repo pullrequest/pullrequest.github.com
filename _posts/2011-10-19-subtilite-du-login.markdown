@@ -2,7 +2,7 @@
 layout: post
 title: Les subtilité des formulaire de login en JS
 author: feugy
-tags: [javascript, login, formulaire, chrome, firefox]
+tags: [javascript, login, formulaire, chrome, firefox, jQuery]
 published: false
 ---
 
