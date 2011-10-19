@@ -259,30 +259,16 @@ public class UserRepositoryTest {
 
 Et hop, on peut profiter de tout un langage (DSL) pour générer ses requêtes type-safe! [voir la document QueryDsl]( http://source.mysema.com/static/querydsl/2.2.0/reference/html). La complétion rajoute vraiment un confort non négligeable.
 
-#### 4ème étape : Enrichissement du modèle avec les prédicats
+#### 4ème étape : Création des predicats
 
 {% highlight java %}
-// User entity
-@Entity
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class UserPredicates {
 
-    @Column(unique = true, nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private Integer age;
-
-    public static BooleanExpression isMinor() {
-        return QUser.user.age.lt(18); // ??????? à déporter dans une spec ?
+    public static BooleanExpression isMinor() {  
+        return QUser.user.age.lt(18);  
     }
-    //GET et SET
 }
 {% endhighlight %}
-
-Ici, on voit le côté DDD et l'ajout de métier dans le modèle.
 
 #### 5ème étape : On teste les prédicats
 
@@ -296,7 +282,7 @@ public class UserRepositoryTest {
         assertNotNull(users);
         assertTrue(users.size() == 3);
 
-        users = (List<User>) userRepositoryImpl.findAll(User.isMinor());
+        users = (List<User>) userRepositoryImpl.findAll(QUser.user.username.like("T%").and(UserPredicates.isMinor()));
         assertNotNull(users);
         assertTrue(users.size() == 1);
         assertTrue(users.get(0).getAge() < 18);
