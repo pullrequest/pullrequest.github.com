@@ -22,7 +22,7 @@ Hélas non... Les formulaires de login (un champs <tt>text</tt> + un champ <tt>p
 
 C'est là le premier problème :
 >**Le formulaire doit être présent dans le DOM au chargement de la page.**
- 
+
 Oui, vous avez compris : si vous construisez votre formulaire directement en JS, ou si vous utilisez un template que vous accrochez une fois la page chargée, votre formulaire sera ignoré par certains navigateurs.
 
 L'astuce que j'utilise consiste à:
@@ -33,18 +33,21 @@ L'astuce que j'utilise consiste à:
 
 **index.html**
 
-    <div id="loginStock" style="display:none">
-    	<form id="formLogin">
-    		<input type="text" name="username"/>
-    		<input type="password" name="password"/>
-    	</form>
-    </div>
+{% highlight html %}
+<div id="loginStock" style="display:none">
+    <form id="formLogin">
+        <input type="text" name="username"/>
+        <input type="password" name="password"/>
+    </form>
+</div>
+{% endhighlight %}
 
 **login.js**
 
-    $('.loginContainer', this.element).append($('#loginStock > *'));
-	
-	
+{% highlight js %}
+$('.loginContainer', this.element).append($('#loginStock > *'));
+{% endhighlight %}
+
 ## Dois-je mettre un champ de type <tt>submit</tt> ?
 
 S'il n'y a que les champs de type <tt>text</tt> et <tt>password</tt>, le navigateur ne retiendra pas le mot de passe.
@@ -55,25 +58,28 @@ Même s'il est masqué (le bouton n'est pas encore bien skinnable, même en CSS 
 
 **index.html**
 
-    <div id="loginStock" style="display:none">
-    	<form id="formLogin">
-    		<input type="text" name="username"/>
-    		<input type="password" name="password"/>
-			<input type="submit" style="display:none"/>
-    	</form>
-        <a href="#" class="submit"></a>
-    </div>
-	
+{% highlight html %}
+<div id="loginStock" style="display:none">
+    <form id="formLogin">
+        <input type="text" name="username"/>
+        <input type="password" name="password"/>
+        <input type="submit" style="display:none"/>
+    </form>
+    <a href="#" class="submit"></a>
+</div>
+{% endhighlight %}
+
 **login.js**
 
-    $('.loginContainer .submit').click(function(event){
-        // Déclenche la soumission du formulaire.
-        $('#formLogin').submit();
-		// Annule la propagation du Click sur le lien, pas de la soumission du formulaire !
-		return false;
-    }).button({label:'log in !'});
+{% highlight js %}
+$('.loginContainer .submit').click(function(event){
+    // Déclenche la soumission du formulaire.
+    $('#formLogin').submit();
+    // Annule la propagation du Click sur le lien, pas de la soumission du formulaire !
+    return false;
+}).button({label:'log in !'});
+{% endhighlight %}
 
-	
 ## Doit-on stopper la propagation de l'événement <tt>submit</tt> ?
 
 Le problème se pose si vous ne réalisez pas un "vrai" POST lorsque l'utilisateur déclenche la soumission du formulaire.
@@ -94,23 +100,26 @@ Donc généralement, mon service web propose une API POST qui ne fait rien et re
 
 **index.html**
 
-    <div id="loginStock" style="display:none" method="post" action="/api/login/noop" target="postFrame">
-    	<form id="formLogin">
-    		<input autofocus="autofocus" type="text" name="username"/>
-    		<input autocomplete="on" type="password" name="password"/>
-			<input type="submit" style="display:none"/>
-    	</form>
-		<a href="#" class="submit"></a>
-    </div>
-	<iframe name="postFrame" class="hidden"></iframe>
-	
+{% highlight html %}
+<div id="loginStock" style="display:none" method="post" action="/api/login/noop" target="postFrame">
+    <form id="formLogin">
+        <input autofocus="autofocus" type="text" name="username"/>
+        <input autocomplete="on" type="password" name="password"/>
+        <input type="submit" style="display:none"/>
+    </form>
+    <a href="#" class="submit"></a>
+</div>
+<iframe name="postFrame" class="hidden"></iframe>
+{% endhighlight %}
+
 **login.js**
 
-    $('#formLogin').submit(function(event){
-        // Ici mon appel ajax, et surtout, ne pas renvoyer false ni invoquer event.stopPropagation().
-    });
-	
-	
+{% highlight js %}
+$('#formLogin').submit(function(event){
+    // Ici mon appel ajax, et surtout, ne pas renvoyer false ni invoquer event.stopPropagation().
+});
+{% endhighlight %}
+
 ### Une petite astuce : lorsque l'authentification échoue.
 
 A partir du moment où l'événement <tt>submit</tt> est propagé, et qu'une réponse HTTP est reçue, le navigateur conservera bien le mot de passe et le login.
@@ -130,16 +139,17 @@ Personnellement, je lui affecte une taille de zéro. Vous pouvez aussi le positi
 
 **index.html**
 
-    <div id="loginStock" style="display:none" method="post" action="/api/login/noop" target="postFrame">
-    	<form id="formLogin">
-    		<input autofocus="autofocus" type="text" name="username"/>
-    		<input autocomplete="on" type="password" name="password"/>
-			<input type="submit" style="width:0; height:0; border:0; padding:0"/>
-    	</form>
-		<a href="#" class="submit"></a>
-    </div>
-	
-	
+{% highlight html %}
+<div id="loginStock" style="display:none" method="post" action="/api/login/noop" target="postFrame">
+    <form id="formLogin">
+        <input autofocus="autofocus" type="text" name="username"/>
+        <input autocomplete="on" type="password" name="password"/>
+        <input type="submit" style="width:0; height:0; border:0; padding:0"/>
+    </form>
+    <a href="#" class="submit"></a>
+</div>
+{% endhighlight %}
+
 ## Conclusion
 
 Vous voyez ? quand je vous disais que ce n'était pas trivial...
