@@ -33,7 +33,7 @@ public class User {
     @Column(nullable = false)
     private Integer age;
 
-    //Get et Set
+    // Getters et Setters
 }
 {% endhighlight %}
 
@@ -56,17 +56,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 {% endhighlight %}
 
-Le travail au niveau du repository se limite à l'écriture de l'interface et c'est Spring-data-jpa qui se charge de faire l'implémentation. Les habitués du framework [Hades](http://redmine.synyx.org/) reconnaitront sans mal ce mode de fonctionnement.
-Pour les autres, plusieurs modes sont disponibles :
+Le travail au niveau du repository se limite à l'écriture de l'interface et c'est spring-data-jpa qui se charge de faire l'implémentation. Les habitués du framework [Hades](http://redmine.synyx.org/) reconnaitront sans mal ce mode de fonctionnement.
+Pour les autres, plusieurs mises en oeuvre sont disponibles :
 
-* le framework compose automatiquement les requêtes en se basant sur des mots clés (byXXX, Order, …) (ex : findByUsernameAndAge, ...) [liste de mots clés](http://static.springsource.org/spring-data/data-jpa/docs/1.0.0.RC1/reference/html/#repositories.query-methods.property-expressions)
-* l’utilisateur écrit directement la requête (utilisation de @Query) avec la posibilité d'utiliser des paramètres nommés
+* le framework compose automatiquement les requêtes en se basant sur des mots clés (byXXX, Order, …) (ex : findByUsernameAndAge, ...) [liste de mots clés](http://static.springsource.org/spring-data/data-jpa/docs/1.0.0.RC1/reference/html/#repositories.query-methods.property-expressions).
+* l’utilisateur écrit directement la requête (utilisation de @Query) avec la posibilité d'utiliser des paramètres nommés.
 
 A savoir, qu’il est possible de gérer la pagination pour les requêtes qui peuvent ramener beaucoup de résultats.
 
 ### 3) Configuration Spring
 
-Il faut juste indiquer à Spring-data-jpa le package où se trouvent vos repositories qu'il doit gérer :
+Il faut juste indiquer à spring-data-jpa le package où se trouvent vos repositories qu'il doit gérer :
 
 {% highlight xml %}
 <jpa:repositories base-package="fr.test.repository" />
@@ -115,7 +115,7 @@ Rien de spécial, on injecte notre repository et on peut ensuite tester toutes l
   * le mode implémentation automatique permet de gagner du temps dans les petits développements.
 
 * Inconvénients :
-  * les interfaces peuvent vite devenir confuses avec des FindByXXXandYYY, FindByXXXAndYYYOrderBy, ...
+  * les interfaces peuvent vite devenir confuses avec des FindByXXXAndYYY, FindByXXXAndYYYOrderBy, ...
 
 ## Cas d’utilisation avancé
 
@@ -164,9 +164,9 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
 }
 {% endhighlight %}
 
-On rajoute à notre repository "UserRepository" un extends sur notre repository UserRepositoryCustom et hop on profite des fonctionnalités de spring-data-jpa en plus celles de notre implémentation spécifique.
+On rajoute à notre repository "UserRepository" un extends sur notre repository UserRepositoryCustom et hop on profite des fonctionnalités de spring-data-jpa en plus de celles de notre implémentation spécifique.
 
-A savoir qu'il est possible d'ajouter des comportements "par défaut" à tous les repositories. [(cf la doc de spring-data)]( http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/#repositories.custom-behaviour-for-all-repositories).
+A savoir qu'il est possible d'ajouter des comportements "par défaut" à tous les repositories. [(cf la doc de spring-data)](http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/#repositories.custom-behaviour-for-all-repositories).
 
 {% highlight java %}
 public class UserRepositoryTest {
@@ -188,8 +188,7 @@ Rien de particulier, on teste que notre UserRepository profite bien de la foncti
 
 ### 2) Utilisation de queryDsl
 
-QueryDsl est un framework qui permet d'écrire des requêtes type-safe dans un langage humainement compréhensible.
-Grâce à QueryDsl on va pouvoir supprimer une des limites énoncées dans le 1er bilan et éviter pas mal de surprises à l'exécution. On va même discrètement rajouter un peu de métier dans autre objet domain.
+QueryDsl est un framework qui permet d'écrire des requêtes type-safe via un [Domain Specific Language](http://en.wikipedia.org/wiki/Domain-specific_language) proposant une API fluide (fluent API). Grâce à QueryDsl on va pouvoir supprimer une des limites énoncées dans le 1er bilan et éviter pas mal de surprises à l'exécution. On va même discrètement rajouter un peu de métier dans un autre objet du domain.
 
 #### 1ère étape : Génération des classes Q\*
 
@@ -257,15 +256,15 @@ public class UserRepositoryTest {
 }
 {% endhighlight %}
 
-Et hop, on peut profiter de tout un langage (DSL) pour générer ses requêtes type-safe! [voir la document QueryDsl]( http://source.mysema.com/static/querydsl/2.2.0/reference/html). La complétion rajoute vraiment un confort non négligeable.
+Et hop, on peut profiter de tout un langage (DSL) pour générer ses requêtes type-safe! [voir la documentation de QueryDsl]( http://source.mysema.com/static/querydsl/2.2.0/reference/html). La complétion rajoute vraiment un confort non négligeable.
 
 #### 4ème étape : Création des predicats
 
 {% highlight java %}
 public class UserPredicates {
 
-    public static BooleanExpression isMinor() {  
-        return QUser.user.age.lt(18);  
+    public static BooleanExpression isMinor() {
+        return QUser.user.age.lt(18);
     }
 }
 {% endhighlight %}
@@ -296,5 +295,5 @@ On peut maintenant utiliser les prédicats prédéfinis pour générer des requ�
 ## 2ème bilan :
 
 * On retrouve bien les concepts d'Hades et la possibilité d'étendre les repositories afin de rajouter des méthodes spécifiques.
-* L'utilisation du QueryDsl est vraiment intéressante. On peut fabriquer des requêtes type-safe et dans un langue proche du langage courant et on profite de la complétion ! On évite aussi de rajouter toutes les 5 secondes une nouvelle méthode dans le repostitory (cela évite d'avoir plusieurs dizaines findByXXXandYYY, ...).
+* L'utilisation du QueryDsl est vraiment intéressante. On peut fabriquer des requêtes type-safe et dans un langue proche du langage courant et on profite de la complétion !
 
