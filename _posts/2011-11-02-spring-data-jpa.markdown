@@ -3,7 +3,7 @@ layout: post
 title: Spring Data JPA
 author: jvillanti
 tags: [resthub, spring-data, QueryDsl]
-published: false
+published: true
 ---
 
 La préparation [de la version 2 de RESThub](http://pullrequest.org/2011/09/07/resthub-2-preview.html) et l’objectif de remplacer [Hades](http://redmine.synyx.org/) par [Spring-data](http://www.springsource.org/spring-data) nous a amené à étudier le module spring-data-jpa et ses capacités.
