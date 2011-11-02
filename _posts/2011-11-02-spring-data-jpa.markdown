@@ -110,11 +110,13 @@ Rien de spécial, on injecte notre repository et on peut ensuite tester toutes l
 ## 1er bilan :
 
 * Avantages :
+
   * pour ceux qui connaissent Hades, on est très proche du mode de fonctionnement;
   * les fonctions CRUD déjà implémentées;
   * le mode implémentation automatique permet de gagner du temps dans les petits développements.
 
 * Inconvénients :
+
   * les interfaces peuvent vite devenir confuses avec des FindByXXXAndYYY, FindByXXXAndYYYOrderBy, ...
 
 ## Cas d’utilisation avancé
