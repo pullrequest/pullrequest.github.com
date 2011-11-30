@@ -21,7 +21,10 @@ layout: nil
    <updated>{{ post.date | date_to_xmlschema }}</updated>
    <id>http://pullrequest.org{{ post.id }}</id>
    <content type="html">{{ post.content | strip_html | truncatewords:50 }}</content>
- </entry>
+   {% for tag in post.tags %}
+   <category domain="http://pullrequest.org/tags.html#{{ tag }}">{{ tag }}</category>
+   {% endfor %}
+</entry>
  {% endfor %}
  
 </feed>
