@@ -3,7 +3,7 @@ layout: post
 title: XWiki au banc de test
 author: feugy
 tags: [xwiki, groovy, velocity, wiki, CMS, smartdata]
-published: false
+published: true
 ---
 
 Il existe pléthore de produits pour faire un Wiki, tous plus complets les uns que les autres.
@@ -24,7 +24,7 @@ Pour les besoin d'une démonstration, j'ai du mettre en place un portail Web min
 * une page d'accueil
 * un espace de partage de données publiques (nous allons y revenir)
 * un blog sans workflow de validation (brouillon > publié)
-* un Forum simpliste (pas de message privés)
+* un forum simpliste (pas de messages privé)
 
 Le tout en 2 semaines, mise en prod inclue.
 
@@ -57,7 +57,7 @@ Pour les développeurs (créateur de plugins et composants) c'est l'inverse : ma
 
 Dans XWiki, tout est "document". Héritage naturel du Wiki. 
 Un document dispose à minima d'un nom unique (utilisé comme url), et d'un certain nombre de propriétés (clé-valeur typée String, nombre, date...). 
-Ces propriétés sont définis dans une `Classe`, et les documents sont donc des `Objets`, instances de ces classe.
+Ces propriétés sont définis dans une `Classe`, et les documents sont donc des `Objets`, instances de ces classes.
 
 En gros, si je veux définir un billet de blog, je crée une classe Blog avec 3 champs (auteur, contenu, date de publication), et pour chaque billet le système crée un `Objet` ayant son url propre (`/xwiki/bin/view/Blog/Mon+nom+de+billet`).
 
@@ -77,7 +77,7 @@ Très facile à installer (un war à déposer dans un conteneur Servlet), XWiki 
 
 Ainsi, avec les droits suffisants, et directement dans l'application, on crée et modifie `Classes` et `Objets`.
 Le moteur de template [Velocity](http://velocity.apache.org/) est très facile à prendre en main, et j'ai choisis Groovy pour la "logique applicative" à l'intérieur des pages. 
-[Groovy](http://groovy.codehaus.org/) apporte toute la puissance d'un language dynamique à la plateforme Java, tirant partie des librairies existantes, 
+[Groovy](http://groovy.codehaus.org/) apporte toute la puissance d'un language dynamique à la plateforme Java, tirant partie des librairies existantes.
 
 Tout ce passe donc à chaud, sans redémarrage. 
 Très pratique. Par contre, on édite du code dans un textarea : aucune fonctionnalité d'IDE. 
@@ -192,7 +192,7 @@ Après avoir travaillé deux semaines avec, je suis assez tenté de dire que le 
 
 Pour un développeur, la courbe d'apprentissage est minimale lorsqu'on connait Spring/Hibernate. 
 Le modèle de donnée est simple. 
-Velocity et Groovy sont des outils puissant et faciles à prendre en main. 
+Velocity et Groovy sont des outils puissants et faciles à prendre en main. 
 Pour moi, l'aggrégation de ces technologies est naturelle et à propos.
 
 Maintenant, si j'ai pu atteindre mon objectif, ce ne fut pas sans grincements de dents.
@@ -209,4 +209,5 @@ Etre productif en solo est facile, mais je ne suis pas aussi confiant dans le ca
 Si je peux donc émettre un conseil : essayez le, et n'hésitez pas à commenter pour donner votre avis !
 
 Enfin, si vous voulez voir ce que cela donne en vrai, jetez un oeil à ce screencast :
-<iframe width="1280" height="720" src="http://www.youtube.com/embed/NuHihBI04jU?rel=0&amp;hd=1" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="640" height="360" src="http://www.youtube.com/embed/NuHihBI04jU?rel=0&amp;hd=1" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
