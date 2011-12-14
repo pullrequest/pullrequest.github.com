@@ -6,12 +6,12 @@ tags: [xwiki, groovy, velocity, wiki, CMS, smartdata]
 published: false
 ---
 
-Il existe plétorde de produits pour faire un Wiki, tous plus complets les uns que les autres.
+Il existe pléthore de produits pour faire un Wiki, tous plus complets les uns que les autres.
 Alors en quoi XWiki se démarque-t-il ? 
 
 > XWiki, c'est bien plus qu'un wiki. (~~vous voila convaincus, non ?)
 
-C'est en effet ce qui est cranement annoncé sur le site [xwiki.org](http://www.xwiki.org/xwiki/bin/view/Main/WebHome) sous l'appellation ["Wiki de seconde génération"](http://platform.xwiki.org/xwiki/bin/view/Main/SecondGenerationWiki).
+C'est en effet ce qui est crânement annoncé sur le site [xwiki.org](http://www.xwiki.org/xwiki/bin/view/Main/WebHome) sous l'appellation ["Wiki de seconde génération"](http://platform.xwiki.org/xwiki/bin/view/Main/SecondGenerationWiki).
 Alors, qu'il y a t'il derrière ce discours commercial ? 
 La promesse d'un véritable couteau-suisse du Web ? 
 Ou un n-ième et décevant CMS ?
@@ -58,32 +58,32 @@ Pour les développeurs c'est l'inverse : très mal documenté, et extèmement pu
 
 Dans XWiki, tout est "document". Héritage naturel du Wiki. 
 Un document dispose à minima d'un nom unique (utilisé comme url), et d'un certain nombre de propriétés (clé-valeur typée String, nombre, date...). 
-Ces propriétés sont définis dans une <tt>Classe</tt>, et les documents sont donc des <tt>Objets</tt>, instances de ces classe.
+Ces propriétés sont définis dans une `Classe`, et les documents sont donc des `Objets`, instances de ces classe.
 
-En gros, si je veux définir un billet de blog, je crée une classe Blog avec 3 champs (auteur, contenu, date de publication), et pour chaque billet le système crée un <tt>Objet</tt> ayant son url propre (<tt>/xwiki/bin/view/Blog/Mon+nom+de+billet</tt>).
+En gros, si je veux définir un billet de blog, je crée une classe Blog avec 3 champs (auteur, contenu, date de publication), et pour chaque billet le système crée un `Objet` ayant son url propre (`/xwiki/bin/view/Blog/Mon+nom+de+billet`).
 
 Sur chaque document, XWiki propose les actions suivantes :
 
-* <tt>edit</tt>: création/mise à jour du document
-* <tt>view</tt>: visualisation
-* <tt>delete</tt>: suppression
+* `edit`: création/mise à jour du document
+* `view`: visualisation
+* `delete`: suppression
 
-Au niveau rendu, il est possible d'attacher à la classe un "Class Template" : c'est le formulaire qui permet de remplir les propriétés d'un document lors de l'action <tt>edit</tt>.
-On peux aussi attacher une "Class Sheet" : template Velocity pour le rendu (action <tt>view</tt>) des <tt>Objets</tt>.
+Au niveau rendu, il est possible d'attacher à la classe un "Class Template" : c'est le formulaire qui permet de remplir les propriétés d'un document lors de l'action `edit`.
+On peux aussi attacher une "Class Sheet" : template Velocity pour le rendu (action `view`) des `Objets`.
 
 
 ## Premier pas en temps que développeur.
 
 Très facile à installer (un war à déposer dans un conteneur Servlet), XWiki propose ensuite des fonctionnalités d'import/export, et de personnalisation en ligne.
 
-Ainsi, avec le compte administrateur, et directement dans l'application, on crée et modifie <tt>Classes</tt> et <tt>Objets</tt>.
+Ainsi, avec le compte administrateur, et directement dans l'application, on crée et modifie `Classes` et `Objets`.
 Le moteur de template [Velocity](http://velocity.apache.org/) est très facile à prendre en main, et j'ai choisis Groovy pour la "logique applicative" à l'intérieur des pages. [Groovy](http://groovy.codehaus.org/) apporte toute la puissance d'un language dynamique à la plateforme Java, tirant partie des librairies existantes, 
 
 Tout ce passe donc à chaud, sans redémarrage. 
 Très pratique. Par contre, on édite du code dans un textarea : aucune fonctionnalité d'IDE. 
 Il existe cependant un plugin Eclipse pour combler ce manque.
 
-Coté versionning, chaque sauvegarde provoque une nouvelle version de l'<tt>Object</tt>, la <tt>Classe</tt>, le <tt>Class Template</tt> ou la <tt>Class Sheet</tt>. Donc possible de revenir en arrière lorsqu'on à cassé quelque chose.
+Coté versionning, chaque sauvegarde provoque une nouvelle version de l'`Object`, la `Classe`, le `Class Template` ou la `Class Sheet`. Donc possible de revenir en arrière lorsqu'on à cassé quelque chose.
 
 La fonction d'export permet de faire un zip avec les modifications et configuration qu'on a apporté à son instance. Et naturellement, la fonction d'import permet de "déployer" son zip sur une autre instance.
 
