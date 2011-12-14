@@ -199,6 +199,7 @@ body {
   color: #252b33;
   line-height: 1.4em;
   background: url('../img/background-pattern.gif');
+  font-size: 90%;
 }
 
 a, a:hover, a:visited {
