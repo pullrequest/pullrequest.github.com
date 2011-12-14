@@ -185,7 +185,7 @@ Ces services sont utilisables directement depuis les Object XWiki (injection de 
 
 ## Conclusion : bien ou quoi ?
 
-XWiki se veux comme un outil très flexible et très puissant, une plateforme pouvant supporter le développement de n'importe quel portail Web, quelque soit ses fonctionnalités. 
+XWiki se veut être un outil très flexible et très puissant, une plateforme pouvant supporter le développement de n'importe quel portail Web, quelque soit ses fonctionnalités. 
 C'est pour le moins ambitieux.
 
 Après avoir travaillé deux semaines avec, je suis assez tenté de dire que le pari est réussi. 
