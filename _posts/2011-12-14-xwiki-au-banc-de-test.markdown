@@ -41,17 +41,16 @@ Alors si j'ai bien tout compris (à vous de vérifier donc :)), le Wiki de 2ème
 XWiki (en version 3.2) propose effet tout ce qui caractérise un CMS : 
 
 * un portail Web qui présente du contenu éditorial, produit par plusieurs utilisateurs
-* une séparation entre les données (contenues dans Classes et de Objets) et leur présentation (utilisation de Velocity comme moteur de templating, et de CSS)
-* une structuration du contenu : hiérarchisation, organisation en espaces plus ou moins spécialisé (espace forum, espace blog...)
-* une véritable gestion des comptes utilisateur et de leurs permissions sur l'ensemble des objets
+* une séparation entre les données (contenues dans les Classes et les Objets) et leur présentation (utilisation de Velocity comme moteur de templating, et de CSS)
+* une structuration du contenu : hiérarchisation, organisation en espaces plus ou moins spécialisés (espace forum, espace blog...)
+* une véritable gestion des comptes utilisateurs et de leurs permissions sur l'ensemble des objets
 * un versionning du contenu
 
 En revanche, pas de workflow de publication, bien qu'il soit tout a fait possible d'en créer un.
 
 Car ce qui différentie XWiki des autres produits de Wiki et CMS, c'est son extrème flexibilité.
-Il est important de distinguer plusieurs rôles dans la population des utilisateur : l'utilisateur final (l'internaute), l'utilisateur privilégié (le webmaster), le développeur (qui cré des composants/plugins).
-Du point de vue des utilisateurs privilégiés, XWiki n'est pas particulièrement facile à prendre en main. Il est en revanche [très bien documenté](http://enterprise.xwiki.org/xwiki/bin/view/UserGuide/WebHome) 
-Pour les développeurs c'est l'inverse : très mal documenté, et extèmement puissant.
+Du point de vue des utilisateurs privilégiés (le webmaster), XWiki n'est pas particulièrement facile à prendre en main. Il est en revanche [très bien documenté](http://enterprise.xwiki.org/xwiki/bin/view/UserGuide/WebHome) 
+Pour les développeurs (créateur de plugins et composants) c'est l'inverse : mal documenté, et extèmement puissant.
 
 
 ## Le modèle de donnée XWiki
@@ -72,46 +71,51 @@ Au niveau rendu, il est possible d'attacher à la classe un "Class Template" : c
 On peux aussi attacher une "Class Sheet" : template Velocity pour le rendu (action `view`) des `Objets`.
 
 
-## Premier pas en temps que développeur.
+## Premier pas en temps que développeur
 
-Très facile à installer (un war à déposer dans un conteneur Servlet), XWiki propose ensuite des fonctionnalités d'import/export, et de personnalisation en ligne.
+Très facile à installer (un war à déposer dans un conteneur Servlet), XWiki propose au développeur des fonctionnalités d'import/export, et de personnalisation en ligne.
 
-Ainsi, avec le compte administrateur, et directement dans l'application, on crée et modifie `Classes` et `Objets`.
-Le moteur de template [Velocity](http://velocity.apache.org/) est très facile à prendre en main, et j'ai choisis Groovy pour la "logique applicative" à l'intérieur des pages. [Groovy](http://groovy.codehaus.org/) apporte toute la puissance d'un language dynamique à la plateforme Java, tirant partie des librairies existantes, 
+Ainsi, avec les droits suffisants, et directement dans l'application, on crée et modifie `Classes` et `Objets`.
+Le moteur de template [Velocity](http://velocity.apache.org/) est très facile à prendre en main, et j'ai choisis Groovy pour la "logique applicative" à l'intérieur des pages. 
+[Groovy](http://groovy.codehaus.org/) apporte toute la puissance d'un language dynamique à la plateforme Java, tirant partie des librairies existantes, 
 
 Tout ce passe donc à chaud, sans redémarrage. 
 Très pratique. Par contre, on édite du code dans un textarea : aucune fonctionnalité d'IDE. 
 Il existe cependant un plugin Eclipse pour combler ce manque.
 
-Coté versionning, chaque sauvegarde provoque une nouvelle version de l'`Object`, la `Classe`, le `Class Template` ou la `Class Sheet`. Donc possible de revenir en arrière lorsqu'on à cassé quelque chose.
+Coté versionning, chaque sauvegarde provoque une nouvelle version de l'`Object`, la `Classe`, le `Class Template` ou la `Class Sheet`. 
+Donc il est possible de revenir en arrière lorsqu'on a cassé quelque chose.
 
-La fonction d'export permet de faire un zip avec les modifications et configuration qu'on a apporté à son instance. Et naturellement, la fonction d'import permet de "déployer" son zip sur une autre instance.
+La fonction d'export permet de faire un zip avec les modifications et configurations qu'on a apporté à son instance. 
+Et naturellement, la fonction d'import permet de "déployer" son zip sur une autre instance.
 
 
 ## Le développement spécifique
 
-XWiki promet une grande facilité d'extension, permettant au développeur d'enrichir les fonctionnalités de base pour "spécialiser" le produit pour un besoin fonctionnel donné.
+XWiki promet une grande facilité d'extension, permettant au développeur d'enrichir les fonctionnalités de base pour ajouter un fonctionnel spécifique.
 
-Dans mon cas, je devais proposer à l'intérieur du portail les fonctionnalités de collecte et partage de données publiques. Le service sous-jacent est Smart Data, accessible via une API Http.
+Dans mon cas, je devais proposer à l'intérieur du portail les fonctionnalités de collecte et partage de données publiques. 
+Le service sous-jacent est Smart Data, accessible via une API Http.
 Pour résumer :
-* Une page pour uploader un fichier de données, et donner nom/description de la source de données
-* Une page pour afficher et réaliser une recherche sur les sources de données existantes.
+
+* Une page pour uploader un fichier de données, et donner le nom et la description de la source de données
+* Une page pour afficher et réaliser une recherche sur les sources de données existantes
 * Une page pour visualiser le contenu d'une source de données (et télécharger le fichier original)
-* Une page pour supprimer les sources de données.
+* Une page pour supprimer les sources de données
 
-A chaque fonctionnalité correspond une API du service Web de Smart Data.
+Tout cela est réalisé en invoquant l'API Http du service Web de Smart Data, qui répond en Json.
 
-Première solution : créer une Classe "DataSource", et avoir un Objet "DataSource" pour chaque source de données. Toute la logique de médiation est embarquée dans les page.
+Il était possible de calquer le cycle de vie d'une DataSource sur une `Classe` XWiki, et de personnaliser les actions `edit` `view` et `delete`.
+Toute la logique de médiation aurait été embarquée dans les pages.
 
-Deuxième solution : créer un "composant" XWiki : des classes Java pour enrichir le fonctionnel XWiki, et encapsuler la logique de médiation un peu mieux que dans les pages. Les fonctionnalités sont ensuite accessible dans les pages sous forme de "macro".
-
-J'ai pris la seconde solution, car elle me semblait plus "propre": meilleur découpage/découplage de ma logique propre à Smart Data, meilleur testabilité.
+J'ai préféré développer un "plugin" XWiki : un jar pour enrichir le fonctionnel, et encapsuler la logique de médiation. Les pages peuvent invoquer ensuite ces fonctionnalités sous la forme de "macro".
+On obtient un meilleur découpage/découplage de la logique propre à Smart Data, et une meilleur testabilité (jar = projet maven = tests automatisés).
 
 Ex: l'Object XWiki ViewDataSource (template Velocity)
 {% highlight html %}
 {{velocity}}
 {{html wiki="true"}}
-## Appel au composant maison : invoque la méthode get() pour récupérer le datasource sur Smart Data.
+## Appel au service de médiation : invoque la méthode get() pour récupérer le datasource sur Smart Data.
 #set($dataSource = $services.distantDataSourceService.get($request.getParameter('id')))
 
 <div class="sd-datasource">
@@ -175,21 +179,31 @@ class DistantDataSourceService implements DataSourceService, ScriptService {
 	}
 {% endhighlight %}
 
-Le système est assez simple : le composant déclare un certain nombre de services (avec les annotations de la JSR-330), ainsi que les implémentations correspondantes. Ces service sont utilisable directement depuis les Object XWiki (injection de dépendance Spring). 
+Le système est assez simple : le composant déclare un certain nombre de services (avec les annotations de la JSR-330), ainsi que les implémentations correspondantes. 
+Ces services sont utilisables directement depuis les Object XWiki (injection de dépendances Spring). 
 
 
 ## Conclusion : bien ou quoi ?
 
-XWiki se veux comme un outil très flexible et très puissant, une plateforme pouvant supporter le développement de n'importe quel portail Web, quelque soit ses fonctionnalités. C'est pour le moins ambitieux.
+XWiki se veux comme un outil très flexible et très puissant, une plateforme pouvant supporter le développement de n'importe quel portail Web, quelque soit ses fonctionnalités. 
+C'est pour le moins ambitieux.
 
 Après avoir travaillé deux semaines avec, je suis assez tenté de dire que le pari est réussi. 
 
-Pour un développeur, la courbe d'apprentissage est minimale lorsqu'on connait Spring/Hibernate. Le modèle de donnée est simple à prendre en main. Velocity et Groovy également. Pour moi, l'aggrégation de ces technologies est naturelle et à propos.
+Pour un développeur, la courbe d'apprentissage est minimale lorsqu'on connait Spring/Hibernate. 
+Le modèle de donnée est simple. 
+Velocity et Groovy sont des outils puissant et faciles à prendre en main. 
+Pour moi, l'aggrégation de ces technologies est naturelle et à propos.
 
-Maintenant, si j'ai pu atteindre mon objectif, ce ne fut pas sans grincements de dents. Et c'est principalement dû à la flexibilité de l'outil : il y a toujours 2 ou 3 manières de réaliser la même fonctionnalité, et parfois, on s'y perd un peu.
+Maintenant, si j'ai pu atteindre mon objectif, ce ne fut pas sans grincements de dents.
+Et c'est principalement dû à la flexibilité de l'outil : il y a toujours 2 ou 3 manières de réaliser la même fonctionnalité.
+Parfois, on s'y perd un peu.
 
 La documentation développeur est un gros point faible à mon sens. 
-Enfin, les performances ne sont vraiment pas au niveau. Le temps de chargement d'une page est rédhibitoire pour un site à très fort traffic.
+Enfin, les performances ne sont vraiment pas au niveau. 
+Le temps de chargement d'une page est rédhibitoire pour un site à très fort traffic.
 
-En conclusion, je suis assez conquis par XWiki, mais pas dans une optique "grosse production de gros site à gros traffic". Etre productif en solo est facile, mais je ne suis pas aussi confiant dans le cadre d'une équipe d'une dizaine de personnes.
-Si je peux donc emettre un conseil : essayez le !
+En conclusion, je suis assez conquis par XWiki, mais pas dans une optique "grosse production de gros site à gros traffic". 
+Etre productif en solo est facile, mais je ne suis pas aussi confiant dans le cadre d'une équipe d'une dizaine de personnes.
+
+Si je peux donc emettre un conseil : essayez le, et n'hésitez pas à commenter pour donner votre avis !
