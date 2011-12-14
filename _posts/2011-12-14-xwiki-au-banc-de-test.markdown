@@ -206,4 +206,7 @@ Le temps de chargement d'une page est rédhibitoire pour un site à très fort t
 En conclusion, je suis assez conquis par XWiki, mais pas dans une optique "grosse production de gros site à gros traffic". 
 Etre productif en solo est facile, mais je ne suis pas aussi confiant dans le cadre d'une équipe d'une dizaine de personnes.
 
-Si je peux donc emettre un conseil : essayez le, et n'hésitez pas à commenter pour donner votre avis !
+Si je peux donc émettre un conseil : essayez le, et n'hésitez pas à commenter pour donner votre avis !
+
+Enfin, si vous voulez voir ce que cela donne en vrai, jetez un oeil à ce screencast :
+<iframe width="1280" height="720" src="http://www.youtube.com/embed/NuHihBI04jU?rel=0&amp;hd=1" frameborder="0" allowfullscreen></iframe>
