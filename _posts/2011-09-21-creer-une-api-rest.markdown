@@ -155,6 +155,6 @@ sur des aspects particuliers, dont
 sur son API peut aussi bénéficier d'un cache distribué (memcached,
 redis...)
 * Selon la plate-forme cible, [le format
-  JSON](http://jersey.httpjava.net/nonav/documentation/latest/json.html#d4e955) peut être légèrement
+  JSON](http://jersey.java.net/nonav/documentation/latest/json.html#d4e955) peut être légèrement
   différent.
 
