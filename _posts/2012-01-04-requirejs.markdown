@@ -2,7 +2,7 @@
 layout: post
 title: Organiser son code JavaScript avec RequireJS
 author: filirom1
-tags: [requirejs javascript webapp]
+tags: [requirejs, javascript, webapp]
 ---
 
 Je suis certain que vous avez connu la frénésie jQuery. Le JavaScript prend de plus en plus de place au sein de l'application. On commence à avoir des difficultés à gérer l'ordre des balises scripts, la navigateur télécharge un nombre incroyable de fichiers js et le navigateur ramme, on perd le compte du nombre de variables globales, on trouve du code javascript dans l'html et du html dans du javascript, le code dupliqué se multiplie et très vite, on ne sait plus qui fait quoi et rien n'est testé...
