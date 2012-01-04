@@ -98,6 +98,10 @@ Cela implique:
 
 Donc généralement, mon service web propose une API POST qui ne fait rien et renvoie une page vide, et j'utilise une iframe masquée.
 
+>**Edit**
+Les dernières versions de Chrome (15+) impose une nouvelle contrainte : il faut que le retour du serveur soit non vide.
+Donc votre "fausse API" POST doit renvoyer quelque chose (y compris une chaîne vide), mais en aucun cas un code HTTP 204 (OK BUT NO CONTENT)
+
 **index.html**
 
 {% highlight html %}
