@@ -18,13 +18,13 @@ Module Pattern
 Il nous permet de ne pas pourrir notre scope globale. En Javascript un scope est défini au niveau des fonctions. Pour éviter que nos variables arrivent dans le scope globale, il suffit de wrapper notre code autour d'une fonction et de l'exécuter tout de suite après.
 
 {% highlight javascript %}
-    (function(){
-      var private = 'I am private, the global scope is free of me !';
-    
-      function iAmPrivateToo(){
-        return 'This function is private and will not be avalaible via the global scope !'
-      }
-    })()
+(function(){
+  var private = 'I am private, the global scope is free of me !';
+
+  function iAmPrivateToo(){
+    return 'This function is private and will not be avalaible via the global scope !'
+  }
+})()
 {% endhighlight %}
 
 Object Litteral Pattern
@@ -35,33 +35,33 @@ Maintenant que nous savons isoler notre code, nous devons le découper pour évi
 A partir du moment où l'on découpe notre code, nous allons avoir besoin d'exporter des fonctions et des attributs publiquement dans une variable globale (ça va une seule, on ne crie pas au scandale tout de suite).
 
 {% highlight javascript %}
-    // script1.js
-    (function(){
-      var myApp = window.myApp = window.myApp || {};
-      
-      var aPublicVariable = 'I am public, yeahhh';
-      
-      function aPublicFunction(){
-        return 'This function will be public';
-      }
-      
-      var aPrivateVariable = 'I am private, Yeahh !!!';
-      
-      function aPrivateFunction(){
-        return 'I will never export this function';
-      }
-      
-      // exports public functions and variables
-      myApp.aPublicVariable = aPublicVariable;
-      myApp.aPublicFunction = aPublicFunction;
-    })();
+// script1.js
+(function(){
+  var myApp = window.myApp = window.myApp || {};
+  
+  var aPublicVariable = 'I am public, yeahhh';
+  
+  function aPublicFunction(){
+    return 'This function will be public';
+  }
+  
+  var aPrivateVariable = 'I am private, Yeahh !!!';
+  
+  function aPrivateFunction(){
+    return 'I will never export this function';
+  }
+  
+  // exports public functions and variables
+  myApp.aPublicVariable = aPublicVariable;
+  myApp.aPublicFunction = aPublicFunction;
+})();
 
-    // script2.js use script1 functions
-    (function(){
-      var myApp = window.myApp = window.myApp || {};
-      
-      console.log(myApp.aPublicFunction());
-    })();
+// script2.js use script1 functions
+(function(){
+  var myApp = window.myApp = window.myApp || {};
+  
+  console.log(myApp.aPublicFunction());
+})();
 {% endhighlight %}
 
 Attention script2 dépend de script1. Il y a un ordre à respecter au niveau de la déclaration des dépendances.
@@ -110,35 +110,35 @@ RequireJS est actuellement la solution mise en avant par :
 Voici un exemple de code de RequireJS, suivez les commentaires pour les explications.
 
 {% highlight javascript %}
-    /* js/script1.js */
-    define(
-      id, /* (optionnel) */
-      [ 'jquery', 'underscore' ], /* La liste des dépendances */
-      function($, _) { 
-        /* on retrouve le module pattern ici */
-        var privateVariable = 'I am private';
-        function privateFunction(){ ... }
-        
-        var publicVariable = 'I am public';
-        function publicFunction(){ ... }
-      
-        /* Variables et functions à exporter */
-        return {
-            publicVariable: publicVariable,
-            publicFunction: publicFunction
-        }
-      }
-    )
+/* js/script1.js */
+define(
+  id, /* (optionnel) */
+  [ 'jquery', 'underscore' ], /* La liste des dépendances */
+  function($, _) { 
+    /* on retrouve le module pattern ici */
+    var privateVariable = 'I am private';
+    function privateFunction(){ ... }
+    
+    var publicVariable = 'I am public';
+    function publicFunction(){ ... }
+  
+    /* Variables et functions à exporter */
+    return {
+        publicVariable: publicVariable,
+        publicFunction: publicFunction
+    }
+  }
+)
 
-    /* bootstrap.js qui utilise la dépendance defini ci dessus. */
-    require({
-      paths: {
-        jquery: 'js/libs/jquery-1.7.1.min',
-        underscore: 'js/libs/underscore-min'
-      }
-    },['js/script1'], function(script1){
-        console.log(script.publicFunction());
-    })
+/* bootstrap.js qui utilise la dépendance defini ci dessus. */
+require({
+  paths: {
+    jquery: 'js/libs/jquery-1.7.1.min',
+    underscore: 'js/libs/underscore-min'
+  }
+},['js/script1'], function(script1){
+    console.log(script.publicFunction());
+})
 {% endhighlight %}
 
 Reprenons l'exemple précédent tout doucement.
@@ -153,17 +153,17 @@ RequireJs définie deux notions : `define` et `require`. Simple non :D
 Si nous prenons l'exemple d'un module simple.
 
 {% highlight javascript %}
-    define([
-        'jquery',
-        'underscore',
-        'js/myScript',
-        ...
-    ], function($, _, myScript, ...){
-      
-      /* your private methods and variable here */
-      
-      return { /* your public variables and functions here */ }
-    });
+define([
+    'jquery',
+    'underscore',
+    'js/myScript',
+    ...
+], function($, _, myScript, ...){
+  
+  /* your private methods and variable here */
+  
+  return { /* your public variables and functions here */ }
+});
 {% endhighlight %}
 
 Je n'ai pas spécifier l'ID, RequireJs va s'en occuper pour moi et je vous conseil de faire de même. Votre code sera réutilisable plus facilement.
@@ -171,12 +171,12 @@ Je n'ai pas spécifier l'ID, RequireJs va s'en occuper pour moi et je vous conse
 Dans mon module, j'ai spécifié une liste de dépendances.
 
 {% highlight javascript %}
-    [
-      'jquery',
-      'underscore',
-      'js/myScript',
-      ...
-    ]
+[
+  'jquery',
+  'underscore',
+  'js/myScript',
+  ...
+]
 {% endhighlight %}
     
 Nous remarquons que pour myScript, le nom de la dépendance correspond à son chemin sans l'extension. Nous verrons par la suite comment configurer RequireJS afin de donner des chemins raccourcis (comme pour jQuery et underscore).
@@ -196,16 +196,16 @@ RequireJs va s'occuper de charger les dépendances des dépendances, ... et au f
 Maintenant c'est sympa nous avons défini des modules, mais il nous manque un point d'entrée à notre application. C'est le rôle de `require` de faire ça. `require` va charger dynamiquement un module, puis ses dépendances, puis appeler la fonction passée en dernier paramètre.
 
 {% highlight javascript %}
-    require({
-      paths: {
-        jquery: 'js/libs/jquery-1.7.1.min',
-        underscore: 'js/libs/underscore-min'
-      }
-    },['jquery', 'js/script1'], function($, script1){
-      $(function(){
-        $('#myID').text('Loaded ' + script1.publicFunction());
-      });
-    })
+require({
+  paths: {
+    jquery: 'js/libs/jquery-1.7.1.min',
+    underscore: 'js/libs/underscore-min'
+  }
+},['jquery', 'js/script1'], function($, script1){
+  $(function(){
+    $('#myID').text('Loaded ' + script1.publicFunction());
+  });
+})
 {% endhighlight %}
 
 
@@ -214,10 +214,10 @@ Maintenant c'est sympa nous avons défini des modules, mais il nous manque un po
 Comme vous l'avez remarqué le premier paramètre de requireJS est un objet de configuration :
 
 {% highlight javascript %}
-    paths: {
-      jquery: 'js/libs/jquery-1.7.1.min',
-      underscore: 'js/libs/underscore-min'
-    }
+paths: {
+  jquery: 'js/libs/jquery-1.7.1.min',
+  underscore: 'js/libs/underscore-min'
+}
 {% endhighlight %}
 
 Le paramètre `paths` nous permet de définir l'emplacement des librairies utilisées
@@ -237,14 +237,14 @@ C'est le rôle de la configuration `paths: { jquery: 'js/libs/jquery-1.7.1.min',
 Il faut rajouter dans le HTML les balises `script` pour RequireJS et notre bootstrap.js (celui faisant appel à toute nos dépendances) afin que le navigateur charge notre application.
 
 {% highlight html %}
-    <html>
-        <head>...</head>
-        <body>
-          <!-- Ajoutons requireJS et notre script à la fin du body -->
-          <script src="require.js"></script>
-          <script src="bootstrap.js"></script>
-        </body>
-    </html>
+<html>
+    <head>...</head>
+    <body>
+      <!-- Ajoutons requireJS et notre script à la fin du body -->
+      <script src="require.js"></script>
+      <script src="bootstrap.js"></script>
+    </body>
+</html>
 {% endhighlight %}
 
 RequireJS rajoutera les dépendances chargées via des balises script dans
@@ -266,16 +266,16 @@ RequireJS arrive avec un [script de build](https://github.com/jrburke/r.js/) qui
 Si on appelle r.js avec le paramètre -o et en lui spécifiant un fichier de configuration : `r.js -o build.js`. r.js va parcourir l'ensemble des scripts et les minifier, puis va parcourir nos dépendances afin de les grouper. Les fichiers résultant seront placés dans un nouveau répertoire afin de ne pas écraser les sources.
 
 {% highlight javascript %}
-    ({
-        appDir: './src',    /* Repertoire des sources */
-        baseUrl: ".",       /* Le repertoire racine */
-        dir: "./build",     /* Repertoire de destination */
-        modules: [ {
-          name: 'bootstrap' /* Une dependance vers un module */
-        } ],
-        optimizeCss: "standard.keepLines", /* On va même optimiser les CSS */
-        dirExclusionRegExp: /node_modules|test|build/ /* on va exclure du processus de build certain repertoires. */
-    })
+({
+    appDir: './src',    /* Repertoire des sources */
+    baseUrl: ".",       /* Le repertoire racine */
+    dir: "./build",     /* Repertoire de destination */
+    modules: [ {
+      name: 'bootstrap' /* Une dependance vers un module */
+    } ],
+    optimizeCss: "standard.keepLines", /* On va même optimiser les CSS */
+    dirExclusionRegExp: /node_modules|test|build/ /* on va exclure du processus de build certain repertoires. */
+})
 {% endhighlight %}
 
 Le fichier bootstrap.js du réperoire build contiendra l'ensemble de notre code js minifié.
@@ -313,9 +313,9 @@ Et voici une comparaisons des implémentations en terme de taille
 Si vous utilisez Almond qui ne fait pas de chargement dynamique, vous aurez besoin en prod de remplacer 'RequireJS + votre code' par un seul fichier minifié contenant tout.
 
 {% highlight html %}
-    - <script src="require.js"></script>
-    - <script src="boostrap.js"></script>
-    + <script src="almond-and-bootstrap.js"></script>
+- <script src="require.js"></script>
+- <script src="boostrap.js"></script>
++ <script src="almond-and-bootstrap.js"></script>
 {% endhighlight %}
 
 Pour cela vous pouvez :
@@ -331,33 +331,33 @@ Voici un exemple de module RequireJS avec une dépendance texte (regardez
 le préfixe text!) :
 
 {% highlight javascript %}
-    /* bootstrap.js */
-    require([
-      'jquery',
-      'underscore',
-      'text!views/template.html'
-    ], function($, _, tmpl){
-      var compiledTemplate = _.template(tmpl);
+/* bootstrap.js */
+require([
+  'jquery',
+  'underscore',
+  'text!views/template.html'
+], function($, _, tmpl){
+  var compiledTemplate = _.template(tmpl);
 
-      $(function(){
-        var $el = $('.injectHere');
-        $('.btn').click(function(){
-            $el.html(compiledtemplat({
-                firstName: firstName,
-                lastName: lastName
-            })));
-        });
-      });
-    })
+  $(function(){
+    var $el = $('.injectHere');
+    $('.btn').click(function(){
+        $el.html(compiledtemplat({
+            firstName: firstName,
+            lastName: lastName
+        })));
+    });
+  });
+})
 {% endhighlight %}
 
 Et voici le template en HTML utilisant le [micro templating underscore](http://documentcloud.github.com/underscore/#template)
 
 {% highlight javascript %}
-    <!-- views/template.html -->
-    <div class="personn">
-        <p>My name is <%= firstName %> <%= lastName %></p>
-    </div>
+<!-- views/template.html -->
+<div class="personn">
+    <p>My name is <%= firstName %> <%= lastName %></p>
+</div>
 {% endhighlight %}
 
 Si on faisait tourner le script de build r.js on obtiendrait dans le même fichier :
@@ -381,6 +381,8 @@ cité, mais regardez le livre de Addy Osmani : [Backbone Fondamentals](https://g
 Si vous voulez voir des exemples de code utilisant RequireJS, j'ai créé
 un repo pour ça : <https://github.com/Filirom1/requirejs-examples> à
 l'occasion d'un talk à [LyonJS](http://lyonjs.org).
+
+Et concernant les tests, jetez un oeil à [js-library-skeleton](https://github.com/tkellen/js-library-skeleton) qui est un exemple d'integration de RequireJs, r.js, Almond et le framework de test Jasmine.
 
 Si vous souhaitez plus de ressources sur RequireJS :
 
