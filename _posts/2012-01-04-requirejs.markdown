@@ -5,19 +5,17 @@ author: filirom1
 tags: [requirejs, javascript, webapp]
 ---
 
-Je suis certain que vous avez connu la frénésie jQuery. Le JavaScript prend de plus en plus de place au sein de l'application. On commence à avoir des difficultés à gérer l'ordre des balises scripts, la navigateur télécharge un nombre incroyable de fichiers js et le navigateur ramme, on perd le compte du nombre de variables globales, on trouve du code javascript dans l'html et du html dans du javascript, le code dupliqué se multiplie et très vite, on ne sait plus qui fait quoi et rien n'est testé...
+Je suis certain que vous aussi, vous avez connu la frénésie jQuery. Le JavaScript prend de plus en plus de place au sein de l'application. On commence à avoir des difficultés à gérer l'ordre des balises scripts, la navigateur télécharge un nombre incroyable de fichiers js et le navigateur rame, on perd le compte du nombre de variables globales, on trouve du code javascript dans l'html et du html dans du javascript, le code dupliqué se multiplie et très vite, on ne sait plus qui fait quoi et rien n'est testé...
 
 Alors comment s'en sortir ?
-Personnellement à m'en sortir avec [RequireJS](http://requirejs.org/) et cette méthode que je vais vous expliquer.
 
-
-Il existe également d'autre méthodes qui couvrent un spectre plus ou moins large des problème exposés ci dessus. Je vais commencer par vous les expliquer avant de commencer RequireJS.
+Il existe plusieurs méthodes qui couvrent un spectre plus ou moins large des problèmes exposés ci dessus. Je vais commencer par vous les expliquer avant de vous présenter la solution que je préfère : `RequireJS`.
 
 
 Module Pattern
 --------------
 <http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth>
-Il nous permet de ne pas pourrir notre scope gloable. En Javascript un scope est défini à l'aide de fonction. Pour éviter que nos variables arrivent dans le scope globale il suffit de wrapper notre code autours d'une fonction et de l'executer tout de suite après.
+Il nous permet de ne pas pourrir notre scope gloable. En Javascript un scope est défini au niveau des fonctions. Pour éviter que nos variables arrivent dans le scope globale, il suffit de wrapper notre code autour d'une fonction et de l'exécuter tout de suite après.
 
     (function(){
       var private = 'I am private, the global scope is free of me !';
@@ -31,7 +29,7 @@ Il nous permet de ne pas pourrir notre scope gloable. En Javascript un scope est
 Object Litteral Pattern
 -----------------------
 <http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal>
-Maintenant que nous savons isolé notre code, nous allons apprendre comment le découper pour éviter de se retrouver avec un seul gros fichier.
+Maintenant que nous savons isolé notre code, nous devons le découper pour éviter de se retrouver avec un seul gros fichier.
 
 A partir du moment où l'on découpe notre code, nous allons avoir besoin d'exporter des fonctions et des attributs publiquement dans une variable globale (ça va une seule, on ne crie pas au scandale tout de suite).
 
@@ -71,13 +69,15 @@ Attention script2 dépend de script1. Il y a un ordre à respecter au niveau de 
 Grouper les fichiers js pour la prod
 ------------------------------------
 
-On se retrouve avec deux fichiers javascripts, pour le développement c'est mieux mais pour la prod c'est moins bien ! On a augmenté le nombre de ressource à faire télécharger par le navigateur. Maintenant, il faut grouper et minifier ses ressources js avant de les servir en prod. Pour cela nous pouvons utiliser un simple script shell: 
+On se retrouve avec deux fichiers javascripts, pour le développement c'est mieux, mais pour la prod c'est moins bien ! On a augmenté le nombre de ressource à faire télécharger par le navigateur. Maintenant, il faut grouper et minifier ses ressources js avant de les servir en prod. Pour faire ça, nous pouvons utiliser un simple script shell:
 
     cat js/src/* >> js/build/app.js
 
-Mais attention, les dépendances risquent d'être cassé. Pour cela nous pouvons utiliser des outils plus évolués : <http://code.google.com/p/wro4j/> qui possède même un plugin Tapestry <https://github.com/lltyk/tapestry-wro4j> ;)
+Mais attention, les dépendances risquent d'être cassé. Nous pouvons également utiliser des outils plus évolués : 
 
-Ou sinon utiliser le script de build de [html5 boilerplate](https://github.com/h5bp/html5-boilerplate/wiki/Build-script)
+* [Wro4J](http://code.google.com/p/wro4j/) qui possède même un plugin Tapestry <https://github.com/lltyk/tapestry-wro4j> ;)
+* le script de build de [html5 boilerplate](https://github.com/h5bp/html5-boilerplate/wiki/Build-script)
+* ...
 
 Si vous avez d'autres outils, laissez un commentaire à cet article.
 
@@ -87,19 +87,20 @@ Gestion des dépendances avec RequireJS
 
 C'est à ce moment que je commence à vous parler de RequireJS.
 
-RequireJs va vous permettre de faire : 
+RequireJs va vous permettre de faire :
 
 *  de l'encapsulation (visibilité public / privée )
-*  de la modularité 
+*  de la modularité
 *  de la gestion de dépendances
 *  de ne plus écrire d'HTML dans des fichiers JS
 *  de l'optimisation d'assests (grouper et minifier les js et les css)
 
-RequireJS est actuellement la solution mise en avant par : 
+RequireJS est actuellement la solution mise en avant par :
 
 * [Rebecca Murphey pour utiliser RequireJS avec jQuery](http://jqfundamentals.com/)
 * [Addy Osmani pour utiliser RequireJS avec Backbone](https://github.com/addyosmani/backbone-fundamentals)
 * [Alex Sexton le père de YepNope, qui explique pourquoi il préfère RequireJS](http://www.quora.com/What-are-the-use-cases-for-RequireJS-vs-Yepnope-vs-LABjs)
+
 
 Voici un exemple de code de RequireJS, suivez les commentaires pour les explications.
 
@@ -132,12 +133,12 @@ Voici un exemple de code de RequireJS, suivez les commentaires pour les explicat
     },['js/script1'], function(script1){
         console.log(script.publicFunction());
     })
-    
+
 Reprenons l'exemple précédent tout doucement.
 
-RequireJs définie deux notions : `define`, `require`.
+RequireJs définie deux notions : `define` et `require`. Simple non :D
 
-* `define` permet de définir un module avec des dépendances et des methodes/variables à exporter.
+* `define` permet de définir un module avec des dépendances et des choses (fonction ou variable) à exporter.
 * `require` permet de charger dynamiquement des modules.
 
 ### Definir un module avec `define`
@@ -158,7 +159,7 @@ Si nous prenons l'exemple d'un module simple.
 
 Je n'ai pas spécifier l'id, RequireJs va s'en occuper pour moi et je vous conseil de faire de même. Votre code sera réutilisable plus facilement.
 
-Dans mon module, j'ai spécifié une liste de dépendences. 
+Dans mon module, j'ai spécifié une liste de dépendances. 
 
     [
       'jquery',
@@ -167,16 +168,16 @@ Dans mon module, j'ai spécifié une liste de dépendences.
       ...
     ]
     
-Nous remarquons que pour myScript, le nom de la dépendance correspond à son chemin sans l'extension '.js'. `js/myScript` va charger `http://myApp.com/js/myScript.js`. Nous verrons par la suite comment configurer RequireJS afin de donner des chemins particulier (comme pour jQuery et underscore).
+Nous remarquons que pour myScript, le nom de la dépendance correspond à son chemin sans l'extension. Nous verrons par la suite comment configurer RequireJS afin de donner des chemins raccourcis (comme pour jQuery et underscore).
 
 
-RequireJs m'assure que les dépendances seront chargées et accessibles dans le scope de la fonction : `function($, _, myScript, ...){ ... }`
+RequireJs m'assure que les dépendances seront chargées et accessibles à l'intérieur de la fonction : `function($, _, myScript, ...){ ... }`
 
-Mon module peut exporter des choses: `return { publicFunction: publicFunction, .... }` Tout ce qui n'est pas exporté est privé. Simple n'est-ce pas ;)
+Mon module peut exporter des choses (fonction ou variable) à l'aide du return: `return { publicFunction: publicFunction, .... }` Tout ce qui n'est pas exporté est privé. Simple n'est-ce pas ;)
 
-Et comme vous l'aurez supposé, tout ce qui est exporté par un module, est disponible par les autres modules via les attributs de la fonction : `$, _, myScript, ...`
+Et comme vous l'aurez supposé, tout ce qui est exporté par un module est disponible par les autres modules via les arguments de la fonction : `$, _, myScript, ...`
 
-RequireJs va s'occuper de charger les dépendances des dépendances, ... et au final je n'aurai plus qu'à définir qu'un seul module : myApplication et de ne charger que ce module pour que toutes les dependances de mon application soit chargées automatiquement (ce n'est plus à nous de gérer l'ordre c'est cool ;) ).
+RequireJs va s'occuper de charger les dépendances des dépendances, ... et au final je n'aurai plus qu'à définir qu'un seul module : myApplication et de ne charger que ce module pour que toutes les dépendances de mon application soit chargées automatiquement (ce n'est plus à nous de gérer l'ordre c'est cool ;) ).
 
 
 ### Charger des modules avec `require`
@@ -197,7 +198,7 @@ Maintenant c'est sympa nous avons défini des modules, mais il nous manque un po
 
 ### Configurer RequireJS
 
-Comme vous l'avez remarqué le premier paramètre de requireJS est un objet de configuration : 
+Comme vous l'avez remarqué le premier paramètre de requireJS est un objet de configuration :
 
     paths: {
       jquery: 'js/libs/jquery-1.7.1.min',
@@ -208,7 +209,7 @@ Le paramètre `paths` nous permet de definir l'emplacement des librairies utilis
 
 Tout à l'heure je vous est dit, n'utiliser pas d'ID dans vos modules et vous allez maintenant comprendre pourquoi.
 
-jQuery définie dans son [code ](https://github.com/jquery/jquery/blob/cae1b6174917df3b4db661f20ef4745dd6e7f305/src/core.js#L949) un `define('jquery', function(){ return jQuery });` Le premier paramètre `jquery` est l'id et nous oblige à utiliser `jquery` dans nos dépendances. 
+jQuery définie dans son [code ](https://github.com/jquery/jquery/blob/cae1b6174917df3b4db661f20ef4745dd6e7f305/src/core.js#L949) un `define('jquery', function(){ return jQuery });` Le premier paramètre `jquery` est l'id et nous oblige à utiliser le terme `jquery` pour l'ajouter en tant que dépendance. Vous avez compris, c'est relou, alors ne le faîtes pas :)
 
 Normalement nous aurions pu faire appel à jquery via son chemin complet : 
 `define(['js/libs/jquery-1.7.1.min'], function($){ ... })`, mais à cause de l'ID nous devons faire réference à jquery par son id :`define(['jquery'], function($){ ... })`
@@ -218,7 +219,7 @@ C'est le rôle de la configuration `paths: { jquery: 'js/libs/jquery-1.7.1.min',
 
 ### Intégrer RequireJS dans notre HTML
 
-Il faut rajouter dansle HTML les balises script pour require.js et notre bootstrap.js (celui faisant appel à toute nos dépendances).
+Il faut rajouter dans le HTML les balises script pour require.js et notre bootstrap.js (celui faisant appel à toute nos dépendances) afin que le navigateur charge notre application.
 
     <html>
         <head>...</head>
@@ -229,14 +230,17 @@ Il faut rajouter dansle HTML les balises script pour require.js et notre bootstr
         </body>
     </html>
 
-RequireJs rajoutera les dépendences chagé via des balise script dans le head du HTML et le navigateur les chargera automatiquement.
+RequireJs rajoutera les dépendances chargées via des balises script dans
+le head et le navigateur les chargera automatiquement. Si la dépendance
+est nécessaire plusieurs fois, RequireJs à l'intelligence de ne la
+récupérer qu'une seule fois.
 
-Maintenant lorsque nous naviguons sur notre site, le navigateur télécharge require.js, le bootstrap, et toute les dependances.
+Maintenant lorsque nous naviguons sur notre site, le navigateur télécharge require.js, le bootstrap, et toute les dépendances.
 
 
 ### Optimiser les ressources
 
-Avec RequireJS nous avons découpé notre application en plusieurs fichiers, malheuresement tous les fichiers sont téléchargés un par un par le navigateur.
+Avec RequireJS nous avons découpé notre application en plusieurs fichiers, malheureusement tous les fichiers sont téléchargés un par un par le navigateur.
 
 Nous aurions besoin de grouper et minifier l'ensemble de ces fichiers avant de les servir en production.
 
@@ -244,7 +248,7 @@ RequireJS arrive avec un [script de build](https://github.com/jrburke/r.js/) qui
 
 Si on appelle r.js avec le paramètre -o et en lui spécifiant un fichier de configuration : `r.js -o build.js`
 
-r.js va parcourir l'ensemble des scripts et les minifiers, puis va parcourir nos dépendance afin de les grouper. Les fichiers résultant seront placer dans un nouveau repertoire afin de ne pas écraser les sources.
+r.js va parcourir l'ensemble des scripts et les minifiers, puis va parcourir nos dépendances afin de les grouper. Les fichiers résultant seront placé dans un nouveau répertoire afin de ne pas écraser les sources.
 
     ({
         appDir: './src',    /* Repertoire des sources */
@@ -263,24 +267,25 @@ Le fichier bootstrap.js du réperoire build contiendra l'ensemble de notre code 
 
 ### Chargement dynamique de code
 
-Il se peut que lors de la consrtuction d'une Single Page Web App vous ayez besoin de definir des ensembles de modules. Par exemple un module qui contient l'ensemble du code JS pour le frontend de votre appli et un autre module qui va contenir le codeJS supplémentaire nécessaire pour charger le backend.
+Il se peut que lors de la construction d'une Single Page Web App vous ayez besoin de définir des ensembles de modules. Par exemple un module qui contient l'ensemble du code JS pour le frontend de votre appli et un autre module qui va contenir le code JS supplémentaire nécessaire pour charger le backend.
 
 Vous ne souhaitez pas que les internautes qui accèdent à votre frontend soit ralenti par le télechargement des ressources du backend.
 
-C'est pour répondre à cette problématique que le script de build r.js peut être configuré avec plusieurs modules.
+C'est pour répondre à cette problématique que le script de build r.js peut être configuré avec plusieurs modules ayant des options d'include et d'exclude.
+
 
 ### RequireJS sur mobile
 
-Sur mobile on a toujours des contraintes des tailles. Nous ne voulons surtout pas charger de libraries inutilement. Du fait que nous avons utiliser la structuration AMD (Asynchrnous Module Definition) dans notre code, nous sommes obligé d'utiliser une implementation AMD pour lancer notre application et requireJs n'est pas la seule implémentation existante. 
+Sur mobile on a toujours des contraintes des tailles. Nous ne voulons surtout pas charger de librairies inutilement. Du fait que nous avons utilisé la structuration AMD (Asynchrnous Module Definition) dans notre code, nous sommes obligé d'utiliser une implementation AMD pour lancer notre application et RequireJs n'est pas la seule implémentation existante. 
 
-Actuellement il en existe plusieurs dont 3 que j'ai testé personnelement.
+Actuellement il en existe plusieurs dont 3 que j'ai testé personnellement.
 
-* Almond la plus petite (mois de 1Ko gzippé) ne fait pas de chargement dynamique. Elle fonctionne très bien en complément du script builder r.js. Comme tout le code est groupé en un seul fichier, Almond peut faire son travail. Almond est la solution privilégié sur mobile.
-* Curl.js qui est deux fois moins gros que RequireJs mais qui fait également moins de choses. Mais de toute façon RequireJS fait beaucoup beaucoup de chose dont vous n'aurez pas forcement besoin et curl.js peut donc être une bonne alternative si vous avez besoin de chargement dynamique de code.
+* Almond la plus petite (mois de 1Ko gzippé) ne fait pas de chargement dynamique. Elle fonctionne très bien en complément du script builder r.js. Comme tout le code est groupé en un seul fichier, Almond peut faire son travail. Almond est la solution privilégiée sur mobile.
+* Curl.js qui est deux fois moins gros que RequireJs mais qui fait également moins de choses. De toute façon RequireJS fait beaucoup beaucoup de chose dont vous n'aurez pas forcement besoin et curl.js peut donc être une bonne alternative si vous avez besoin de chargement dynamique de code.
 
-Par contre, sur des projets plus gros, souvent RequireJS est le seul à s'en sortir.
+Par contre, sur des projets un peu gros, souvent RequireJS est le seul à s'en sortir.
 
-Et voici une comparisons des implémentations en terme de taille
+Et voici une comparaisons des implémentations en terme de taille
 
     $ ls -l
     -rw-r--r-- 1 romain users  925 29 nov.  15:41 almond.min.js.gz
@@ -288,22 +293,23 @@ Et voici une comparisons des implémentations en terme de taille
     -rw-r--r-- 1 romain users 5,5K 29 nov.  15:41 require.js.gz
 
 
-Si vous utilisez almond qui ne fait pas de dynamique loading, vous aurez besoin en prod de remplacer vos dependances requireJS + votre code par un seul fichier minifier contenant tout.
+Si vous utilisez almond qui ne fait pas de dynamique loading, vous aurez besoin en prod de remplacer RequireJS + votre code par un seul fichier minifié contenant tout.
 
     - <script src="require.js"></script>
     - <script src="boostrap.js"></script>
     + <script src="almond-and-bootstrap.js"></script>
 
-Pour cela vous pouvez utiliser : 
+Pour cela vous pouvez :
 
-*  soit utiliser [httpBuild](https://github.com/jrburke/r.js/blob/master/build/tests/http/httpBuild.js) afin de toujours compiler en dev vos assets RequireJS côté serveur
+*  soit utiliser [httpBuild](https://github.com/jrburke/r.js/blob/master/build/tests/http/httpBuild.js) afin de toujours compiler en dev vos assets RequireJS côté serveur (utilise nodejs)
 * soit utiliser les fonctionnalité de [has avec RequireJS](http://requirejs.org/docs/optimization.html#hasjs) : [exemple](https://github.com/alankligman/gladius/blob/develop/src/gladius.js)
 
 ### Stop au JS dans les HTML et à l'HTML dans les JS
 
-Avec requireJs et son plugin text vous avez la chance, de ne plus jamais écrire de Javascript dans des fichiers HTML ni d'écrire du HTML dans les fichiers Javascript.
+Avec requireJs et son plugin text vous avez la chance, de ne plus jamais écrire de Javascript dans des fichiers HTML, ni d'écrire du HTML dans les fichiers Javascript.
 
-Voici un exemple de 
+Voici un exemple de module RequireJS avec un dépendance texte (regardez
+le préfixe text!) :
 
     /* bootstrap.js */
     require([
@@ -312,41 +318,47 @@ Voici un exemple de
       'text!views/template.html'
     ], function($, _, tmpl){
       var compiledTemplate = _.template(tmpl);
-      
+
       $(function(){
         var $el = $('.injectHere');
         $('.btn').click(function(){
             $el.html(compiledtemplat({
-                firstName: firstName, 
+                firstName: firstName,
                 lastName: lastName
             })));
         });
       });
     })
 
-Et voci le template en HTML utilisant le [templating underscore](http://documentcloud.github.com/underscore/#template)
+Et voici le template en HTML utilisant le [micro templating underscore](http://documentcloud.github.com/underscore/#template)
 
     /* views/template.html */
     <div class="personn">
         <p>My name is <%= firstName %> <%= lastName %></p>
     </div>
 
-Si on faisait tourner le script de build r.js on obtiendrait dans le même fichier : 
+Si on faisait tourner le script de build r.js on obtiendrait dans le même fichier :
 
 * jQuery
 * undercore
-* le template inliner. Voici à quoi cela ressemblerait : define('text!views/template.html', function(){ return '< div class= ....' });
+* le template inliné. Il ressemblerait a ça : define('text!views/template.html', function(){ return '< div class= ....' });
 * et notre bootstrap.js
 
-RequireJS possède même des plugins afin de compiler les templates via le script de build r.js : [underscore template](https://github.com/ZeeAgency/requirejs-tpl), [handlebars](https://github.com/SlexAxton/require-handlebars-plugin) . Encore une chose de moins à faire côté client.
+RequireJS possède même des plugins afin de compiler les templates par le script de build r.js : [underscore template](https://github.com/ZeeAgency/requirejs-tpl), [handlebars](https://github.com/SlexAxton/require-handlebars-plugin) . Encore une chose de moins à faire côté client :).
 
 
 Conclusion
 ----------
 
-Quoi que RequireJs peut parraitre un poil complexe à configurer, RequireJs permet de répondre à pas mal de problématique et pour l'instant je n'ai rien trouvé de mieux pour faire des Single Page Web App.
+Quoi que RequireJs peut paraitre un poil complexe à configurer, RequireJs permet de répondre à pas mal de problématique et pour l'instant je n'ai rien trouvé de mieux pour faire des Single Page Web App.
 
-Si vous souahitez plus de resources sur RequireJS : 
+Pour de la SPA : RequireJS + Backbone c'est un must have. Je l'ai déjà
+cité, mais regardé le livre de Addy Osmani : [Backbone Fondamentals](https://github.com/addyosmani/backbone-fundamentals) il vaut vraiment le coup.
+
+Si vous voulez voir des exemples de code utilisant requireJS, j'ai créé
+un repo pour ça : <https://github.com/Filirom1/requirejs-examples>.
+
+Si vous souhaitez plus de ressources sur RequireJS : 
 
 * [Lisez le site officiel de RequireJS](http://requirejs.org/)
 * [Plongez vous dans la présentation de AMD, CommonJS et des ES imports/exports par Addy Osmani](http://addyosmani.com/writing-modular-js/)
