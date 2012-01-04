@@ -291,7 +291,7 @@ Et voici une comparaisons des implémentations en terme de taille
     -rw-r--r-- 1 romain users 5,5K 29 nov.  15:41 require.js.gz
 
 
-Si vous utilisez Almond qui ne fait pas de chargement dynamique, vous aurez besoin en prod de remplacer [RequireJS + votre code] par un seul fichier minifié contenant tout.
+Si vous utilisez Almond qui ne fait pas de chargement dynamique, vous aurez besoin en prod de remplacer 'RequireJS + votre code' par un seul fichier minifié contenant tout.
 
     - <script src="require.js"></script>
     - <script src="boostrap.js"></script>
