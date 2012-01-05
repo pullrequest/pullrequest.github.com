@@ -15,14 +15,15 @@ Il existe plusieurs méthodes qui couvrent un spectre plus ou moins large des pr
 Module Pattern
 --------------
 <http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth>
-Il nous permet de ne pas pourrir notre scope globale. En Javascript un scope est défini au niveau des fonctions. Pour éviter que nos variables arrivent dans le scope globale, il suffit de wrapper notre code autour d'une fonction et de l'exécuter tout de suite après.
+
+Il nous permet de ne pas pourrir notre scope global. En Javascript un scope est défini au niveau des fonctions. Pour éviter que nos variables arrivent dans le scope globale, il suffit de wrapper notre code autour d'une fonction et de l'exécuter tout de suite après.
 
 {% highlight javascript %}
 (function(){
   var private = 'I am private, the global scope is free of me !';
 
   function iAmPrivateToo(){
-    return 'This function is private and will not be avalaible via the global scope !'
+    return 'This function is private and will not be available via the global scope !'
   }
 })()
 {% endhighlight %}
@@ -30,13 +31,18 @@ Il nous permet de ne pas pourrir notre scope globale. En Javascript un scope est
 Object Litteral Pattern
 -----------------------
 <http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal>
-Maintenant que nous savons isoler notre code, nous devons le découper pour éviter de se retrouver avec un seul gros fichier.
+
+Maintenant que nous savons isolé notre code, nous devons le découper pour éviter de se retrouver avec un seul gros fichier.
 
 A partir du moment où l'on découpe notre code, nous allons avoir besoin d'exporter des fonctions et des attributs publiquement dans une variable globale (ça va une seule, on ne crie pas au scandale tout de suite).
 
 {% highlight javascript %}
 // script1.js
 (function(){
+
+  // if window.myApp does not exist, create it with an empty object
+  // multiple = are allowed in JS
+  // `var a = a || {};` is often used in JS, it means `var a or= {}`
   var myApp = window.myApp = window.myApp || {};
   
   var aPublicVariable = 'I am public, yeahhh';
@@ -92,6 +98,10 @@ Gestion des dépendances avec RequireJS
 
 C'est à ce moment que je commence à vous parler de RequireJS.
 
+RequireJS a été créé par [James Burke](https://github.com/jrburke), pour
+DOJO. Mais finalement, cette librairie à été séparé du projet initial pour
+devenir framework agnostique. Merci James ;)
+
 RequireJs va vous permettre de faire :
 
 *  de l'encapsulation (visibilité public / privée )
@@ -130,7 +140,7 @@ define(
   }
 )
 
-/* bootstrap.js qui utilise la dépendance defini ci dessus. */
+/* bootstrap.js qui utilise la dépendance definie ci dessus. */
 require({
   paths: {
     jquery: 'js/libs/jquery-1.7.1.min',
@@ -231,6 +241,21 @@ Normalement nous aurions pu faire appel à jquery via son chemin complet :
 
 C'est le rôle de la configuration `paths: { jquery: 'js/libs/jquery-1.7.1.min', }`. RequireJS va remplacer chaque dépendance `jquery` par son chemin réel afin de trouver la librairie.
 
+#### RequireJS et jQuery
+
+Depuis jQuery 1.7, le support de AMD (RequireJS est un implémentation de AMD) à été ajouté.
+
+Pour les versions précédentes il existe une version de RequireJS qui
+intègre jQuery : <https://github.com/jrburke/require-jquery>
+
+#### RequireJS et Backbone
+
+Si vous voulez utiliser RequireJS avec Backbone, James Burke le créateur
+de RequireJS a créé un repo avec un version de Backbone compatible AMD :
+<https://github.com/jrburke/backbone/blob/optamd3/backbone.js>
+
+Une [issue](https://github.com/documentcloud/backbone/pull/710) est un cours sur github pour que ce fork soir mergé avec
+Backbone.
 
 ### Intégrer RequireJS dans notre HTML
 
@@ -252,7 +277,7 @@ le head et le navigateur les chargera automatiquement. Si la dépendance
 est nécessaire plusieurs fois, RequireJs a l'intelligence de ne la
 récupérer qu'une seule fois.
 
-Maintenant lorsque nous naviguons sur notre site, le navigateur télécharge RequireJS, le bootstrap, et toute les dépendances.
+Maintenant lorsque nous naviguons sur notre site, le navigateur télécharge RequireJS, le bootstrap, et toutes les dépendances.
 
 
 ### Optimiser les ressources
@@ -293,16 +318,16 @@ C'est pour répondre à cette problématique que le script de build r.js peut ê
 
 ### RequireJS sur mobile
 
-Sur mobile on a toujours des contraintes des tailles. Nous ne voulons surtout pas charger de librairies inutilement. Du fait que nous avons utilisé la structuration AMD (Asynchrnous Module Definition) dans notre code, nous sommes obligé d'utiliser une implementation AMD pour lancer notre application et RequireJs n'est pas la seule implémentation existante. 
+Sur mobile on a toujours des contraintes des taille. Nous ne voulons surtout pas charger de librairies inutilement. Du fait que nous avons utilisé la structuration AMD (Asynchrnous Module Definition) dans notre code, nous sommes obligé d'utiliser une implementation AMD pour lancer notre application et RequireJs n'est pas la seule implémentation existante. 
 
-Actuellement il en existe plusieurs dont 3 que j'ai testées personnellement.
+Actuellement il en existe plusieurs dont 3 que j'ai testé personnellement.
 
 * Almond la plus petite (mois de 1Ko gzippé) ne fait pas de chargement dynamique; tous les modules doivent être contenu dans un seul fichier. Elle fonctionne très bien en complément du script builder r.js. Comme tout le code est groupé en un seul fichier, Almond peut faire son travail. Almond est la solution privilégiée sur mobile.
 * Curl.js qui est deux fois moins gros que RequireJs et peut être une bonne alternative si vous avez besoin de chargement dynamique de code.
 
 Par contre, sur des projets un peu gros, souvent RequireJS est le seul à s'en sortir.
 
-Et voici une comparaisons des implémentations en terme de taille
+Et voici une comparaison des implémentations en terme de taille
 
     $ ls -l
     -rw-r--r-- 1 romain users  925 29 nov.  15:41 almond.min.js.gz
@@ -321,7 +346,7 @@ Si vous utilisez Almond qui ne fait pas de chargement dynamique, vous aurez beso
 Pour cela vous pouvez :
 
 *  soit utiliser [httpBuild](https://github.com/jrburke/r.js/blob/master/build/tests/http/httpBuild.js) afin de toujours compiler en dev vos assets RequireJS côté serveur (utilise nodejs)
-* soit utiliser les fonctionnalité de [has avec RequireJS](http://requirejs.org/docs/optimization.html#hasjs) : [exemple](https://github.com/alankligman/gladius/blob/develop/src/gladius.js)
+* soit utiliser les fonctionnalités de [has avec RequireJS](http://requirejs.org/docs/optimization.html#hasjs) : [exemple](https://github.com/alankligman/gladius/blob/develop/src/gladius.js)
 
 ### Stop au JS dans les HTML et à l'HTML dans les JS
 
