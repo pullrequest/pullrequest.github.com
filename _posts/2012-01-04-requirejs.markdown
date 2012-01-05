@@ -73,8 +73,8 @@ A partir du moment où l'on découpe notre code, nous allons avoir besoin d'expo
 Attention script2 dépend de script1. Il y a un ordre à respecter au niveau de la déclaration des dépendances.
 
 {% highlight html %}
-    <script src="script1.js"></script>
-    <script src="script2.js"></script>
+<script src="script1.js"></script>
+<script src="script2.js"></script>
 {% endhighlight %}
     
 Grouper les fichiers JS pour la prod
