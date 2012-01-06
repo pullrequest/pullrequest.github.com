@@ -115,6 +115,7 @@ RequireJS est actuellement la solution mise en avant par :
 * [Rebecca Murphey pour utiliser RequireJS avec jQuery](http://jqfundamentals.com/)
 * [Addy Osmani pour utiliser RequireJS avec Backbone](https://github.com/addyosmani/backbone-fundamentals)
 * [Alex Sexton le père de YepNope, qui explique pourquoi il préfère RequireJS](http://www.quora.com/What-are-the-use-cases-for-RequireJS-vs-Yepnope-vs-LABjs)
+* [Resthub-JS dans sa solution pour construire des Single Page Web Apps](http://resthub.org/javascript/)
 
 
 Voici un exemple de code de RequireJS, suivez les commentaires pour les explications.
