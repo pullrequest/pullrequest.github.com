@@ -99,7 +99,7 @@ Gestion des dépendances avec RequireJS
 C'est à ce moment que je commence à vous parler de RequireJS.
 
 RequireJS a été créé par [James Burke](https://github.com/jrburke), pour
-DOJO. Mais finalement, cette librairie à été séparé du projet initial pour
+DOJO. Mais finalement, cette librairie a été séparé du projet initial pour
 devenir framework agnostique. Merci James ;)
 
 RequireJs va vous permettre de faire :
@@ -108,13 +108,14 @@ RequireJs va vous permettre de faire :
 *  de la modularité
 *  de la gestion de dépendances
 *  de ne plus écrire d'HTML dans des fichiers JS
-*  de l'optimisation d'assests (grouper et minifier les JS et les CSS)
+*  de l'optimisation d'assets (grouper et minifier les JS et les CSS)
 
 RequireJS est actuellement la solution mise en avant par :
 
 * [Rebecca Murphey pour utiliser RequireJS avec jQuery](http://jqfundamentals.com/)
 * [Addy Osmani pour utiliser RequireJS avec Backbone](https://github.com/addyosmani/backbone-fundamentals)
 * [Alex Sexton le père de YepNope, qui explique pourquoi il préfère RequireJS](http://www.quora.com/What-are-the-use-cases-for-RequireJS-vs-Yepnope-vs-LABjs)
+* [Resthub-JS dans sa solution pour construire des Single Page Web Apps](http://resthub.org/javascript/)
 
 
 Voici un exemple de code de RequireJS, suivez les commentaires pour les explications.
@@ -140,7 +141,7 @@ define(
   }
 )
 
-/* bootstrap.js qui utilise la dépendance definie ci dessus. */
+/* bootstrap.js qui utilise la dépendance définie ci dessus. */
 require({
   paths: {
     jquery: 'js/libs/jquery-1.7.1.min',
@@ -153,7 +154,7 @@ require({
 
 Reprenons l'exemple précédent tout doucement.
 
-RequireJs définie deux notions : `define` et `require`. Simple non :D
+RequireJS définit deux notions : `define` et `require`. Simple non :D
 
 * `define` permet de définir un module avec des dépendances et des choses (fonction ou variable) à exporter.
 * `require` permet de charger dynamiquement des modules.
@@ -176,7 +177,7 @@ define([
 });
 {% endhighlight %}
 
-Je n'ai pas spécifier l'ID, RequireJs va s'en occuper pour moi et je vous conseil de faire de même. Votre code sera réutilisable plus facilement.
+Je n'ai pas spécifié l'ID, RequireJs va s'en occuper pour moi et je vous conseil de faire de même. Votre code sera réutilisable plus facilement.
 
 Dans mon module, j'ai spécifié une liste de dépendances.
 
@@ -198,12 +199,12 @@ Mon module peut exporter des choses (fonction ou variable) à l'aide du return: 
 
 Et comme vous l'aurez supposé, tout ce qui est exporté par un module est disponible par les autres modules via les arguments de la fonction : `$, _, myScript, ...`
 
-RequireJs va s'occuper de charger les dépendances des dépendances, ... et au final je n'aurai plus qu'à définir qu'un seul module : myApplication et de ne charger que ce module pour que toutes les dépendances de mon application soit chargées automatiquement (ce n'est plus à nous de gérer l'ordre c'est cool ;) ).
+RequireJs va s'occuper de charger les dépendances des dépendances, ... et au final je n'aurai plus qu'à définir qu'un seul module : myApplication et de ne charger que ce module pour que toutes les dépendances de mon application soient chargées automatiquement (ce n'est plus à nous de gérer l'ordre c'est cool ;) ).
 
 
 ### Charger des modules avec `require`
 
-Maintenant c'est sympa nous avons défini des modules, mais il nous manque un point d'entrée à notre application. C'est le rôle de `require` de faire ça. `require` va charger dynamiquement un module, puis ses dépendances, puis appeler la fonction passée en dernier paramètre.
+Maintenant c'est sympa nous avons défini des modules, mais il nous manque un point d'entrée à notre application. C'est le rôle de `require` de faire ça. L'appel à `require` va charger dynamiquement un module, puis ses dépendances, puis appeler la fonction passée en dernier paramètre.
 
 {% highlight javascript %}
 require({
@@ -221,7 +222,7 @@ require({
 
 ### Configurer RequireJS
 
-Comme vous l'avez remarqué le premier paramètre de requireJS est un objet de configuration :
+Comme vous l'avez remarqué, le premier paramètre de RequireJS est un objet de configuration :
 
 {% highlight javascript %}
 paths: {
@@ -251,10 +252,10 @@ intègre jQuery : <https://github.com/jrburke/require-jquery>
 #### RequireJS et Backbone
 
 Si vous voulez utiliser RequireJS avec Backbone, James Burke le créateur
-de RequireJS a créé un repo avec un version de Backbone compatible AMD :
+de RequireJS a créé un repo avec une version de Backbone compatible AMD :
 <https://github.com/jrburke/backbone/blob/optamd3/backbone.js>
 
-Une [issue](https://github.com/documentcloud/backbone/pull/710) est un cours sur github pour que ce fork soir mergé avec
+Une [issue](https://github.com/documentcloud/backbone/pull/710) est en cours sur Github pour que ce fork soir mergé avec
 Backbone.
 
 ### Intégrer RequireJS dans notre HTML
@@ -303,7 +304,7 @@ Si on appelle r.js avec le paramètre -o et en lui spécifiant un fichier de con
 })
 {% endhighlight %}
 
-Le fichier bootstrap.js du réperoire build contiendra l'ensemble de notre code js minifié.
+Le fichier bootstrap.js du répertoire build contiendra l'ensemble de notre code js minifié.
 
 PS : r.js nécessite node ou Rhino pour fonctionner.
 
@@ -322,7 +323,7 @@ Sur mobile on a toujours des contraintes des taille. Nous ne voulons surtout pas
 
 Actuellement il en existe plusieurs dont 3 que j'ai testé personnellement.
 
-* Almond la plus petite (mois de 1Ko gzippé) ne fait pas de chargement dynamique; tous les modules doivent être contenu dans un seul fichier. Elle fonctionne très bien en complément du script builder r.js. Comme tout le code est groupé en un seul fichier, Almond peut faire son travail. Almond est la solution privilégiée sur mobile.
+* Almond la plus petite (moins de 1Ko gzippé) ne fait pas de chargement dynamique; tous les modules doivent être contenus dans un seul fichier. Elle fonctionne très bien en complément du script builder r.js. Comme tout le code est groupé en un seul fichier, Almond peut faire son travail. Almond est la solution privilégiée sur mobile.
 * Curl.js qui est deux fois moins gros que RequireJs et peut être une bonne alternative si vous avez besoin de chargement dynamique de code.
 
 Par contre, sur des projets un peu gros, souvent RequireJS est le seul à s'en sortir.
@@ -398,7 +399,7 @@ RequireJS possède même des plugins afin de compiler les templates par le scrip
 Conclusion
 ----------
 
-Quoi que RequireJs peut paraitre un poil complexe à configurer, RequireJs permet de répondre à pas mal de problématiques et pour l'instant je n'ai rien trouvé de mieux pour faire des Single Page Web App.
+Bien RequireJS puisse paraitre un poil complexe à configurer, RequireJs permet de répondre à pas mal de problématiques et pour l'instant je n'ai rien trouvé de mieux pour faire des Single Page Web Apps (SPA).
 
 D'ailleurs, pour de la SPA : RequireJS + Backbone c'est un must have. Je l'ai déjà
 cité, mais regardez le livre de Addy Osmani : [Backbone Fondamentals](https://github.com/addyosmani/backbone-fundamentals) il vaut vraiment le coup.
