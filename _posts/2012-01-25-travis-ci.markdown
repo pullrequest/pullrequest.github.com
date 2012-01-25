@@ -3,7 +3,7 @@ layout: post
 title: Travis-CI l'intégration continue sans effort
 author: loicfrering
 tags: [ci, travis, php, nodejs, ruby, clojure, erlang]
-published: false
+published: true
 ---
 
 Aujourd'hui je souhaite vous parler d'un projet qui me tient
@@ -11,11 +11,11 @@ particulièrement à cœur : [Travis CI](http://travis-ci.org/), une
 plateforme d'intégration continue simple et efficace. C'est un projet
 auquel je tiens puisque j'y contribue et gère le support de PHP avec
 l'aide et aux côtés de l'[équipe de
-contributeurs](https://github.com/travis-ci/) que je remercie au passage
-et qui mettent à disposition de la communauté open source cet outil plus
-que pratique !
+contributeurs](https://github.com/travis-ci/).
 
-![Travis CI](images/travis.png)
+<p class="center">
+  <img src="/public/img/2012-01-25-travis-ci/travis.png" border="0" />
+</p>
 
 Sa devise ? "A distributed build system for the open source community."
 A l'initiative de la communauté Ruby, Travis est donc une plateforme
@@ -43,8 +43,8 @@ n'affectera pas les autres projets buildés par Travis de la même manière
 que les autres projets ne viendront pas perturber le votre.
 
 De plus chaque build se déroule dans une **sandbox** : après l'exécution
-du build, une snapshot propre de la machine virtuelle restaure son état,
-aucun risque de casser votre environnement.
+du build, une snapshot réinitialisée de la machine virtuelle restaure
+son état, aucun risque de casser votre environnement.
 
 Enfin, l'**infrastructure est distribuée**, tout d'abord le front est totalement
 découplé des workers puis Travis provisionne pour vous un pool de
@@ -65,8 +65,8 @@ sur plusieurs versions du langage** que vous utilisez. Vous faites du
 Ruby ?  Vous pouvez tester votre projet sur Ruby 1.8.7, Ruby 1.9.3 ou
 même Ruby HEAD (version de développement courante), JRuby ou Rubinius.
 Vous faites du nodejs, hop testez vos packages sur nodejs 0.4 ou 0.6.
-Vous faites du PHP, vous pouvez tester votre projet sur PHP 5.3.8,
-5.4.0RC4 et même 5.2.17 !
+Vous faites du PHP, vous pouvez tester votre projet sur PHP 5.3.9,
+5.4.0RC5 et même 5.2.17 !
 
 Votre application doit être testée sur plusieurs bases de données
 différentes ? Travis supporte MySQL, PostGreSQL, SQLite, MongoDB,
@@ -113,10 +113,10 @@ décrivant comment doit se dérouler votre build. La configuration de
 Travis est très souple et permet la définition des fameuses combinaisons
 mentionnées un peu plus tôt.
 
-Pour la seconde étape il suffit de vous rendre sur travis-ci.org, de
-vous authentifier automatiquement via l'OAuth de Github et vous pourrez
-activer l'intégration continue de vos projets, c'est aussi simple que
-cela !
+Pour la seconde étape il suffit de vous rendre sur
+[travis-ci.org](http://travis-ci.org), de vous authentifier
+automatiquement via l'OAuth de Github et vous pourrez activer
+l'intégration continue de vos projets, c'est aussi simple que cela !
 
 Pour plus d'informations, référez-vous au [Getting
 Started](http://about.travis-ci.org/docs/user/getting-started/) de la
@@ -148,30 +148,69 @@ détaillées plus haut :
 * [Ember.js](http://emberjs.com/) (successeur de SproutCore 2) pour la
   RIA côté client
 
+Son architecture étant découplée, une partie des applications qui
+composent Travis sont déployées sur [Heroku](http://www.heroku.com/) (le
+site web, le hub) alors que les workers, qui exécutent les builds,
+tournent sur des machines dédiées fournies généreusement par des
+sponsors.
+
+Pour plus de détails sur les rouages de Travis, vous pouvez vous référez
+à cette [technical
+overview](http://about.travis-ci.org/docs/dev/overview/).
+
 ## A ce jour
 
 A ce jour, Travis lance les builds de plus de 4200 repositories à raison
 de 2000 builds par jour en moyenne ! L'intégration continue de projets
 très prestigieux est gérée par Travis, en particulier :
 
-* Rails, Sinatra
-* HAML, SASS, LESS et leurs plugins Rails respectifs
-* RSpec
-* Mongoid
-* NodeJS et npm
-* Cucumber
-* Gollum
-* Bundler
-* rubygems et rubygems.org
-* Ruby itself (CRuby, l'implémentation de référence)
-* Symfony2 et une bonne partie des bundles les plus connus
-* Doctrine2
-* Propel
-* Behat
-* Le plugin Eclipse pour Twig
-* Leiningen
-
-J'en passe et des meilleurs !
+* Dans la communauté Ruby :
+  * [Ruby on Rails](http://travis-ci.org/#!/rails/rails)
+  * [Bundler](http://travis-ci.org/#!/carlhuda/bundler)
+  * [Sinatra](http://travis-ci.org/sinatra/sinatra)
+  * [Rack](http://travis-ci.org/#!/rack/rack)
+  * [RSpec](http://travis-ci.org/#!/rspec/rspec-core)
+  * [Cucumber](http://travis-ci.org/#!/cucumber/cucumber)
+  * [HAML](http://travis-ci.org/#!/nex3/haml)
+  * [SASS](http://travis-ci.org/#!/nex3/sass)
+  * [RubyGems](http://travis-ci.org/#!/rubygems/rubygems)
+  * [rubygems.org](http://travis-ci.org/#!/rubygems/rubygems.org)
+  * [Mongoid](http://travis-ci.org/#!/mongoid/mongoid)
+  * [Rubinius](http://travis-ci.org/#!/rubinius/rubinius)
+  * [Factory Girl](http://travis-ci.org/#!/thoughtbot/factory_girl)
+  * [Spree](http://travis-ci.org/#!/spree/spree)
+  * [Devise](http://travis-ci.org/#!/plataformatec/devise)
+  * [amqp gem](http://travis-ci.org/#!/ruby-amqp/amqp)
+  * et même le miroir GitHub de [CRuby (MRI) itself](http://travis-ci.org/#!/ruby/ruby)
+* Dans la communauté JavaScript :
+  * [Node.js](http://travis-ci.org/joyent/node)
+  * [NPM](http://travis-ci.org/#!/isaacs/npm)
+  * [Express](http://travis-ci.org/#!/visionmedia/express)
+  * [Vows](http://travis-ci.org/#!/cloudhead/vows)
+  * [Mocha](http://travis-ci.org/#!/visionmedia/mocha)
+  * [Ember.js](http://travis-ci.org/#!/emberjs/ember.js) (ex. SproutCore 2)
+  * [Batman.js](http://travis-ci.org/#!/Shopify/batman)
+  * [flatiron (certains sous-projets)](https://github.com/flatiron)
+* Dans la communauté PHP :
+  * [Symfony2](http://travis-ci.org/#!/symfony/symfony)
+  * [Doctrine2](http://travis-ci.org/#!/doctrine/doctrine2)
+  * [Composer](http://travis-ci.org/#!/composer/composer)
+  * [Behat](http://travis-ci.org/#!/Behat/Behat)
+  * et de nombreux bundles Symfony2
+* Dans la communauté Clojure :
+  * [Leiningen](http://travis-ci.org/#!/technomancy/leiningen)
+  * [Knockbox](http://travis-ci.org/#!/reiddraper/knockbox)
+  * [Langohr](http://travis-ci.org/#!/michaelklishin/langohr)
+  * [Monger](http://travis-ci.org/#!/michaelklishin/monger)
+  * [Neocons](http://travis-ci.org/#!/michaelklishin/neocons)
+  * [Sumo](http://travis-ci.org/#!/reiddraper/sumo)
+* Dans la communauté Erlang :
+  * [Cowboy](http://travis-ci.org/#!/extend/cowboy)
+  * [Elixir](http://travis-ci.org/#!/josevalim/elixir)
+* On y trouve même quelques plugins Eclipse qui profitent de la
+  disponibilité de Maven sur la plateforme :
+  * [Symfony2 Eclipse Plugin](http://travis-ci.org/#!/pulse00/Symfony-2-Eclipse-Plugin)
+  * [Twig Eclipse Plugin](http://travis-ci.org/#!/pulse00/Twig-Eclipse-Plugin)
 
 ## Conclusion
 
@@ -185,3 +224,8 @@ Pour plus d'informations, n'hésitez pas à parcourir la
 [documentation](http://about.travis-ci.org/docs/), à suivre
 [@Travis](https://twitter.com/travisci) sur Twitter ou à nous rejoindre
 sur le channel #travis de irc.freenode.net.
+
+Merci à [Michael Klishin](https://twitter.com/michaelklishin) pour la
+relecture approfondie et à tous les [contributeurs
+Travis](https://github.com/travis-ci/) qui participent à la mise à
+disposition de cet outil si pratique !
