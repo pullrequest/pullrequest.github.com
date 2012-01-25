@@ -215,6 +215,10 @@ ul {
   list-style-type: square;
 }
 
+.center {
+  text-align: center;
+}
+
 /* ---- Site header ---- */
 
 #container > header {
@@ -300,9 +304,9 @@ ul {
   border-bottom-color: #480c28;
 }
 
-#content img {
+/*#content img {
   border: solid 3px #999;
-}
+}*/
 
 /* ---- Article ---- */
 
