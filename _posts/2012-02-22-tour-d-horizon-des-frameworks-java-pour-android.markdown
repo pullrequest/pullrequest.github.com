@@ -51,17 +51,19 @@ Comme son nom l'indique, ce framework apporte un bon nombre d'annotations
 qui nous permettent d'éliminer beaucoup de code boilerplate. Un exemple
 valant mieux qu'un long discours :
 
-    @EActivity(R.layout.mon_activite) // content view => R.layout.mon_activite
-    public class MyActivity extends Activity {
-		@InjectView  // Injection de R.id.titre
-		TextView titre;
-		
-		@DrawableRes(R.drawable.logo)
-		Drawable logo
+{% highlight java %}
+@EActivity(R.layout.mon_activite) // content view => R.layout.mon_activite
+public class MyActivity extends Activity {
+	@InjectView  // Injection de R.id.titre
+	TextView titre;
+	
+	@DrawableRes(R.drawable.logo)
+	Drawable logo
 
-		@SystemService
-		SearchManager searchManager;
-    }
+	@SystemService
+	SearchManager searchManager;
+}
+{% endhighlight %}
 
 Le framework fonctionne par génération de code à la compilation ([JAPT](http://docs.oracle.com/javase/6/docs/technotes/guides/apt/index.html)) en
 créant des classes suffixées d'un _. Une activity MyActivity devient donc
@@ -90,19 +92,21 @@ Projet très jeune et peu documenté, pas du tout prêt à être utilisé.
 
 ORM basé sur des annotations :
 
-    @DatabaseTable(tableName = "accounts")
-    public class Account {
-		@DatabaseField(id = true)
-		private String name;
+{% highlight java %}
+@DatabaseTable(tableName = "accounts")
+public class Account {
+	@DatabaseField(id = true)
+	private String name;
 
-		@DatabaseField(canBeNull = false)
-		private String password;
-		...
-		Account() {
-			// all persisted classes must define a no-arg constructor with at least package visibility
-		}
-		...
-    }
+	@DatabaseField(canBeNull = false)
+	private String password;
+	...
+	Account() {
+		// all persisted classes must define a no-arg constructor with at least package visibility
+	}
+	...
+}
+{% endhighlight %}
 
 Il s'intègre bien dans les applications Android (l'API pour Android est [là](http://ormlite.com/javadoc/ormlite-android/)).
 L'intégration avec RoboGuice est possible et on obtient alors une stack qui
@@ -148,36 +152,40 @@ Le model gère les données et les hanlders (on peut voir la déclaration de la
 Command AddContact qui est en fait un handler onClick directement "bindé"
 dans une vue XML avec binding:onClick="AddContact") :
 
-    public class ContactManagerModel {
-    	private Activity mContext;
-    	
-    	public CursorSource<ContactRowModel> ContactList = new CursorSource<ContactRowModel>(ContactRowModel.class, new Factory());
-    	
-    	public BooleanObservable ShowInvisible = new BooleanObservable(false);
-    
-    	public Command PopulateList = new Command(){
-    		public void Invoke(View view, Object... args) {
-    			populateContactList();
-    		}
-    	};
-    	public Command AddContact = new Command(){
-    		public void Invoke(View view, Object... args) {
-    			launchContactAdder();
-    		}
-    	};
-    
-    	private void populateContactList() {
-			// Build adapter with contact entries
-			Cursor cursor = getContacts();
-			ContactList.setCursor(cursor);
-      }
-    }
+{% highlight java %}
+public class ContactManagerModel {
+	private Activity mContext;
+	
+	public CursorSource<ContactRowModel> ContactList = new CursorSource<ContactRowModel>(ContactRowModel.class, new Factory());
+	
+	public BooleanObservable ShowInvisible = new BooleanObservable(false);
+
+	public Command PopulateList = new Command(){
+		public void Invoke(View view, Object... args) {
+			populateContactList();
+		}
+	};
+	public Command AddContact = new Command(){
+		public void Invoke(View view, Object... args) {
+			launchContactAdder();
+		}
+	};
+
+	private void populateContactList() {
+		// Build adapter with contact entries
+		Cursor cursor = getContacts();
+		ContactList.setCursor(cursor);
+	}
+}
+{% endhighlight %}
 
 Les vues correspondent aux layout en xml avec des namespaces binding: (ce qui
 rend l'édition des vues xml incompatibles avec l'éditeur intégrér au plugin eclipse) :
 
-    <LinearLayout xmlns:android="http://...." xmlns:binding="http://www.gueei.com/android-binding/" ..>
-		<TextView binding:text="FirstName" ...
+{% highlight xml %}
+<LinearLayout xmlns:android="http://...." xmlns:binding="http://www.gueei.com/android-binding/" ..>
+	<TextView binding:text="FirstName" ...
+{% endhighlight %}
 
 Les Activity android se chargent de faire le lien entre le modèle et la vue
 et absolument rien d'autre. Cela permet donc de bien séparer la partie
@@ -186,14 +194,18 @@ présentation de la partie fonctionnelle.
 Le framework est très prometteur et permet d'effectuer de la validation de
 modèle à l'aide d'annotations sur les champs du modèle :
 
-    @Required(ErrorMessage="You must put the login name! (you can try Jean-Michel)")
-    public final Observable<CharSequence> Login;
+{% highlight java %}
+@Required(ErrorMessage="You must put the login name! (you can try Jean-Michel)")
+public final Observable<CharSequence> Login;
+{% endhighlight %}
 
 ou encore :
 
-	@Required
-	@EqualsTo(Observable="Password")
-	public final Observable<CharSequence> ConfirmPassword;
+{% highlight java %}
+@Required
+@EqualsTo(Observable="Password")
+public final Observable<CharSequence> ConfirmPassword;
+{% endhighlight %}
 
 Un framework à définitivement tester, ainsi que son intégration avec RoboGuice.
 
@@ -209,27 +221,31 @@ vie pour dialoguer avec des APIs REST. Android Annotations a d'ailleurs intégr�
 RestTemplate dans ses annotations et ça devient vraiment sympa à coder.
 Il suffit de coder son service REST :
 
-    @Rest("http://monserveur.fr/api")
-    public interface MonServiceRest {
-    
-		@Get("/item/{id}")
-        @Accept(MediaType.APPLICATION_JSON)
-        Item getItem(long id);
-    }
+{% highlight java %}
+@Rest("http://monserveur.fr/api")
+public interface MonServiceRest {
+
+	@Get("/item/{id}")
+	@Accept(MediaType.APPLICATION_JSON)
+	Item getItem(long id);
+}
+{% endhighlight %}
 
 Puis dans sa vue d'injecter le service et de l'utiliser ensuite :
 
-    @RestService
-    MonServiceRest monServiceRest;
-    
-    @AfterViews
-    @Background
-    void init() {
-        item = monServiceRest.getItem(2L);
-        if(item != null) {
-            showItem();
-        }
-    }
+{% highlight java %}
+@RestService
+MonServiceRest monServiceRest;
+
+@AfterViews
+@Background
+void init() {
+	item = monServiceRest.getItem(2L);
+	if(item != null) {
+		showItem();
+	}
+}
+{% endhighlight %}
 
 En 10 lignes, j'ai codé un bout d'appli qui récupère directement mes données
 depuis mon serveur. A faire sans l'aide de framework, c'est beaucoup plus long
@@ -250,8 +266,12 @@ Android. Cela peut devenir pratique si on commence à utiliser beaucoup de libra
 
 Pour builder mon appli :
 
-    mvn install
+{% highlight sh %}
+mvn install
+{% endhighlight %}
 
 Pour déployer l'application sur un terminal :
 
-    mvn android:deploy
+{% highlight sh %}
+mvn android:deploy
+{% endhighlight %}
