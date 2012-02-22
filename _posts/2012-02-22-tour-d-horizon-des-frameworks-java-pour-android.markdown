@@ -63,7 +63,7 @@ valant mieux qu'un long discours :
 		SearchManager searchManager;
     }
 
-Le framework fonctionne par génération de code à la compilation (JAPT) en
+Le framework fonctionne par génération de code à la compilation ([JAPT](http://docs.oracle.com/javase/6/docs/technotes/guides/apt/index.html)) en
 créant des classes suffixées d'un _. Une activity MyActivity devient donc
 MyActivity_ et doit être déclarée telle quelle dans le AndroidManifest.xml.
 Ce qui peut paraître au premier abord un gros point négatif apporte un
@@ -104,7 +104,7 @@ ORM basé sur des annotations :
 		...
     }
 
-Il s'intègre bien dans les applications Android (l'API pour Android est là).
+Il s'intègre bien dans les applications Android (l'API pour Android est [là](http://ormlite.com/javadoc/ormlite-android/)).
 L'intégration avec RoboGuice est possible et on obtient alors une stack qui
 s'approche du Spring + Hibernate côté serveur. On annote notre modèle, nos
 DAOs et nos services qui seront directement injectés dans nos activités.
@@ -142,7 +142,7 @@ A étudier (Footprint de 1Mo...).
 
 ### [android-binding](http://code.google.com/p/android-binding/)
 
-Il s'agit d'un Model and View framework (MVVM à la WPF).
+Il s'agit d'un Model and View framework (MVVM à la [WPF](http://msdn.microsoft.com/fr-fr/netframework/aa663326)).
 
 Le model gère les données et les hanlders (on peut voir la déclaration de la
 Command AddContact qui est en fait un handler onClick directement "bindé"
