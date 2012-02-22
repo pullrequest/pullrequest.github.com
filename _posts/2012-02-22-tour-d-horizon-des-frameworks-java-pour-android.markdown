@@ -50,6 +50,7 @@ les prochaines semaines.
 Comme son nom l'indique, ce framework apporte un bon nombre d'annotations
 qui nous permettent d'éliminer beaucoup de code boilerplate. Un exemple
 valant mieux qu'un long discours :
+
 > @EActivity(R.layout.mon_activite) // content view => R.layout.mon_activite
 > public class MyActivity extends Activity {
 >     @InjectView  // Injection de R.id.titre
@@ -86,6 +87,7 @@ Projet très jeune et peu documenté, pas du tout prêt à être utilisé.
 ### [ORMLite Android](http://ormlite.com)
 
 ORM basé sur des annotations :
+
 > @DatabaseTable(tableName = "accounts")
 > public class Account {
 >   @DatabaseField(id = true)
@@ -143,6 +145,7 @@ Il s'agit d'un Model and View framework (MVVM à la WPF).
 Le model gère les données et les hanlders (on peut voir la déclaration de la
 Command AddContact qui est en fait un handler onClick directement "bindé"
 dans une vue XML avec binding:onClick="AddContact") :
+
 > public class ContactManagerModel {
 > 	private Activity mContext;
 > 	
@@ -170,6 +173,7 @@ dans une vue XML avec binding:onClick="AddContact") :
 
 Les vues correspondent aux layout en xml avec des namespaces binding: (ce qui
 rend l'édition des vues xml incompatibles avec l'éditeur intégrér au plugin eclipse) :
+
 > <LinearLayout xmlns:android="http://...." xmlns:binding="http://www.gueei.com/android-binding/" ..>
 >    <TextView binding:text="FirstName" ...
 
@@ -194,6 +198,7 @@ Un framework à définitivement tester, ainsi que son intégration avec RoboGuic
 ### [Spring Android](http://static.springsource.org/spring-android/docs/1.0.x/reference/htmlsingle/)
 
 Il s'agit en fait de plusieurs modules de Spring pour le monde Android :
+
 * **RestTemplate** : un client REST très pratique qui nous permet de dialoguer en JSON / XML / RSS (footprint de 413Ko pour du JSON avec Google GSON par exemple)
 * **Android Auth** : facilite l'authentification via OAuth 1/2 (avec des modules spéciaux pour Twitter / Facebook via Spring Social)
 
@@ -201,6 +206,7 @@ Un peu lourd en terme de taille de librairie mais nous facilite grandement la
 vie pour dialoguer avec des APIs REST. Android Annotations a d'ailleurs intégré
 RestTemplate dans ses annotations et ça devient vraiment sympa à coder.
 Il suffit de coder son service REST :
+
 > @Rest("http://monserveur.fr/api")
 > public interface MonServiceRest {
 > 
@@ -241,7 +247,9 @@ Permet d'utiliser Maven dans le cycle de vie de développement d'une application
 Android. Cela peut devenir pratique si on commence à utiliser beaucoup de librairies.
 
 Pour builder mon appli :
+
 > mvn install
 
 Pour déployer l'application sur un terminal :
+
 > mvn android:deploy
