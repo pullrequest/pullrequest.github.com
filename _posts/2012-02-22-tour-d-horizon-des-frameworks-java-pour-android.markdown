@@ -52,7 +52,7 @@ qui nous permettent d'éliminer beaucoup de code boilerplate. Un exemple
 valant mieux qu'un long discours :
 
 {% highlight java %}
-// Activity
+// Activity handled by Android Annotations
 @EActivity(R.layout.mon_activite) // content view => R.layout.mon_activite
 public class MyActivity extends Activity {
     @InjectView  // Injection de R.id.titre
@@ -94,7 +94,7 @@ Projet très jeune et peu documenté, pas du tout prêt à être utilisé.
 ORM basé sur des annotations :
 
 {% highlight java %}
-// Annotations
+// ORMLite annotation (table name described here)
 @DatabaseTable(tableName = "accounts")
 public class Account {
     @DatabaseField(id = true)
@@ -197,7 +197,7 @@ Le framework est très prometteur et permet d'effectuer de la validation de
 modèle à l'aide d'annotations sur les champs du modèle :
 
 {% highlight java %}
-// Annotation
+// Validation annotation
 @Required(ErrorMessage="You must put the login name! (you can try Jean-Michel)")
 public final Observable<CharSequence> Login;
 {% endhighlight %}
@@ -205,7 +205,7 @@ public final Observable<CharSequence> Login;
 ou encore :
 
 {% highlight java %}
-// Annotation
+// Validation annotation + equals rule
 @Required
 @EqualsTo(Observable="Password")
 public final Observable<CharSequence> ConfirmPassword;
@@ -226,7 +226,7 @@ RestTemplate dans ses annotations et ça devient vraiment sympa à coder.
 Il suffit de coder son service REST :
 
 {% highlight java %}
-// Annotation
+// REST server annotation (you just have to declare your server url)
 @Rest("http://monserveur.fr/api")
 public interface MonServiceRest {
 
@@ -239,7 +239,7 @@ public interface MonServiceRest {
 Puis dans sa vue d'injecter le service et de l'utiliser ensuite :
 
 {% highlight java %}
-// Annotation
+// REST service injection
 @RestService
 MonServiceRest monServiceRest;
 
