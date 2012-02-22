@@ -52,16 +52,17 @@ qui nous permettent d'éliminer beaucoup de code boilerplate. Un exemple
 valant mieux qu'un long discours :
 
 {% highlight java %}
+// Activity
 @EActivity(R.layout.mon_activite) // content view => R.layout.mon_activite
 public class MyActivity extends Activity {
-	@InjectView  // Injection de R.id.titre
-	TextView titre;
-	
-	@DrawableRes(R.drawable.logo)
-	Drawable logo
+    @InjectView  // Injection de R.id.titre
+    TextView titre;
+    
+    @DrawableRes(R.drawable.logo)
+    Drawable logo
 
-	@SystemService
-	SearchManager searchManager;
+    @SystemService
+    SearchManager searchManager;
 }
 {% endhighlight %}
 
@@ -93,18 +94,19 @@ Projet très jeune et peu documenté, pas du tout prêt à être utilisé.
 ORM basé sur des annotations :
 
 {% highlight java %}
+// Annotations
 @DatabaseTable(tableName = "accounts")
 public class Account {
-	@DatabaseField(id = true)
-	private String name;
+    @DatabaseField(id = true)
+    private String name;
 
-	@DatabaseField(canBeNull = false)
-	private String password;
-	...
-	Account() {
-		// all persisted classes must define a no-arg constructor with at least package visibility
-	}
-	...
+    @DatabaseField(canBeNull = false)
+    private String password;
+    ...
+    Account() {
+        // all persisted classes must define a no-arg constructor with at least package visibility
+    }
+    ...
 }
 {% endhighlight %}
 
@@ -154,28 +156,28 @@ dans une vue XML avec binding:onClick="AddContact") :
 
 {% highlight java %}
 public class ContactManagerModel {
-	private Activity mContext;
-	
-	public CursorSource<ContactRowModel> ContactList = new CursorSource<ContactRowModel>(ContactRowModel.class, new Factory());
-	
-	public BooleanObservable ShowInvisible = new BooleanObservable(false);
+    private Activity mContext;
+    
+    public CursorSource<ContactRowModel> ContactList = new CursorSource<ContactRowModel>(ContactRowModel.class, new Factory());
+    
+    public BooleanObservable ShowInvisible = new BooleanObservable(false);
 
-	public Command PopulateList = new Command(){
-		public void Invoke(View view, Object... args) {
-			populateContactList();
-		}
-	};
-	public Command AddContact = new Command(){
-		public void Invoke(View view, Object... args) {
-			launchContactAdder();
-		}
-	};
+    public Command PopulateList = new Command(){
+        public void Invoke(View view, Object... args) {
+            populateContactList();
+        }
+    };
+    public Command AddContact = new Command(){
+        public void Invoke(View view, Object... args) {
+            launchContactAdder();
+        }
+    };
 
-	private void populateContactList() {
-		// Build adapter with contact entries
-		Cursor cursor = getContacts();
-		ContactList.setCursor(cursor);
-	}
+    private void populateContactList() {
+        // Build adapter with contact entries
+        Cursor cursor = getContacts();
+        ContactList.setCursor(cursor);
+    }
 }
 {% endhighlight %}
 
@@ -184,7 +186,7 @@ rend l'édition des vues xml incompatibles avec l'éditeur intégrér au plugin 
 
 {% highlight xml %}
 <LinearLayout xmlns:android="http://...." xmlns:binding="http://www.gueei.com/android-binding/" ..>
-	<TextView binding:text="FirstName" ...
+    <TextView binding:text="FirstName" ...
 {% endhighlight %}
 
 Les Activity android se chargent de faire le lien entre le modèle et la vue
@@ -195,6 +197,7 @@ Le framework est très prometteur et permet d'effectuer de la validation de
 modèle à l'aide d'annotations sur les champs du modèle :
 
 {% highlight java %}
+// Annotation
 @Required(ErrorMessage="You must put the login name! (you can try Jean-Michel)")
 public final Observable<CharSequence> Login;
 {% endhighlight %}
@@ -202,6 +205,7 @@ public final Observable<CharSequence> Login;
 ou encore :
 
 {% highlight java %}
+// Annotation
 @Required
 @EqualsTo(Observable="Password")
 public final Observable<CharSequence> ConfirmPassword;
@@ -222,28 +226,30 @@ RestTemplate dans ses annotations et ça devient vraiment sympa à coder.
 Il suffit de coder son service REST :
 
 {% highlight java %}
+// Annotation
 @Rest("http://monserveur.fr/api")
 public interface MonServiceRest {
 
-	@Get("/item/{id}")
-	@Accept(MediaType.APPLICATION_JSON)
-	Item getItem(long id);
+    @Get("/item/{id}")
+    @Accept(MediaType.APPLICATION_JSON)
+    Item getItem(long id);
 }
 {% endhighlight %}
 
 Puis dans sa vue d'injecter le service et de l'utiliser ensuite :
 
 {% highlight java %}
+// Annotation
 @RestService
 MonServiceRest monServiceRest;
 
 @AfterViews
 @Background
 void init() {
-	item = monServiceRest.getItem(2L);
-	if(item != null) {
-		showItem();
-	}
+    item = monServiceRest.getItem(2L);
+    if(item != null) {
+        showItem();
+    }
 }
 {% endhighlight %}
 
