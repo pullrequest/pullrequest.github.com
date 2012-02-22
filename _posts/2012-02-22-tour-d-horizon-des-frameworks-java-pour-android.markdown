@@ -51,7 +51,7 @@ Comme son nom l'indique, ce framework apporte un bon nombre d'annotations
 qui nous permettent d'éliminer beaucoup de code boilerplate. Un exemple
 valant mieux qu'un long discours :
 
-    @EActivity(R.layout.mon_activite) // content view =    R.layout.mon_activite
+    @EActivity(R.layout.mon_activite) // content view => R.layout.mon_activite
     public class MyActivity extends Activity {
 		@InjectView  // Injection de R.id.titre
 		TextView titre;
@@ -151,7 +151,7 @@ dans une vue XML avec binding:onClick="AddContact") :
     public class ContactManagerModel {
     	private Activity mContext;
     	
-    	public CursorSource<ContactRowModel    ContactList = new CursorSource<ContactRowModel    (ContactRowModel.class, new Factory());
+    	public CursorSource<ContactRowModel> ContactList = new CursorSource<ContactRowModel>(ContactRowModel.class, new Factory());
     	
     	public BooleanObservable ShowInvisible = new BooleanObservable(false);
     
@@ -187,7 +187,7 @@ Le framework est très prometteur et permet d'effectuer de la validation de
 modèle à l'aide d'annotations sur les champs du modèle :
 
     @Required(ErrorMessage="You must put the login name! (you can try Jean-Michel)")
-    public final Observable<CharSequence    Login;
+    public final Observable<CharSequence> Login;
 
 ou encore :
 
