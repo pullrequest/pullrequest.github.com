@@ -67,7 +67,7 @@ public class MyActivity extends Activity {
 {% endhighlight %}
 
 Le framework fonctionne par génération de code à la compilation ([JAPT](http://docs.oracle.com/javase/6/docs/technotes/guides/apt/index.html)) en
-créant des classes suffixées d'un _. Une activity MyActivity devient donc
+créant des classes suffixées d'un \_. Une activity MyActivity devient donc
 MyActivity_ et doit être déclarée telle quelle dans le AndroidManifest.xml.
 Ce qui peut paraître au premier abord un gros point négatif apporte un
 avantage non négligeable : pas d'injection au runtime, le code généré
@@ -77,7 +77,7 @@ Annotations a un footprint très léger : 50Ko.
 J'ai un vrai coup de coeur pour ce framework qui peut beaucoup nous aider
 au quotidien et permettre aux nouveaux développeurs Android de se concentrer
 sur le fonctionnel. Le développeur a même prévu une intégration avec
-RoboGuice, intégration qui sera étudié plus tard.
+RoboGuice, intégration qui sera étudiée plus tard.
 
 ### [Tiny Spring](http://code.google.com/p/tiny-spring/)
 
@@ -125,7 +125,7 @@ Inactif depuis le 12/2010...
 ### [greenDAO](http://greendao-orm.com/)
 
 ORM léger et basé sur de la génération de code (encore un !). Cette génération
-est faite à la main (OPM sort de ce framework !). Le modèle est défini
+est faite à la main (JDO sort de ce framework !). Le modèle est défini
 directement en Java (sans annotations).
 
 Ce framework se veut très rapide et léger mais il ne me donne aucune envie
@@ -263,7 +263,7 @@ et le bug est vite arrivé. A approfondir aussi !
 ### [Robolectric](http://pivotal.github.com/robolectric/)
 
 Framework de tests unitaires qui nous aiderait à faire du TDD. S'intègre avec
-RoboGuice. A tester (BFI avait commencé à l'utiliser sur un projet).
+RoboGuice. A tester.
 
 ### [Maven Android plugin](http://code.google.com/p/maven-android-plugin/)
 
