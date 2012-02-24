@@ -34,7 +34,7 @@ Côté performances, je n'ai pas eu le temps de réaliser un vrai benchmark
 mais cela ne saurait tarder. L'injection se faisant au runtime, il est de
 bonne augure de se poser la question de l'impact d'un tel framework sur
 l'exécution d'une application sur un mobile. La taille de la librairie
-est d'environ 550Ko, ce qui non négligeable (surout pour les "vieux"
+est d'environ 550Ko, ce qui est non négligeable (surout pour les "vieux"
 terminaux android).
 Un point négatif est qu'il faut étendre toutes vos classes de bases
 (Activity, IntentService, AsyncTask, ...) en des classes venant de
@@ -125,8 +125,7 @@ Inactif depuis le 12/2010...
 ### [greenDAO](http://greendao-orm.com/)
 
 ORM léger et basé sur de la génération de code (encore un !). Cette génération
-est faite à la main (JDO sort de ce framework !). Le modèle est défini
-directement en Java (sans annotations).
+est faite à la main. Le modèle est défini directement en Java (sans annotations).
 
 Ce framework se veut très rapide et léger mais il ne me donne aucune envie
 de le tester. Devoir générer le code à la main ainsi que décrire son modèle
@@ -135,7 +134,7 @@ développements. J'ai plutôt l'impression de revenir dans le temps.
 
 ### [AndroidDataFramework](http://code.google.com/p/androiddataframework/)
 
-Framework espagnol, très peu documenté et en langue original. ORM très
+Framework espagnol, très peu documenté et en langue originale. ORM très
 simple basé sur une définition du modèle en XML. A creuser un peu plus
 pour voir si il vaut le coup.
 
