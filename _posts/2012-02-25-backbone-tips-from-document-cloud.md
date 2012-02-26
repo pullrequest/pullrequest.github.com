@@ -6,8 +6,7 @@ tags: [backbonejs, javascript, webapp, spa]
 ---
 
 
-[Bakbone](http://documentcloud.github.com/backbone/) est un super projet car il embarque en très peu de ligne, un
-ensemble de bonne pratiques qui rendra votre code bien plus lisible et
+[Bakbone](http://documentcloud.github.com/backbone/) est un projet que j'aime beaucoup car il embarque en très peu de ligne, un ensemble de bonne pratiques qui rendra votre code bien plus lisible et
 compréhensible par les autres développeurs. 
 
 Mais Backbone comme jQuery,
@@ -19,9 +18,9 @@ C'est pour cette raison que j'écris cette article. Suite à l'analyse de Docume
 
 Dans cet article je parlerais beaucoup de tout ça qui va autour de Backbone, mais finalement très peu du framework en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/), ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire.
 
-Ce qui m'importe le plus pour structurer un code c'est la simplicité et la facilité de compréhension. Je vais donc vous présenter une approche pragmatique et minimaliste qui vous permettra de mettre en place des projets fronts conséquent (comme celui [DocumentCloud](http://www.documentcloud.org/public/search/)).
+Ce qui m'a plu dans le l'utlisation faite de Backbone chez DocumentCloud, c'est la simplicité et la facilité de compréhension du code. Je vais donc vous présenter une approche pragmatique et minimaliste qui vous permettra de mettre en place des projets fronts conséquent (comme celui [ci](http://www.documentcloud.org/public/search/)).
 
-Je me détache des présentations du type [How to build large scale jQuery application](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
+Cet article se détache des présentations du type [How to build large scale jQuery application](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
 
 ### Structuration des fichiers
 
@@ -47,20 +46,20 @@ Je me détache des présentations du type [How to build large scale jQuery appli
 
 ### Index.html
 
-Backbone grâce à son Routeur nous permet de construire des Single Page Web Applications (SPA) très simplement.
+Backbone, grâce à son Routeur, nous permet de construire des Single Page Web Applications (SPA) très simplement.
 
 Une SPA signifie qu'il n'y a qu'un seul fichier HTML à charger pour gérer l'ensemble de l'application.
 
 Ce fichier est en général très simple puisque les templates seront injectées dans le DOM en fonction de l'URL de la page.
 
-Si vous voulez un exemple d'index.html prenez celui de HTML5Boilerplate.
+Si vous voulez un exemple d'index.html prenez celui de HTML5Boilerplate dont voici la partie script :
 
 {% highlight html %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery.js"><\/script>')</script>
 
 <!-- scripts concatenated and minified via build script -->
-<script src="js/vendor/undercsore.js"></script>
+<script src="js/vendor/underscore.js"></script>
 <script src="js/vendor/backbone.js"></script>
 <script src="js/application.js"></script>
 <!-- all your scripts here -->
@@ -73,9 +72,9 @@ Si vous voulez un exemple d'index.html prenez celui de HTML5Boilerplate.
 
 Comme notre index.html est tout vide, il nous faudra gérer nos templates dans des fichiers séparés.
 
-(J'ouvre une parenthèse, mais je préfère gérer mes templates HTML dans des fichiers séparées plutôt que de les inclure dans des balises script dans l'index.html car je n'aime pas scroller)
+(J'ouvre une parenthèse, mais je préfère gérer mes templates HTML dans des fichiers séparés plutôt que de les inclure dans des balises script dans l'index.html car je n'aime pas scroller)
 
-Ce qui nous faut, c'est créer un fichier HTML, qui sera ensuite compilé en fonction une javascript ce qui nous permettra de récupérer le texte dans notre application.
+Ce qu'il nous faut, c'est créer un fichier HTML, qui sera ensuite compilé en une fonction javascript, ce qui nous permettra de récupérer le texte dans notre application.
 
 Je m'explique. Prenons un template `hello-world.jst`
 
@@ -99,10 +98,10 @@ $(function(){
 })
 {% endhighlight %}
 
-Mantenant vous avez compris le principe des JST. Si ce n'est pas le cas,
-lisez cet article là <http://ricostacruz.com/backbone-patterns/#jst_templates>.
+Mantenant vous avez compris le principe des JST. Si jamais ce n'est pas le cas,
+lisez cet article là <http://ricostacruz.com/backbone-patterns/#jst_templates>, ou les liens ci dessous.
 
-Il existe de nombreuses solutions pour votre application, mais si vous souhaitez quelque chose qui fonctionne avec n'importe quel template (underscore template, jquery-tmpl, handlebars, des strings pures) jetez un oeil à ce projet <https://github.com/Filirom1/universal-jst> #auto-promotion :)
+Il existe de nombreuses solutions pour faire du JST dans votre application, mais, si vous souhaitez quelque chose qui fonctionne avec n'importe quel template (underscore template, jquery-tmpl, handlebars, des strings pures) jetez un oeil à ce projet <https://github.com/Filirom1/universal-jst> #auto-promotion :)
 
 Sinon regarder les projets ci dessous :
 
@@ -114,10 +113,10 @@ Sinon regarder les projets ci dessous :
 
 ### Utilisation d'un Namespace
 
-Trouvez un nom court pour votre namespace, qui n'est pas un mot clé réservé. Par exemple, DocumentCloud à choisi d'utiliser ses initiales : `dc`
+Trouvez un nom court pour votre namespace qui n'est pas un mot clé réservé. Par exemple, DocumentCloud à choisi d'utiliser ses initiales : `dc`
 
-On définie le namespace au tout début de notre application, afin de
-pouvoir l'utiliser n'importe où dans la suite.
+On défini le namespace au tout début de notre application, afin de
+pouvoir l'utiliser n'importe où par la suite.
 
 application.js :
 
@@ -132,8 +131,7 @@ application.js :
 {% endhighlight %}
 
 Comme nous allons découper notre application en plein de petits fichiers
-(je n'aime pas scroller), nous allons augmenter ce namespace à chaque
-fois:
+(je n'aime pas scroller), nous allons augmenter ce namespace dans chaque fichier:
 
 js/ui/workspace/panel.js:
 
@@ -160,8 +158,8 @@ dc.model.Document = Backbone.Model.extend({
 {% endhighlight %}
 
 
-En plus comme chacun de nos fichiers est contenu dans un objet, on ne pourrira pas la globale window.
-Donc pas besoin d'enrober notre code dans un fonction auto appelante :
+En plus comme chacun de nos fichiers est contenu dans un objet, on ne pourrira pas la globale window ;)
+Donc nous n'avons pas besoin d'enrober notre code dans un fonction auto appelante :
 
 {% highlight javascript %}
 // Before
@@ -170,7 +168,7 @@ Donc pas besoin d'enrober notre code dans un fonction auto appelante :
 })()
 {% endhighlight %}
 
-Ce que l'on a gagné gratuitement c'est que chacun de nos objets est facilement accessible via la console.
+Ce que l'on a gagné gratuitement, c'est que maintenant, chacun de nos objets est facilement accessible via la console.
 
     $ console.log(new dc.model.Document());
 
@@ -187,16 +185,18 @@ Dans le cas de notre application, il y a 2 sortes de dépendances :
 
 * à la lecture du fichier, les variables doivent être connu par l'interpréteur JavaScript.
 
-Comme nos fichiers commencerons tous par `dc.xxx.xxxx = Backbone.XXXXX.extend({`, il sera facile pour nous de gérer l'ordre dans l'index.html afin qu'il n'a ai pas de problème de dépendances.
+Comme nos fichiers commenceront tous par `dc.xxx.xxxx = Backbone.XXXXX.extend({`, il sera facile pour nous de gérer l'ordre dans l'index.html afin qu'il n'ai pas de problème de dépendances.
 
-Les dépendances qui se trouvent à l'intérieur des fonctions (initialize, render...) seront gérées plus tard.
+Les dépendances qui se trouvent à l'intérieur des fonctions (initialize, render...) seront résolues plus tard.
 
 
 * lors de l'instantiation, si l'on fait appel à un module externe, celui ci doit avoir été instancié préalablement.
 
+Je m'explique, nous allons découper notre application en plein de petit fichier. Une fois instantié ces modules vont communiquer entre eux. Mais on peut faire le distinguo, entre les modules qui seront utilisé par toute l'application, et les modules qui seront utilisé que localement.
+
 #### Dépendances partagées globalement
 
-Si on défini un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. Il est important d'instancier ces modules dans un ordre précis (un module peut dépendre d'un autre module), c'est pour cela que l'on instanciera ces modules dans une fichier unique par exemple le routeur.
+Si on défini un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. Il est important d'instancier ces modules dans un ordre précis (un module peut dépendre d'un autre module), c'est pour cela que l'on instanciera ces modules dans une fichier unique par exemple le routeur. Ces modules seront accessibles par toute l'application.
 
 {% highlight javascript %}
 dc.app.Router = Backbone.Router.extend({
