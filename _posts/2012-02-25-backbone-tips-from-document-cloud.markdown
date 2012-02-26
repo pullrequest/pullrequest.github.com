@@ -10,12 +10,16 @@ tags: [backbonejs, javascript, webapp, spa]
 ensemble de bonne pratiques qui rendra votre code bien plus lisible et
 compréhensible par les autres développeurs. 
 
+<p class="center">
+  <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/backbone.png" border="0" />
+</p>
+
 Mais Backbone comme jQuery,
 vous laisse relativement libre pour structurer votre code. Ce qui est
 très bien, mais qui pourrait vous laisser un peu démuni pendant la
 phase d'apprentissage.
 
-C'est pour cette raison que j'écris cette article. Suite à l'analyse de DocumentCloud qui j'ai réalisé pour une présentation à LyonJS, je pose par écrit un ensemble de conventions utilisés chez DocumentCloud et qui me semblent murement réfléchi.
+C'est pour cette raison que j'écris cette article. Suite à l'analyse de DocumentCloud qui j'ai réalisé pour [une présentation à LyonJS](http://filirom1.github.com/lyonjs-DocumentCloud-slides/), je pose par écrit un ensemble de conventions utilisés chez DocumentCloud et qui me semblent murement réfléchi.
 
 Dans cet article je parlerais beaucoup de tout ça qui va autour de Backbone, mais finalement très peu du framework en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/), ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire.
 
@@ -106,11 +110,12 @@ Il existe de nombreuses solutions pour votre application, mais si vous souhaitez
 
 Sinon regarder les projets ci dessous :
 
-* <https://github.com/wookiehangover/handlebars-jst>
-* <https://github.com/wookiehangover/jquery-tmpl-jst>
-* <https://github.com/mklabs/templatify>
-* <http://documentcloud.github.com/jammit/#jst>
-* <https://github.com/sstephenson/sprockets>
+ * <http://github.com/wookiehangover/handlebars-jst>
+ * <http://github.com/wookiehangover/jquery-tmpl-jst>
+ * <http://github.com/mklabs/templatify>
+ * <http://documentcloud.github.com/jammit/#jst>
+ * <http://github.com/sstephenson/sprockets>
+
 
 ### Utilisation d'un Namespace
 
@@ -299,7 +304,7 @@ Le plus simple pour faire communiquer deux modules entre eux c'est de les faire 
 
 Comme il n'y a pas de typage fort en javascript vous vous en moquez! C'est comme si vous utilisiez des interfaces en Java. Si vous voulez remplacer un module par un autre, il suffit que les deux modules possèdes les mêmes signatures de fonctions et vous pouvez les remplacer.
 
-Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fonctions privées, je vous déconseil de les préfixer par un _. Deja c'est moche et en plus c'est inutile car un simple grep suffit pour savoir quelles sont les methodes publiques :
+Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fonctions privées, je vous déconseil de les préfixer par un underscore. Deja c'est moche et en plus c'est inutile car un simple grep suffit pour savoir quelles sont les methodes publiques :
 
     $ grep -R "replacePagesEditor\." .
     ./public/javascripts/ui/workspace/toolbar.js:    dc.app.editor.replacePagesEditor.open(); 
