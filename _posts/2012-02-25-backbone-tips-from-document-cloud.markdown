@@ -6,8 +6,7 @@ tags: [backbonejs, javascript, webapp, spa]
 ---
 
 
-[Bakbone](http://documentcloud.github.com/backbone/) est un super projet car il embarque en très peu de ligne, un
-ensemble de bonne pratiques qui rendra votre code bien plus lisible et
+[Bakbone](http://documentcloud.github.com/backbone/) est un projet que j'aime beaucoup car il embarque en très peu de ligne, un ensemble de bonne pratiques qui rendra votre code bien plus lisible et
 compréhensible par les autres développeurs. 
 
 <p class="center">
@@ -23,9 +22,9 @@ C'est pour cette raison que j'écris cette article. Suite à l'analyse de Docume
 
 Dans cet article je parlerais beaucoup de tout ça qui va autour de Backbone, mais finalement très peu du framework en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/), ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire.
 
-Ce qui m'importe le plus pour structurer un code c'est la simplicité et la facilité de compréhension. Je vais donc vous présenter une approche pragmatique et minimaliste qui vous permettra de mettre en place des projets fronts conséquent (comme celui [DocumentCloud](http://www.documentcloud.org/public/search/)).
+Ce qui m'a plu dans le l'utlisation faite de Backbone chez DocumentCloud, c'est la simplicité et la facilité de compréhension du code. Je vais donc vous présenter une approche pragmatique et minimaliste qui vous permettra de mettre en place des projets fronts conséquent (comme celui [ci](http://www.documentcloud.org/public/search/)).
 
-Je me détache des présentations du type [How to build large scale jQuery application](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
+Cet article se détache des présentations du type [How to build large scale jQuery application](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
 
 ### Structuration des fichiers
 
@@ -51,20 +50,20 @@ Je me détache des présentations du type [How to build large scale jQuery appli
 
 ### Index.html
 
-Backbone grâce à son Routeur nous permet de construire des Single Page Web Applications (SPA) très simplement.
+Backbone, grâce à son Routeur, nous permet de construire des Single Page Web Applications (SPA) très simplement.
 
 Une SPA signifie qu'il n'y a qu'un seul fichier HTML à charger pour gérer l'ensemble de l'application.
 
 Ce fichier est en général très simple puisque les templates seront injectées dans le DOM en fonction de l'URL de la page.
 
-Si vous voulez un exemple d'index.html prenez celui de HTML5Boilerplate.
+Si vous voulez un exemple d'index.html prenez celui de HTML5Boilerplate dont voici la partie script :
 
 {% highlight html %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery.js"><\/script>')</script>
 
 <!-- scripts concatenated and minified via build script -->
-<script src="js/vendor/undercsore.js"></script>
+<script src="js/vendor/underscore.js"></script>
 <script src="js/vendor/backbone.js"></script>
 <script src="js/application.js"></script>
 <!-- all your scripts here -->
@@ -77,9 +76,9 @@ Si vous voulez un exemple d'index.html prenez celui de HTML5Boilerplate.
 
 Comme notre index.html est tout vide, il nous faudra gérer nos templates dans des fichiers séparés.
 
-(J'ouvre une parenthèse, mais je préfère gérer mes templates HTML dans des fichiers séparées plutôt que de les inclure dans des balises script dans l'index.html car je n'aime pas scroller)
+(J'ouvre une parenthèse, mais je préfère gérer mes templates HTML dans des fichiers séparés plutôt que de les inclure dans des balises script dans l'index.html car je n'aime pas scroller)
 
-Ce qui nous faut, c'est créer un fichier HTML, qui sera ensuite compilé en fonction une javascript ce qui nous permettra de récupérer le texte dans notre application.
+Ce qu'il nous faut, c'est créer un fichier HTML, qui sera ensuite compilé en une fonction javascript, ce qui nous permettra de récupérer le texte dans notre application.
 
 Je m'explique. Prenons un template `hello-world.jst`
 
@@ -103,10 +102,10 @@ $(function(){
 })
 {% endhighlight %}
 
-Mantenant vous avez compris le principe des JST. Si ce n'est pas le cas,
-lisez cet article là <http://ricostacruz.com/backbone-patterns/#jst_templates>.
+Mantenant vous avez compris le principe des JST. Si jamais ce n'est pas le cas,
+lisez cet article là <http://ricostacruz.com/backbone-patterns/#jst_templates>, ou les liens ci dessous.
 
-Il existe de nombreuses solutions pour votre application, mais si vous souhaitez quelque chose qui fonctionne avec n'importe quel template (underscore template, jquery-tmpl, handlebars, des strings pures) jetez un oeil à ce projet <https://github.com/Filirom1/universal-jst> #auto-promotion :)
+Il existe de nombreuses solutions pour faire du JST dans votre application, mais, si vous souhaitez quelque chose qui fonctionne avec n'importe quel template (underscore template, jquery-tmpl, handlebars, des strings pures) jetez un oeil à ce projet <https://github.com/Filirom1/universal-jst> #auto-promotion :)
 
 Sinon regarder les projets ci dessous :
 
@@ -119,10 +118,10 @@ Sinon regarder les projets ci dessous :
 
 ### Utilisation d'un Namespace
 
-Trouvez un nom court pour votre namespace, qui n'est pas un mot clé réservé. Par exemple, DocumentCloud à choisi d'utiliser ses initiales : `dc`
+Trouvez un nom court pour votre namespace qui n'est pas un mot clé réservé. Par exemple, DocumentCloud à choisi d'utiliser ses initiales : `dc`
 
-On définie le namespace au tout début de notre application, afin de
-pouvoir l'utiliser n'importe où dans la suite.
+On défini le namespace au tout début de notre application, afin de
+pouvoir l'utiliser n'importe où par la suite.
 
 application.js :
 
@@ -130,15 +129,14 @@ application.js :
 // Provide top-level namespaces for our javascript.
 (function() {
   window.dc = {};
-  dc.app = {};
-  dc.ui = {};
-  dc.model = {};
+  dc.app = {};         /* anythiung that is shared globally in the application */
+  dc.ui = {};          /* views */
+  dc.model = {};       /* models and collections */
 })();
 {% endhighlight %}
 
 Comme nous allons découper notre application en plein de petits fichiers
-(je n'aime pas scroller), nous allons augmenter ce namespace à chaque
-fois:
+(je n'aime pas scroller), nous allons augmenter ce namespace dans chaque fichier:
 
 js/ui/workspace/panel.js:
 
@@ -165,8 +163,8 @@ dc.model.Document = Backbone.Model.extend({
 {% endhighlight %}
 
 
-En plus comme chacun de nos fichiers est contenu dans un objet, on ne pourrira pas la globale window.
-Donc pas besoin d'enrober notre code dans un fonction auto appelante :
+En plus comme chacun de nos fichiers est contenu dans un objet, on ne pourrira pas la globale window ;)
+Donc nous n'avons pas besoin d'enrober notre code dans un fonction auto appelante :
 
 {% highlight javascript %}
 // Before
@@ -175,7 +173,7 @@ Donc pas besoin d'enrober notre code dans un fonction auto appelante :
 })()
 {% endhighlight %}
 
-Ce que l'on a gagné gratuitement c'est que chacun de nos objets est facilement accessible via la console.
+Ce que l'on a gagné gratuitement, c'est que maintenant, chacun de nos objets est facilement accessible via la console.
 
     $ console.log(new dc.model.Document());
 
@@ -192,16 +190,18 @@ Dans le cas de notre application, il y a 2 sortes de dépendances :
 
 * à la lecture du fichier, les variables doivent être connu par l'interpréteur JavaScript.
 
-Comme nos fichiers commencerons tous par `dc.xxx.xxxx = Backbone.XXXXX.extend({`, il sera facile pour nous de gérer l'ordre dans l'index.html afin qu'il n'a ai pas de problème de dépendances.
+Comme nos fichiers commenceront tous par `dc.xxx.xxxx = Backbone.XXXXX.extend({`, il sera facile pour nous de gérer l'ordre dans l'index.html afin qu'il n'ai pas de problème de dépendances.
 
-Les dépendances qui se trouvent à l'intérieur des fonctions (initialize, render...) seront gérées plus tard.
+Les dépendances qui se trouvent à l'intérieur des fonctions (initialize, render...) seront résolues plus tard.
 
 
 * lors de l'instantiation, si l'on fait appel à un module externe, celui ci doit avoir été instancié préalablement.
 
+Je m'explique, nous allons découper notre application en plein de petit fichier. Une fois instantié ces modules vont communiquer entre eux. Mais on peut faire le distinguo, entre les modules qui seront utilisé par toute l'application, et les modules qui seront utilisé que localement.
+
 #### Dépendances partagées globalement
 
-Si on défini un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. Il est important d'instancier ces modules dans un ordre précis (un module peut dépendre d'un autre module), c'est pour cela que l'on instanciera ces modules dans une fichier unique par exemple le routeur.
+Si on défini un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. Il est important d'instancier ces modules dans un ordre précis (un module peut dépendre d'un autre module), c'est pour cela que l'on instanciera ces modules dans une fichier unique par exemple le routeur. Ces modules seront accessibles par toute l'application.
 
 {% highlight javascript %}
 dc.app.Router = Backbone.Router.extend({
@@ -249,7 +249,11 @@ dc.app.router = new dc.app.MyRouter();
 
 #### Dépendances partagées hiérarchiquement
 
-Nous aurons besoin de découper nos modules, en sous modules et donc de faire dépendre nos modules de nos sous-modules. Comme les sous-modules ne seront utilisées que par le module, nous pouvons les attacher directement à l'instance du module parent :
+Dans une application, nous auvons toujours besoin de découper des modules, en sous modules et donc d'avoir une relation de dépendance entre les deux.
+
+Mais comme cette relation est du type parent - enfant, ce sera toujours via le module parent que les enfants pourront discutté entre eux. 
+
+Nous allons donc attaché les instances des enfants au parent.
 
 {% highlight javascript %}
 dc.app.editor = new Backbone.View.extend({
@@ -260,7 +264,6 @@ dc.app.editor = new Backbone.View.extend({
   },
   
   createSubViews : function() {
-    dc.ui.notifier          = new dc.ui.Notifier();
     this.controlPanel       = new dc.ui.ViewerControlPanel();
     this.sectionEditor      = new dc.ui.SectionEditor();
     this.annotationEditor   = new dc.ui.AnnotationEditor();
@@ -271,12 +274,13 @@ dc.app.editor = new Backbone.View.extend({
   },
 {% endhighlight %}
 
-Regardez également comment le module parent partage sont instance avec ses modules enfants : `new dc.ui.ReplacePagesEditor({editor : this})`
+Regardez également comment le module parent partage son instance avec ses enfants : `new dc.ui.ReplacePagesEditor({editor : this})`.
+C'est ainsi que les enfants peuvent discutter avec le module parent, ou discutter avec les autres enfants.
 
 
 #### Remarque sur RequireJS
 
-Si pendant la lecture de ce paragraphe vous vous dites que vous n'avez pas besoin de tout ça car vous avez RequireJs. Ben sachez que lorsque vous définissez un module avec RequireJs, vous avez le choix entre retourner une classe, ou un singleton, mais faire les deux devient problématique.
+Si pendant la lecture de ce paragraphe vous vous dites que vous n'avez pas besoin de tout ça car vous avez RequireJs. Ben sachez que lorsque vous définissez un module avec RequireJs, vous avez le choix entre retourner une classe, ou un singleton, mais faire les deux devient problématique. Vous aurez donc solutionné un problème, mais pas les deux.
 
 MyModel.js : 
     
@@ -298,13 +302,13 @@ define(['jquery', 'backbone', 'MyModel'], function($, Backbone, MyModel){
 {% endhighlight %}
 
 
-### Communication entre module.
+### Communication entre modules.
 
 Le plus simple pour faire communiquer deux modules entre eux c'est de les faire interagir directement. Je vous entend crier au loin, mais c'est fortement coupler ça !!!
 
-Comme il n'y a pas de typage fort en javascript vous vous en moquez! C'est comme si vous utilisiez des interfaces en Java. Si vous voulez remplacer un module par un autre, il suffit que les deux modules possèdes les mêmes signatures de fonctions et vous pouvez les remplacer.
+Comme il n'y a pas de typage fort en javascript vous vous en moquez! C'est comme si vous utilisiez des interfaces en Java. Si vous voulez remplacer un module par un autre, il suffit que les deux modules possèdent les mêmes signatures de fonctions et vous pouvez les remplacer.
 
-Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fonctions privées, je vous déconseil de les préfixer par un underscore. Deja c'est moche et en plus c'est inutile car un simple grep suffit pour savoir quelles sont les methodes publiques :
+Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fonctions privées, je vous déconseil de les préfixer par un undercsore. Deja c'est moche et en plus c'est inutile car un simple grep suffit pour savoir quelles sont les méthodes publiques :
 
     $ grep -R "replacePagesEditor\." .
     ./public/javascripts/ui/workspace/toolbar.js:    dc.app.editor.replacePagesEditor.open(); 
@@ -312,14 +316,18 @@ Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fon
     ./public/javascripts/app/editor.js:              this.replacePagesEditor.close();
 
 
-Après vous pouvez communiquez via des événements, mais il faudra un peu plus de travail pour synchroniser plusieurs événements. Et les appels seront moins facile à repérer dans le code. Le problème avec les événements en JS, c'est que l'on perd vite le contrôle de l'application et tout parait magique. Je ne vous interdit pas d'utiliser les événement, mais faîtes le avec parcimonie et justesse.
+Après vous pouvez communiquez via des événements, mais il faudra un peu plus de travail pour synchroniser plusieurs événements. 
+De plus, les appels seront moins facile à repérer dans le code. 
+
+Le problème avec les événements en JS, c'est que l'on perd vite le contrôle de l'application et tout parait magique. 
+Je ne vous interdit pas d'utiliser les événement, mais faîtes le avec parcimonie et justesse.
 
 
 ### Utiliser le modèle objet
 
 Quand vous utilisez Backbone,vous créez des classes filles de Backbone.View, Backbone.Model, Backbone.Collection, ...
 
-Alors pourquoi ne pas créer ses propres classe mère. Par exemple :
+Alors pourquoi ne pas créer ses propres classe mère :
 
 js/ui/accounts/account_dialog.js:
 
@@ -336,6 +344,7 @@ dc.ui.AccountDialog = dc.ui.Dialog.extend({
     // ...
   }
 {% endhighlight %}
+
 
 Ou bien créer des factories :
 
@@ -365,11 +374,11 @@ _.extend(dc.model.DocumentSet.prototype, dc.model.Selectable);
 
 ### Des vues limitées à une petite portion du DOM
 
-Une des choses les plus belles avec Backbone c'est l'attribut `this.el`, et les nombreuses utilisation : `this.$el`, `this.$`, ...Il vous permet de limiter l'interaction qui vous aurez avec le DOM. Non seulement vous gagnez en performance (les sélecteurs jQuery sont précis) mais en plus il vous empêche de modifier des éléments qui n'appartiennent pas à votre vue.
+Une des choses les plus belles avec Backbone c'est l'attribut `this.el`, et les nombreuses utilisations : `this.$el`, `this.$`, ... Utiliser `el` vous permet de limiter l'interaction qui vous aurez avec le DOM. Non seulement vous gagnez en performance (les sélecteurs jQuery sont précis) mais en plus il vous empêche de modifier des éléments qui n'appartiennent pas à votre vue.
 
 Alors vous l'aurez compris, je ne veux plus voir de `$` dans vos applications Backbone, seulement des `this.$` :D
 
-### Des conventions qui rendent la lecture du code tellement agréable.
+### Des conventions qui rendent la lecture du code tellement plus agréable.
 
 Il y a une autre chose que j'aime dans Backbone, ce sont ses conventions. Par exemple dans une vues, on repère instantanément les interactions utilisateurs : 
 
@@ -384,7 +393,7 @@ events : {
 },
 {% endhighlight %}
 
-Mais vous pouvez faire la même chose ailleurs. Choisir des conventions et s'y tenir, par exemple les constantes et haut et en majuscule :)
+Mais vous pouvez faire la même chose partout, choisir des conventions et s'y tenir. Par exemple, mettre les constantes et haut et en majuscule :)
 
     Backbone.View.extend({
         FAVORITES_URL : '//twitter.com/favorites/documentcloud.json?callback=?',
@@ -395,9 +404,10 @@ Mais vous pouvez faire la même chose ailleurs. Choisir des conventions et s'y t
 Tout le monde connait les plugins jQuery. Mais saviez vous que vous pouvez faire la même chose avec Backbone?
 
 Par exemple dans DocumentCloud il y a un plugin bien pratique le `setMode`.
-SetMode permet de gérer une machine à état au niveau de ses vues. Lorsque l'on fait un setMode, on ajoute une classe CSS sur le `el` de la vue (pratique pour le CSS) mais on ajoute aussi un attribut sur la vue pour faciliter les interactions inter-modules.
+SetMode permet de gérer une machine à état au niveau de ses vues. Lorsque l'on fait un setMode, on ajoute une classe CSS sur le `el` de la vue (pratique pour le CSS) mais on ajoute aussi un attribut sur l'instance de la vue afin de faciliter les interactions inter-modules.
 
-Par exemple : 
+
+Je sens que vous n'avez pas bien compris, voici un exemple dans une vue : 
 
 {% highlight javascript %}
 xxx.setMode('is', 'draggable');
@@ -448,7 +458,10 @@ $.fn.extend({
 
 ### Ne pas se limiter à l'utilisation classique de Backbone
 
-Backbone est suffisamment petit pour que n'importe quel développeur se sente à l'aise avec les sources. Vous pouvez donc utiliser Backbone avec un minimum de couche.
+Backbone est suffisamment petit pour que n'importe quel développeur se sente à l'aise avec les sources. 
+Franchement c'est tellement rare ça alors profittez en !
+
+Vous pouvez avoir une utilisation minimaliste de Backbone.
 
 Regarder par exemple la HomePage de DocumentCloud <https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/home/home.js>
 
@@ -496,7 +509,7 @@ Ici prenons l'exemple d'un document contenant une liste d'annotations :
 }
 {% endhighlight %}
 
-Nous allons sortir les annotations du document afin de gérer indépendamment.
+Nous allons sortir les annotations du document afin de les gérer indépendamment.
 
 {% highlight javascript %}
 dc.model.Document = Backbone.Model.extend({
@@ -510,7 +523,9 @@ dc.model.Document = Backbone.Model.extend({
        this.notes.reset(this.get('annotations'));
 {% endhighlight %}
 
-Souvent nous aurons besoin de lier les événements du sous-modèle avec le modèle. Il faudra le faire à la main, mais toute la démarche est bien expliquée sur le site officiel : <http://documentcloud.github.com/backbone/#FAQ-nested>. Ce n'est pas trop difficile à faire et tout parait très logique.
+Souvent vous aurez besoin de lier les événements du sous-modèle avec le modèle. 
+Il faudra le faire à la main, mais toute la démarche est bien expliquée sur le site officiel : <http://documentcloud.github.com/backbone/#FAQ-nested>. 
+Ce n'est pas trop difficile à faire et tout est très logique.
 
 ### Et pour finir : la minification de vos fichier JS.
 
@@ -518,10 +533,10 @@ Vous n'alliez pas mettre en prod votre application avec tout ces petits
 fichiers ...
 
 Comme nous n'avons pas utilisé de loader javascript vous être entièrement
-libre de choisir le minifier JS que vous voulez.
+libre de choisir le minifieur JS que vous voulez. Et c'est un luxe ça !!!
 
-Je vais vous aider, si vous n'avez pas de Backend choisissez le build script HTML5BoilerPlate.
+Si vous n'avez pas de Backend choisissez [le build script de HTML5BoilerPlate](http://html5boilerplate.com/docs/Build-script/).
 
-Si vous utilisez un Backend en JAVA Wro4J est un projet sérieux que vous pouvez utiliser sans risque.
+Si vous utilisez un Backend en JAVA [Wro4J](http://code.google.com/p/wro4j/) est un projet sérieux que vous pouvez utiliser sans risque.
 
-Mais n'oubliez pas de servir vos assets JS et CSS avec la compression GZIP.
+Et n'oubliez pas de servir vos assets JS et CSS avec la compression GZIP :)
