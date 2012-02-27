@@ -34,16 +34,15 @@ Côté performances, je n'ai pas eu le temps de réaliser un vrai benchmark
 mais cela ne saurait tarder. L'injection se faisant au runtime, il est de
 bonne augure de se poser la question de l'impact d'un tel framework sur
 l'exécution d'une application sur un mobile. La taille de la librairie
-est d'environ 550Ko, ce qui est non négligeable (surout pour les "vieux"
-terminaux android).
+est d'environ 550Ko, ce qui est non négligeable (surtout pour les "vieux"
+terminaux Android).
 Un point négatif est qu'il faut étendre toutes vos classes de bases
 (Activity, IntentService, AsyncTask, ...) en des classes venant de
 RoboGuice (RoboActivity, RoboIntentService, RoboAsyncTask, ...).
-L'intégration de RoboGuice avec d'autres frameworks ayant la mêle
+L'intégration de RoboGuice avec d'autres frameworks ayant la même
 logique peut donc poser problème.
 Un point positif est que la version 2.0 est en beta 3 et se base sur
-Guice 3. Quoiqu'il en soit, ce framework mérite d'étre approfondi dans
-les prochaines semaines.
+Guice 3.
 
 ### [Android Annotations](http://androidannotations.org/)
 
@@ -68,7 +67,7 @@ public class MyActivity extends Activity {
 
 Le framework fonctionne par génération de code à la compilation ([JAPT](http://docs.oracle.com/javase/6/docs/technotes/guides/apt/index.html)) en
 créant des classes suffixées d'un \_. Une activity MyActivity devient donc
-MyActivity_ et doit être déclarée telle quelle dans le AndroidManifest.xml.
+MyActivity\_ et doit être déclarée telle quelle dans le AndroidManifest.xml.
 Ce qui peut paraître au premier abord un gros point négatif apporte un
 avantage non négligeable : pas d'injection au runtime, le code généré
 ressemble beaucoup à du code Android "classique". De plus, Android
@@ -181,14 +180,14 @@ public class ContactManagerModel {
 {% endhighlight %}
 
 Les vues correspondent aux layout en xml avec des namespaces binding: (ce qui
-rend l'édition des vues xml incompatibles avec l'éditeur intégrér au plugin eclipse) :
+rend l'édition des vues xml incompatibles avec l'éditeur intégré au plugin eclipse) :
 
 {% highlight xml %}
 <LinearLayout xmlns:android="http://...." xmlns:binding="http://www.gueei.com/android-binding/" ..>
     <TextView binding:text="FirstName" ...
 {% endhighlight %}
 
-Les Activity android se chargent de faire le lien entre le modèle et la vue
+Les Activity Android se chargent de faire le lien entre le modèle et la vue
 et absolument rien d'autre. Cela permet donc de bien séparer la partie
 présentation de la partie fonctionnelle.
 
@@ -210,7 +209,7 @@ ou encore :
 public final Observable<CharSequence> ConfirmPassword;
 {% endhighlight %}
 
-Un framework à définitivement tester, ainsi que son intégration avec RoboGuice.
+Définitivement, un framework à tester, ainsi que son intégration avec RoboGuice.
 
 ### [Spring Android](http://static.springsource.org/spring-android/docs/1.0.x/reference/htmlsingle/)
 
