@@ -3,7 +3,7 @@ layout: post
 title: Tour d'horizon des frameworks java pour Android
 author: johanpoirier
 tags: [android, framework, java]
-published: false
+published: true
 ---
 
 L'API d'Android est vaste et plutôt bien fournie. Mais il nous arrive
@@ -286,6 +286,8 @@ mvn android:deploy
 Nous venons de voir que les frameworks ne manquent pas et qu'ils n'adressent pas tous
 les mêmes problématiques. Certains peuvent fonctionner ensemble, ce qui permet d'obtenir
 des stacks assez complètes :
-- pour des applications avec beaucoup de code métier côté terminal, je partirai bien sur ORMLite + RoboGuice
-- pour des applications plus liées à un serveur, AndroidAnnotations + Spring RestTemplate permettra de demarrer beaucoup plus rapidement
+
+* pour des applications avec beaucoup de code métier côté terminal, je partirai bien sur ORMLite + RoboGuice
+* pour des applications plus liées à un serveur, AndroidAnnotations + Spring RestTemplate permettra de demarrer beaucoup plus rapidement
+
 N'hésitez pas à faire des retours d'expérience si vous avez déjà utilisé certains de ces frameworks.
