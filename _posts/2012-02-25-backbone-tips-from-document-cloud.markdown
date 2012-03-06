@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Des astuces pour structurer un projet BackboneJS
+title: Backbonist - des astuces pour structurer un projet BackboneJS
 author: filirom1
 tags: [backbonejs, javascript, webapp, spa]
 ---
@@ -24,11 +24,15 @@ phase d'apprentissage.
 
 Cet article fait suite à [une session LyonJS](http://filirom1.github.com/lyonjs-DocumentCloud-slides/), pendant laquelle je commentais les sources de DocumentCloud afin d'en sortir les bonnes pratiques.
 
-Maintenant, je vais beaucoup vous parler de la structuration d'un projet Backbone, mais finalement très peu du framework en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/), ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire. Pour ceux qui ne le connaissent pas encore, Backbone possède un Routeur pour gérer des URLs, des modèles et des collections qui ne partagent pas le même cycle de vie que les vues, des vues qui sont misent à jours automatiquement dès que le modèle change, un système d'événements simple mais efficace, un modèle objet très pratique, ... et tout ça dans 5Ko :)
+**Maintenant, ces bonnes pratiques ont été extraites dans [Backbonist](https://github.com/Backbonist/Backbonist), un facilitateur de projet disponible sur [Github](https://github.com/Backbonist/Backbonist)**
+
+Je vais beaucoup vous parler de la structuration d'un projet Backbone, mais finalement très peu du framework en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/), ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire. Pour ceux qui ne le connaissent pas encore, Backbone possède un Routeur pour gérer des URLs, des modèles et des collections qui ne partagent pas le même cycle de vie que les vues, des vues qui sont misent à jours automatiquement dès que le modèle change, un système d'événements simple mais efficace, un modèle objet très pratique, ... et tout ça dans 5Ko :)
 
 Ce qui m'a plu dans l'utilisation faite de Backbone chez DocumentCloud, c'est la simplicité et la facilité de compréhension du code. Je vais donc vous présenter une approche pragmatique et minimaliste qui vous permettra de mettre en place des projets fronts conséquent (comme celui de [DocumentCloud](http://www.documentcloud.org/public/search/)).
 
 Cet article se détache des présentations du type [How to build large scale jQuery applications](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
+
+Vous êtes préssé ? Aller voir [le code de Backbonist](https://github.com/Backbonist/Backbonist), ou l'exemple du [TODO remanié](https://github.com/Backbonist/todo-example)
 
 ### Structuration des fichiers
 
@@ -451,7 +455,7 @@ Mais vous pouvez faire la même chose partout, choisir des conventions et s'y te
 
 Tout le monde connait les plugins jQuery. Mais saviez vous que vous pouvez faire la même chose avec Backbone?
 
-Par exemple, dans DocumentCloud il y a un plugin bien pratique le `setMode`.
+Par exemple, dans DocumentCloud il y a un plugin bien pratique le [setMode](https://github.com/Backbonist/Backbone.setMode).
 SetMode permet de gérer une machine à état au niveau des vues. Lorsque l'on fait un setMode, on ajoute une classe CSS sur le `el` de la vue (pratique pour le CSS) et on ajoute un attribut à l'instance de la vue afin de faciliter les interactions inter-modules.
 
 
@@ -589,3 +593,8 @@ Si vous n'avez pas de Backend, choisissez plutôt un des [builds scripts de HTML
 Si vous utilisez un Backend en JAVA, [Wro4J](http://code.google.com/p/wro4j/) est un projet sérieux que vous pouvez utiliser sans risque.
 
 Et n'oubliez pas de servir vos assets JS et CSS avec la compression GZIP activé :)
+
+
+### Conclusion
+
+Si vous avez aimé cet article, vous aimerez sûrement [Backbonist](https://github.com/Backbonist/Backbonist): un boilerplate créé pour cet article afin d'accélerer vos développements Backbone.
