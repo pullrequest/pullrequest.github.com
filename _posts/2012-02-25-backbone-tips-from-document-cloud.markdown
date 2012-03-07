@@ -597,4 +597,13 @@ Et n'oubliez pas de servir vos assets JS et CSS avec la compression GZIP activé
 
 ### Conclusion
 
-Si vous avez aimé cet article, vous aimerez sûrement [Backbonist](https://github.com/Backbonist/Backbonist): un boilerplate créé pour cet article afin d'accélerer vos développements Backbone.
+Si vous avez aimé cet article, vous aimerez sûrement [Backbonist](https://github.com/Backbonist/Backbonist): un boilerplate créé à la suite de cet article afin d'accélerer vos développements Backbone
+
+Découvrez également l'écosystème autour de Backbonist:
+
+* [L'exemple du TODO avec Backbonist](https://github.com/Backbonist/todo-example)
+* [Le plugin Backbone.setMode](https://github.com/Backbonist/Backbone.setMode)
+* [Un compilateur JST fonctionnant avec Handlebars, jQuery-tmpl, underscore ou simplement des strings](https://github.com/Backbonist/universal-jst)
+* [Un serveur HTTP qui force les navigateurs à se réactualiser quand les sources changent](https://github.com/Backbonist/serveAndWatch)
+* [Un script de build qui lit sa conf dans l'index.html](https://github.com/Backbonist/no-build-conf-build-script)
+* [Le meilleur IDE au monde, configuré pour du développement Web](https://github.com/Backbonist/ViM-for-web-dev)
