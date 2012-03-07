@@ -10,7 +10,8 @@ tags: [backbonejs, javascript, webapp, spa]
 }
 </style>
 
-[Bakbone](http://documentcloud.github.com/backbone/) est un projet que j'aime beaucoup car il embarque en très peu de lignes, un ensemble de bonnes pratiques qui rendra votre code bien plus lisible et
+[Bakbone](http://documentcloud.github.com/backbone/) est un projet que j'aime beaucoup car il embarque en très peu
+de lignes, un ensemble de bonnes pratiques qui rendra votre code bien plus lisible et
 compréhensible par les autres développeurs.
 
 <p class="center">
@@ -22,17 +23,32 @@ vous laisse relativement libre pour structurer votre application. Ce qui est
 très bien, mais qui pourrait vous laisser un peu démuni pendant la
 phase d'apprentissage.
 
-Cet article fait suite à [une session LyonJS](http://filirom1.github.com/lyonjs-DocumentCloud-slides/), pendant laquelle je commentais les sources de DocumentCloud afin d'en sortir les bonnes pratiques.
+Cet article fait suite à [une session LyonJS](http://filirom1.github.com/lyonjs-DocumentCloud-slides/), 
+pendant laquelle je commentais les sources de DocumentCloud afin d'en sortir les bonnes pratiques.
 
-**Maintenant, ces bonnes pratiques ont été extraites dans [Backbonist](https://github.com/Backbonist/Backbonist), un facilitateur de projet disponible sur [Github](https://github.com/Backbonist/Backbonist)**
+**Maintenant, ces bonnes pratiques ont été extraites dans [Backbonist](https://github.com/Backbonist/Backbonist), 
+un facilitateur de projet disponible sur [Github](https://github.com/Backbonist/Backbonist)**
 
-Je vais beaucoup vous parler de la structuration d'un projet Backbone, mais finalement très peu du framework en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/), ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire. Pour ceux qui ne le connaissent pas encore, Backbone possède un Routeur pour gérer des URLs, des modèles et des collections qui ne partagent pas le même cycle de vie que les vues, des vues qui sont misent à jours automatiquement dès que le modèle change, un système d'événements simple mais efficace, un modèle objet très pratique, ... et tout ça dans 5Ko :)
+Je vais beaucoup vous parler de la structuration de projets Backbone, mais finalement très peu du framework
+en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/),
+ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire.
+Pour ceux qui ne le connaissent pas encore, Backbone possède : un Routeur pour gérer des URLs,
+des modèles et des collections qui ne partagent pas le même cycle de vie que les vues, 
+des vues qui sont misent à jours automatiquement dès que le modèle change, 
+un système d'événements simple mais efficace, un modèle objet très pratique, ... et tout ça dans 5Ko :)
 
-Ce qui m'a plu dans l'utilisation faite de Backbone chez DocumentCloud, c'est la simplicité et la facilité de compréhension du code. Je vais donc vous présenter une approche pragmatique et minimaliste qui vous permettra de mettre en place des projets fronts conséquent (comme celui de [DocumentCloud](http://www.documentcloud.org/public/search/)).
+Ce qui m'a plu dans l'utilisation faite de Backbone chez DocumentCloud, c'est la simplicité et la facilité
+de compréhension du code. Je vais donc vous présenter une approche pragmatique et minimaliste 
+qui vous permettra de mettre en place des projets fronts conséquents 
+(comme celui de [DocumentCloud](http://www.documentcloud.org/public/search/)).
 
-Cet article se détache des présentations du type [How to build large scale jQuery applications](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
+Cet article se détache des présentations du type
+[How to build large scale jQuery applications](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé
+mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, 
+mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
 
-Vous êtes préssé ? Aller voir [le code de Backbonist](https://github.com/Backbonist/Backbonist), ou l'exemple du [TODO remanié](https://github.com/Backbonist/todo-example)
+Vous êtes préssé ? Aller voir [le code de Backbonist](https://github.com/Backbonist/Backbonist), 
+ou l'exemple du [TODO](https://github.com/Backbonist/todo-example)
 
 ### Structuration des fichiers
 
@@ -62,9 +78,10 @@ Backbone, grâce à son Routeur, nous permet de construire des Single Page Web A
 
 Une SPA signifie qu'il n'y a qu'un seul fichier HTML à charger pour gérer l'ensemble de l'application.
 
-Ce fichier est en général très simple puisque les templates seront injectées dans le DOM en fonction de l'URL de la page.
+Ce fichier est en général très simple puisque les templates seront injectés dans le DOM en fonction de l'URL de la page.
 
-Si vous voulez un exemple d'index.html prenez celui de HTML5Boilerplate dont voici la partie chargtement des scripts :
+Si vous voulez un exemple d'index.html prenez celui de [HTML5Boilerplate](http://html5boilerplate.com/) dont voici 
+la partie chargement des scripts :
 
 {% highlight html %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
