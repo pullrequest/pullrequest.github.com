@@ -101,9 +101,11 @@ la partie chargement des scripts :
 
 Comme notre index.html est tout vide, il nous faudra gérer nos templates dans des fichiers séparés.
 
-(J'ouvre une parenthèse, mais je préfère gérer mes templates HTML dans des fichiers séparés plutôt que de les inclure dans des balises script dans index.html)
+(J'ouvre une parenthèse, mais je préfère gérer mes templates HTML dans des fichiers séparés plutôt que de les 
+inclure dans des balises script dans index.html)
 
-Ce qu'il nous faut, c'est créer un fichier HTML, qui sera ensuite compilé en une fonction javascript, ce qui nous permettra de récupérer le texte dans notre application.
+Ce qu'il nous faut, c'est créer un fichier HTML, qui sera ensuite compilé en une fonction javascript, 
+ce qui nous permettra de récupérer le texte dans notre application.
 
 Je m'explique. Prenons un template `hello-world.jst`
 
@@ -119,7 +121,8 @@ window.JST = {
 }
 {% endhighlight %}
 
-Il nous suffira de rajouter `<script src="template/templates.js"></script>` dans index.html et nous pourrons accéder à notre template n'importe où dans l'application à l'aide du namespace JST.
+Il nous suffira de rajouter `<script src="template/templates.js"></script>` dans index.html et nous pourrons 
+accéder à notre template n'importe où dans l'application à l'aide du namespace JST.
 
 {% highlight javascript %}
 $(function(){
@@ -128,9 +131,11 @@ $(function(){
 {% endhighlight %}
 
 Mantenant vous avez compris le principe des JST. Si jamais ce n'est pas le cas,
-lisez cet article là <http://ricostacruz.com/backbone-patterns/#jst_templates>, ou les liens ci dessous.
+lisez cet article <http://ricostacruz.com/backbone-patterns/#jst_templates>, ou les liens ci dessous.
 
-Il existe de nombreuses solutions pour faire du JST dans votre application, mais, si vous souhaitez quelque chose qui fonctionne avec n'importe quel template (underscore template, jquery-tmpl, handlebars, des strings pures) jetez un oeil à ce projet <https://github.com/Filirom1/universal-jst> #auto-promotion :)
+Il existe de nombreuses solutions pour faire du JST dans votre application, mais, si vous souhaitez quelque chose 
+qui fonctionne avec n'importe quel template (underscore template, jquery-tmpl, handlebars, des strings pures) 
+jetez un oeil à ce projet <https://github.com/Backbonist/universal-jst> #auto-promotion :)
 
 Sinon regardez les projets ci dessous :
 
@@ -143,7 +148,8 @@ Sinon regardez les projets ci dessous :
 
 ### Utilisation d'un Namespace
 
-Trouvez un nom court pour votre namespace qui n'est pas un mot clé réservé. Par exemple, DocumentCloud à choisi d'utiliser ses initiales : `dc`
+Trouvez un nom court pour votre namespace, qui n'est pas un mot clé réservé. 
+Par exemple, DocumentCloud à choisi d'utiliser ses initiales : `dc`
 
 On défini le namespace au tout début de notre application, afin de
 pouvoir l'utiliser n'importe où par la suite.
@@ -160,7 +166,7 @@ pouvoir l'utiliser n'importe où par la suite.
 })();
 {% endhighlight %}
 
-Comme nous allons découper notre application en plein de petits fichiers, 
+Comme nous allons découper notre application en un ensemble de petits fichiers, 
 nous allons augmenter ce namespace dans chaque fichier:
 
 [js/ui/workspace/panel.js](https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/ui/workspace/panel.js):
@@ -188,7 +194,7 @@ dc.model.Document = Backbone.Model.extend({
 {% endhighlight %}
 
 
-En plus comme chacun de nos fichiers est contenu dans un objet, on ne risquera pas de pourrire la globale window ;)
+En plus, comme chacun de nos fichiers est contenu dans un objet, on ne risquera pas de pourrire la globale window ;)
 Plus besoin d'entourer notre code dans un fonction auto appelante :
 
 {% highlight javascript %}
@@ -198,11 +204,10 @@ Plus besoin d'entourer notre code dans un fonction auto appelante :
 })()
 {% endhighlight %}
 
-De plus maintenant, chacun de nos objets est facilement accessible via la console.
+De plus, nos objets sont facilement accessibles via la console, ce qui est très pratique pour débugguer.
 
     $ console.log(new dc.model.Document());
 
-Ce qui est très pratique pour débugguer.
 
 Comme vous allez beaucoup écrire ce namespace (ici `dc`), je vous conseil de choisir quelque chose de court. Deux lettres c'est bien.
 
@@ -213,22 +218,28 @@ Une des difficultés en Javascript c'est la gestion des dépendances entre les f
 
 Dans le cas de notre application, il y a 2 sortes de dépendances :
 
-* à la lecture du fichier, les variables doivent être connu par l'interpréteur JavaScript.
+* à la lecture du fichier, les variables doivent être connues par l'interpréteur JavaScript.
 
-Comme nos fichiers commenceront tous par `dc.xxx.xxxx = Backbone.XXXXX.extend({`, il sera facile pour nous de gérer l'ordre dans l'index.html afin qu'il n'y ai pas de problèmes de dépendances.
+Comme nos fichiers commenceront tous par `dc.xxx.xxxx = Backbone.XXXXX.extend({`, il sera facile pour nous de 
+gérer l'ordre dans l'index.html afin qu'il n'y ai pas de problèmes de dépendances.
 
 Les dépendances qui se trouvent à l'intérieur des fonctions (initialize, render...) seront résolues plus tard.
 
 
 * lors de l'instantiation, si l'on fait appel à un module externe, celui ci doit avoir été instancié préalablement.
 
-Je m'explique, nous allons découper notre application en plein de petits fichiers. Une fois instancié ces modules vont communiquer entre eux. Mais on peut faire la distinction entre les modules qui seront utilisés par toute l'application et les modules qui ne seront utilisés que localement.
+Je m'explique, nous allons découper notre application en plein de petits fichiers. 
+Une fois instancié, ces modules vont communiquer entre eux. Mais on peut faire la distinction entre les
+modules qui seront utilisés par toute l'application et les modules qui ne seront utilisés que localement.
 
 
 
 #### Dépendances partagées globalement
 
-Si on défini un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. Il est important d'instancier ces modules dans un ordre précis (un module peut dépendre d'un autre module), c'est pour cela que l'on instanciera ces modules dans une fichier unique, par exemple le routeur. Ces modules seront accessibles par toute l'application.
+Si on défini un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. 
+Il est important d'instancier ces modules dans un ordre précis (un module peut dépendre d'un autre module), 
+c'est pour cela que l'on instanciera ces modules dans une fichier unique, par exemple le routeur. 
+Ces modules seront accessibles par toute l'application.
 
 <p class="center">
   <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/dependences-globales.png" border="0"  />
@@ -282,15 +293,17 @@ dc.app.router = new dc.app.MyRouter();
 
 #### Dépendances partagées hiérarchiquement
 
-Dans une application, nous avons toujours besoin de découper des modules en sous modules et donc d'avoir une relation de dépendance entre les deux.
+Dans une application, nous avons toujours besoin de découper des modules en sous modules et donc d'avoir 
+une relation de dépendance entre les deux.
 
-Mais comme cette relation est du type parent - enfant, ce sera toujours via le module parent que les enfants pourront discuté entre eux ou avec le parent.
+Mais comme cette relation est du type parent - enfant, ce sera toujours via le module parent que les enfants pourront 
+discuté entre eux ou avec le parent.
 
 <p class="center">
   <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/dependences-hierarchiques.png" border="0" />
 </p>
 
-Nous allons donc attaché les instances des enfants au parent.
+Nous allons donc attacher les instances des enfants aux parents.
 
 [js/app/editor](https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/app/editor.js) :
 
