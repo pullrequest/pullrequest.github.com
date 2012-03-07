@@ -326,13 +326,16 @@ dc.app.editor = new Backbone.View.extend({
   },
 {% endhighlight %}
 
-Regardez également comment le module parent partage son instance avec ses enfants : `new dc.ui.ReplacePagesEditor({editor : this})`.
+Regardez également comment le module parent partage son instance avec 
+ses enfants : `new dc.ui.ReplacePagesEditor({editor : this})`.
 C'est ainsi que les enfants peuvent discuter avec le module parent, ou discuter avec les autres enfants.
 
 
 #### Remarque sur RequireJS
 
-Si pendant la lecture de ce paragraphe vous vous dites que vous n'avez pas besoin de tout ça car vous avez RequireJs. Sachez que lorsque vous définissez un module avec RequireJs, vous avez le choix entre retourner une classe, ou un singleton, mais faire les deux devient problématique. Vous aurez donc solutionné un problème, mais pas les deux.
+Si pendant la lecture de ce paragraphe vous vous dites que vous n'avez pas besoin de tout ça car vous avez RequireJs.
+Sachez que lorsque vous définissez un module avec RequireJs, vous avez le choix entre retourner une classe, 
+ou un singleton, mais faire les deux devient problématique. Vous aurez donc solutionné un problème, mais pas les deux.
 
 MyModel.js :
     
@@ -383,9 +386,13 @@ dc.ui.Document = Backbone.View.extend({
 
 Je vous entends crier au loin, mais c'est fortement coupler ça !!!
 
-Comme il n'y a pas de typage fort en javascript vous vous en moquez! C'est comme si vous utilisiez des interfaces en Java. Si vous voulez remplacer un module par un autre, il suffit que les deux modules possèdent les mêmes signatures de fonctions et vous pouvez les remplacer.
+Comme il n'y a pas de typage fort en javascript vous vous en moquez! C'est comme si vous utilisiez des interfaces 
+en Java. Si vous voulez remplacer un module par un autre, il suffit que les deux modules possèdent les mêmes signatures
+de fonctions et vous pouvez les remplacer.
 
-Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fonctions privées, je vous déconseille de les préfixer par un undercsore. Déjà, c'est moche et en plus c'est inutile car un simple grep suffit pour savoir quelles sont les méthodes publiques :
+Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fonctions privées, je vous déconseille
+de les préfixer par un undercsore. Déjà, c'est moche et en plus c'est inutile car un simple grep suffit pour savoir 
+quelles sont les méthodes publiques :
 
     $ grep -R "replacePagesEditor\." .
     ./public/javascripts/ui/workspace/toolbar.js:    dc.app.editor.replacePagesEditor.open(); 
@@ -393,7 +400,8 @@ Maintenant si vous voulez savoir quelles sont les fonctions publiques et les fon
     ./public/javascripts/app/editor.js:              this.replacePagesEditor.close();
 
 
-Après vous pouvez communiquer via des événements, mais il faudra un peu plus de travail pour synchroniser plusieurs événements.  De plus, les appels seront moins facile à repérer dans le code.
+Après vous pouvez communiquer via des événements, mais il faudra un peu plus de travail pour synchroniser plusieurs 
+événements.  De plus, les appels seront moins facile à repérer dans le code.
 
 Le problème avec les événements en JS, c'est que l'on perd vite le contrôle de l'application et tout parait magique.
 
@@ -451,7 +459,10 @@ _.extend(dc.model.DocumentSet.prototype, dc.model.Selectable);
 
 ### Des vues limitées à une petite portion du DOM
 
-Une des choses les plus belles avec Backbone c'est l'attribut `this.el`, et les nombreuses utilisations : `this.$el`, `this.$`, ... Utiliser `el` vous permet de limiter l'interaction qui vous aurez avec le DOM. Non seulement vous gagnez en performance (les sélecteurs jQuery sont précis) mais en plus cela vous empêche de modifier des éléments qui n'appartiennent pas à votre vue.
+Une des choses les plus belles avec Backbone c'est l'attribut `this.el`, et les nombreuses 
+utilisations : `this.$el`, `this.$`, ... Utiliser `el` vous permet de limiter l'interaction qui vous aurez 
+avec le DOM. Non seulement vous gagnez en performance (les sélecteurs jQuery sont précis) mais en plus cela 
+vous empêche de modifier des éléments qui n'appartiennent pas à votre vue.
 
 <p class="center">
   <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/DocumentCloud.png" border="0" width="600" />
@@ -462,7 +473,8 @@ Alors vous l'aurez compris, je ne veux plus voir de `$` dans vos applications Ba
 
 ### Des conventions qui rendent la lecture du code tellement plus agréable.
 
-Il y a une autre chose que j'aime dans Backbone, ce sont ses conventions. Par exemple dans une vue, on repère instantanément les interactions utilisateurs : 
+Il y a une autre chose que j'aime dans Backbone, ce sont ses conventions. Par exemple dans une vue, 
+on repère instantanément les interactions utilisateurs : 
 
 {% highlight javascript %}
 events : {
@@ -475,7 +487,8 @@ events : {
 },
 {% endhighlight %}
 
-Mais vous pouvez faire la même chose partout, choisir des conventions et s'y tenir. Par exemple, mettre les constantes et haut et en majuscule :)
+Mais vous pouvez faire la même chose partout, choisir des conventions et s'y tenir. Par exemple, mettre les constantes
+et haut et en majuscule :)
 
     Backbone.View.extend({
         FAVORITES_URL : '//twitter.com/favorites/documentcloud.json?callback=?',
@@ -485,8 +498,11 @@ Mais vous pouvez faire la même chose partout, choisir des conventions et s'y te
 
 Tout le monde connait les plugins jQuery. Mais saviez vous que vous pouvez faire la même chose avec Backbone?
 
-Par exemple, dans DocumentCloud il y a un plugin bien pratique le [setMode](https://github.com/Backbonist/Backbone.setMode).
-SetMode permet de gérer une machine à état au niveau des vues. Lorsque l'on fait un setMode, on ajoute une classe CSS sur le `el` de la vue (pratique pour le CSS) et on ajoute un attribut à l'instance de la vue afin de faciliter les interactions inter-modules.
+Par exemple, dans DocumentCloud il y a un plugin bien pratique,
+le [setMode](https://github.com/Backbonist/Backbone.setMode).
+SetMode permet de gérer une machine à état au niveau des vues. Lorsque l'on appelle setMode, on ajoute une classe CSS
+sur le `el` de la vue (pratique pour le CSS) et on ajoute un attribut à l'instance de la vue afin de faciliter 
+les interactions inter-modules.
 
 
 Je sens que vous ne m'avez pas bien compris, voici un exemple:
@@ -572,7 +588,8 @@ reprocessText : function(forceOCR) {
 
 ### Découper tout en petit morceau.
 
-Je vous ai déjà dis que vous deviez découper vos vues en sous vues afin de ne travailler que sur des toutes petites portions du DOM. Mais vous pouvez, et devrez faire de même avec les modèles.
+Je vous ai déjà dis que vous deviez découper vos vues en sous vues afin de ne travailler que sur des toutes 
+petites portions du DOM. Mais vous pouvez, et devrez faire de même avec les modèles.
 
 Lorsque l'on récupère un modèle à partir d'un JSON, on récupère un gros bloc d'un coup qu'il va falloir découper.
 
@@ -608,19 +625,19 @@ dc.model.Document = Backbone.Model.extend({
 
 Souvent vous aurez besoin de lier les événements du sous-modèle avec le modèle. 
 Il faudra le faire à la main, mais toute la démarche est bien expliquée sur le site officiel : <http://documentcloud.github.com/backbone/#FAQ-nested>. 
-Ce n'est pas trop difficile à faire et tout est très logique.
 
 ### Et pour finir : la minification de vos fichier JS.
 
 Vous n'alliez pas mettre en prod votre application avec tout ces petits
 fichiers ...
 
-Comme nous n'avons pas utilisé de loader javascript vous être entièrement
+Comme nous n'avons pas utilisé de loader javascript vous êtes entièrement
 libre de choisir le minifieur JS que vous voulez. Et c'est un luxe ça !!!
 
 Si vous n'avez pas de Backend, choisissez plutôt un des [builds scripts de HTML5BoilerPlate](http://html5boilerplate.com/docs/Build-script/).
 
-Si vous utilisez un Backend en JAVA, [Wro4J](http://code.google.com/p/wro4j/) est un projet sérieux que vous pouvez utiliser sans risque.
+Si vous utilisez un Backend en JAVA, [Wro4J](http://code.google.com/p/wro4j/) est un projet sérieux 
+que vous pouvez utiliser sans risque.
 
 Et n'oubliez pas de servir vos assets JS et CSS avec la compression GZIP activé :)
 
@@ -636,4 +653,4 @@ Découvrez également l'écosystème autour de Backbonist:
 * [Un compilateur JST fonctionnant avec Handlebars, jQuery-tmpl, underscore ou simplement des strings](https://github.com/Backbonist/universal-jst)
 * [Un serveur HTTP qui force les navigateurs à se réactualiser quand les sources changent](https://github.com/Backbonist/serveAndWatch)
 * [Un script de build qui lit sa conf dans l'index.html](https://github.com/Backbonist/no-build-conf-build-script)
-* [Le meilleur IDE au monde, configuré pour du développement Web](https://github.com/Backbonist/ViM-for-web-dev)
+* [Le meilleur IDE au monde, ViM, configuré pour du développement Web](https://github.com/Backbonist/ViM-for-web-dev)
