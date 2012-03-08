@@ -30,11 +30,11 @@ pendant laquelle je commentais les sources de DocumentCloud afin d'en sortir les
 un facilitateur de projet disponible sur [Github](https://github.com/Backbonist/Backbonist)**
 
 Je vais beaucoup vous parler de la structuration de projets Backbone, mais finalement très peu du framework
-en tant que tel. Je vous laisse le soin de lire la [doc officiel](http://documentcloud.github.com/backbone/),
-ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très claire.
+en tant que tel. Je vous laisse le soin de lire la [doc officielle](http://documentcloud.github.com/backbone/),
+ou même le [code commenté](http://documentcloud.github.com/backbone/docs/backbone.html) car celui ci est très clair.
 Pour ceux qui ne le connaissent pas encore, Backbone possède : un Routeur pour gérer des URLs,
 des modèles et des collections qui ne partagent pas le même cycle de vie que les vues, 
-des vues qui sont misent à jours automatiquement dès que le modèle change, 
+des vues qui sont mise à jours automatiquement dès que le modèle change, 
 un système d'événements simple mais efficace, un modèle objet très pratique, ... et tout ça dans 5Ko :)
 
 Ce qui m'a plu dans l'utilisation faite de Backbone chez DocumentCloud, c'est la simplicité et la facilité
@@ -43,9 +43,9 @@ qui vous permettra de mettre en place des projets fronts conséquents
 (comme celui de [DocumentCloud](http://www.documentcloud.org/public/search/)).
 
 Cet article se détache des présentations du type
-[How to build large scale jQuery applications](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensé
+[How to build large scale jQuery applications](http://addyosmani.com/blog/large-scale-jquery/) qui je trouve bien pensées
 mais plus complexe à appliquer. Je trouve l'idée d'utiliser RequireJs et un PubSub intéressante, 
-mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toute les applications.
+mais au final cela entraine une surcouche de complexité qui n'est pas nécessaire pour toutes les applications.
 
 Vous êtes préssé ? Aller voir [le code de Backbonist](https://github.com/Backbonist/Backbonist), 
 ou l'exemple du [TODO](https://github.com/Backbonist/todo-example)
@@ -194,7 +194,7 @@ dc.model.Document = Backbone.Model.extend({
 {% endhighlight %}
 
 
-En plus, comme chacun de nos fichiers est contenu dans un objet, on ne risquera pas de pourrire la globale window ;)
+En plus, comme chacun de nos fichiers est contenu dans un objet, on ne risquera pas de pourrir la globale window ;)
 Plus besoin d'entourer notre code dans un fonction auto appelante :
 
 {% highlight javascript %}
@@ -221,7 +221,7 @@ Dans le cas de notre application, il y a 2 sortes de dépendances :
 * à la lecture du fichier, les variables doivent être connues par l'interpréteur JavaScript.
 
 Comme nos fichiers commenceront tous par `dc.xxx.xxxx = Backbone.XXXXX.extend({`, il sera facile pour nous de 
-gérer l'ordre dans l'index.html afin qu'il n'y ai pas de problèmes de dépendances.
+gérer l'ordre dans l'index.html afin d'éviter les problèmes de dépendances.
 
 Les dépendances qui se trouvent à l'intérieur des fonctions (initialize, render...) seront résolues plus tard.
 
@@ -236,9 +236,9 @@ modules qui seront utilisés par toute l'application et les modules qui ne seron
 
 #### Dépendances partagées globalement
 
-Si on défini un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. 
+Si on définit un module comme quelque chose pouvant être appelé par n'importe quel autre module dans l'application. 
 Il est important d'instancier ces modules dans un ordre précis (un module peut dépendre d'un autre module), 
-c'est pour cela que l'on instanciera ces modules dans une fichier unique, par exemple le routeur. 
+c'est pour cela que l'on instanciera ces modules dans un fichier unique, par exemple le routeur. 
 Ces modules seront accessibles par toute l'application.
 
 <p class="center">
@@ -297,7 +297,7 @@ Dans une application, nous avons toujours besoin de découper des modules en sou
 une relation de dépendance entre les deux.
 
 Mais comme cette relation est du type parent - enfant, ce sera toujours via le module parent que les enfants pourront 
-discuté entre eux ou avec le parent.
+discuter entre eux ou avec le parent.
 
 <p class="center">
   <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/dependences-hierarchiques.png" border="0" />
@@ -384,7 +384,7 @@ dc.ui.Document = Backbone.View.extend({
 });
 {% endhighlight %}
 
-Je vous entends crier au loin, mais c'est fortement coupler ça !!!
+Je vous entends crier au loin, mais c'est fortement couplé ça !!!
 
 Comme il n'y a pas de typage fort en javascript vous vous en moquez! C'est comme si vous utilisiez des interfaces 
 en Java. Si vous voulez remplacer un module par un autre, il suffit que les deux modules possèdent les mêmes signatures
@@ -401,7 +401,7 @@ quelles sont les méthodes publiques :
 
 
 Après vous pouvez communiquer via des événements, mais il faudra un peu plus de travail pour synchroniser plusieurs 
-événements.  De plus, les appels seront moins facile à repérer dans le code.
+événements.  De plus, les appels seront moins faciles à repérer dans le code.
 
 Le problème avec les événements en JS, c'est que l'on perd vite le contrôle de l'application et tout parait magique.
 
@@ -412,7 +412,7 @@ Je ne vous interdit pas d'utiliser les événement, mais faîtes le avec parcimo
 
 Quand vous utilisez Backbone, vous créez des classes filles de Backbone.View, Backbone.Model, Backbone.Collection, ...
 
-Alors pourquoi ne pas créer ses propres classe mère :
+Alors pourquoi ne pas créer ses propres classes mères :
 
 [js/ui/accounts/account_dialog.js](https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/ui/accounts/account_dialog.js) :
 
@@ -561,7 +561,7 @@ Franchement c'est tellement rare ça alors profitez en !
 
 Vous pouvez avoir une utilisation minimaliste de Backbone.
 
-Regarder par exemple la HomePage de DocumentCloud <https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/home/home.js>
+Regardez par exemple la HomePage de DocumentCloud <https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/home/home.js>
 
 Ou bien le modèle Documents de Backbone <https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/model/documents.js>. 
 
@@ -639,7 +639,7 @@ Si vous n'avez pas de Backend, choisissez plutôt un des [builds scripts de HTML
 Si vous utilisez un Backend en JAVA, [Wro4J](http://code.google.com/p/wro4j/) est un projet sérieux 
 que vous pouvez utiliser sans risque.
 
-Et n'oubliez pas de servir vos assets JS et CSS avec la compression GZIP activé :)
+Et n'oubliez pas de servir vos assets JS et CSS avec la compression GZIP activée :)
 
 
 ### Conclusion
