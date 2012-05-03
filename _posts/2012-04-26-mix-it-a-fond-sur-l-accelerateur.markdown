@@ -7,7 +7,7 @@ tags: [conference, mix-it, agile, echec, test, tdd, lean, mongodb, nodejs, scala
 
 Jeudi 26 avril 2012 : c'est reparti pour Mix-it, deuxième édition (indice : ne se prononcer pas "mixit" ou "mixaieti").
 
-<img src="http://www.mix-it.fr/public/resources/mixit-banner.png"/>
+<img height="250px" src="http://www.mix-it.fr/public/resources/mixit-banner.png"/>
 
 Des locaux plus grands à SUP-info Lyon, 5 salles pour accueillir près de 400 participants, 10 partenaires, 34 speakers pour 25 conférences 5 ateliers et 10 micro confs (lightning talks), dont la majorité filmée et retransmise en live sur un [site web](http://www.mix-it.f) flambant neuf et très pratique, une appli Android et une collection de badges honorifiques à gagner...
 
