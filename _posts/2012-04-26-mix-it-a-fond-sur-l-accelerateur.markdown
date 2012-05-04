@@ -2,7 +2,7 @@
 layout: post
 title: Mix-it, à fond sur l'accélérateur
 author: feugy
-tags: [conference, mix-it, agile, echec, test, tdd, lean, mongodb, nodejs, scalabilit]
+tags: [conference, mix-it, agile, echec, test, tdd, lean, mongodb, nodejs, scalabilité]
 ---
 
 Jeudi 26 avril 2012 : c'est reparti pour Mix-it, deuxième édition (indice : ne se prononcer pas "mixit" ou "mixaieti").
@@ -19,15 +19,15 @@ Alors, est-ce que ça valait le coup de remettre 30€ pour cette journée ? -- 
 
 ## KeyNotes de Martin Görner (Google) & Claire Blondel
 
-Après les présentation d'usage, Martin Görner nous annonce l'arrivée de Chrome sur Androïd et ses _merveilleuses fonctionnalités_ : changement d'onglet en gigotant d'un air stupide (très important l'air stupide) son téléphone et débogage distant depuis son PC (ca c'est vraiment utile).
+Après les présentations d'usage, Martin Görner nous annonce l'arrivée de Chrome sur Androïd et ses _merveilleuses fonctionnalités_ : changement d'onglet en gigotant d'un air stupide (très important l'air stupide) son téléphone et débogage distant depuis son PC (ca c'est vraiment utile).
 
 
 Bref.
 
 
-Heureusement Claire blondel est venu relever le niveau avec sa conférence [l'éducation positive](http://tedxtalks.ted.com/video/TEDxLyon-Claire-Blondel-Lduca-2), proposée au tedEx Lyon en novembre dernier.
+Heureusement Claire blondel est venu relever le niveau avec sa conférence [l'éducation positive](http://tedxtalks.ted.com/video/TEDxLyon-Claire-Blondel-Lduca-2), proposée au Tedx Lyon en novembre dernier.
 
-En quelques mots : l'éduction française classique (école, parents) nous à sclérosé vis à vis des échecs. Il est inconcevable, inacceptable, interdit de se tromper. 
+En quelques mots : l'éducation française classique (école, parents) nous a sclérosé vis à vis des échecs. Il est inconcevable, inacceptable, interdit de se tromper. 
 Cela induit une bonne dose d'intolérance, une mauvaise estime de soi, un manque d'autonomie et de persévérance dans les situations délicates et surtout cela restreint considérablement la prise de risque.
  
 > "Le succès, c'est d'aller d'échecs en échecs sans perdre son enthousiasme" (W. Churchill). 
