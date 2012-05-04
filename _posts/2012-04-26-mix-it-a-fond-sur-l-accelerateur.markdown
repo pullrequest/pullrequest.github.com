@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Mix-it, a fond sur l'accélérateur
+title: Mix-it, à fond sur l'accélérateur
 author: feugy
 tags: [conference, mix-it, agile, echec, test, tdd, lean, mongodb, nodejs, scalabilit]
 ---
@@ -143,7 +143,7 @@ En effet, la question n'est pas
 
 Mais plutôt
 
->Combien je perds à chaque anomalie qui je laisse passer en production ?
+>Combien je perds à chaque anomalie que je laisse passer en production ?
 
 Il devient plus facile de calculer l'investissement à mettre dans l'automatisation ainsi. Ex: 
 
@@ -179,7 +179,7 @@ C'est couteux et peu rentable. Mieux vaut automatiser en partant du "haut" et en
 
 ## Conclusion
 
-Une journée très riche et pationnante ! Pour moi, c'est vraiment une réussite.
+Une journée très riche et passionnante ! Pour moi, c'est vraiment une réussite.
 
 D'un point de vue orga, chapeau. Aucun accros, des salles pleines mais personnes assi par terre, la nourriture abondante et de qualité, le site web ultra-pratique :)
 
