@@ -1,4 +1,4 @@
----
+﻿---
 layout: post
 title: ORMLite pour Android
 author: dst17
@@ -16,6 +16,7 @@ Dans le cadre de mon étude des divers frameworks pour le développement java su
 # L'utilisation d'ORMLite
 
 ## Annoter son modèle
+
 En Android natif, les objets de notre modèle sont de simples POJO tels que :
 
 {% highlight java %}
@@ -111,6 +112,7 @@ Nous pouvons également déclarer des relations entre objets du modèle :
 {% endhighlight %}
 
 Quelques points négatifs sur les relations :
+
 - par défaut, les objets étrangers ne sont pas requêtés, seul l'id est renseigné dans un objet vide (par exemple, pour un object User, l'object Account aura seulement son id de renseigné). Il est quand même possible d'activer la mise à jour automatique des objets étrangers (voir le [foreignAutoRefresh](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_2.html#ANC6)).
 - pas moyen de préciser l'ordre de tri de la collection quand elle est retournée (certes il est possible de le faire programatiquement mais le faire en SQL aurait été beaucoup plus simple et rapide). Il est également possible d'utiliser le DAO pour mettre à jour cet objet :
 
@@ -122,7 +124,9 @@ La gestion des relations entre objets est une des bases d'un ORM et c'est un vra
 
 
 ## Les DAO
+
 ORMLite s'occupe du cycle de vie des DAO :
+
 - la création via le DaoManager
 - une fois créés, ils sont réutilisés car leur création est une opération côuteuse
 
@@ -191,11 +195,11 @@ Un dernier petit détail : il est possible d'activer un cache au niveau des DAO 
 {% endhighlight %}
 
 ## Les transactions
+
 ORMLite fournit un mécanisme de transactions simple (voir la [doc](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_5.html#SEC52)) :
-// we need the final to see it within the Callable
-final Hotel hotel = new Hotel();
 
 {% highlight java %}
+	final Hotel hotel = new Hotel();
 	TransactionManager.callInTransaction(connectionSource,
 	  new Callable<Void>() {
 		public Void call() throws Exception {
@@ -214,6 +218,7 @@ final Hotel hotel = new Hotel();
 {% endhighlight %}
 
 ## Le QueryBuilder
+
 Le QueryBuilder a pour but de construire des requêtes SQL sans faire du SQL (ou presque). Il permet de chaîner les appels de méthodes afin de rendre plus lisible la requête :
 
 {% highlight java %}
@@ -226,6 +231,7 @@ Pas besoin de s'étaler sur cette fonctionnalité qui n'est pas spécifique à A
 # L'intégration à Android
 
 ## Création et mise à jour de schémas
+
 ORMLite fournit un OrmLiteSqliteOpenHelper qui étend le SQLiteOpenHelper d'Android et qui permet de créer automatiquement le schéma SQLite et de le mettre à jour. Cette classe surcharge les onCreate et onUpgrade pour les besoins de SQLite. D'autres outils sont disponibles comme TableUtils qui permet de créer, vider et supprimer des tables.
 
 ## Accès aux DAO dans les activités
@@ -268,3 +274,26 @@ Par contre, il faudra bien prendre soin de libérer le helper afin de fermer la 
 Ceci permettra d'éviter à ORMLite la recherche de cette classe par réflexion (encore une fois).
 
 ## Benchmarks
+
+J'ai testé l'insertion de 1000 objets simples avec et sans transaction :
+
+- sans tx : 1000 objets en 97874 ms, soit 98 ms par objet
+- avec tx : 1000 objets en 842 ms, soit 0,8 ms par objet
+
+On voit que l'utilisation des transactions est bien plus rapide dans le cas d'insertions en masse.
+
+Reste à comparer avec du Android natif :
+
+- sans tx : 1000 objets en 92468 ms, soit 92 ms par objet
+- avec tx : 1000 objets en 1178 ms, soit 1,2 ms par objet
+
+Ces chiffres ne sont pas exactes car il faudrait beaucoup plus de tests mais ils me confortent dans l'idée qu'ORMLite ne pénalise mon application en terme de performances.
+
+## Le ressenti utilisateur
+
+Comme écrit dans le chapitre précédent, je ne ressens aucune différence notable en terme d'utilisation de l'application.
+
+
+# Conclusion
+
+ORMLite est donc un outil assez complet et assez léger (310 Ko) pour nos applications Android. Il nous permet d'écrire un code plus propre, plus lisible et plus léger. Il nous rapproche aussi de l'architecture utilisée dans nos développements Java côté serveur. Pour aller plus loin, nous pourrons coupler ORMLite avec un framework d'injection comme RoboGuice, que l'on étudiera dans un prochain article. Stay tuned !
