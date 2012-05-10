@@ -13,37 +13,37 @@ Dans le cadre de mon étude des divers frameworks pour le développement java su
 </p>
   
 
-# L'utilisation d'ORMLite
+## L'utilisation d'ORMLite
 
-## Annoter son modèle
+### Annoter son modèle
 
 En Android natif, les objets de notre modèle sont de simples POJO tels que :
 
 {% highlight java %}
 public final class User {
 
-	private int id;
-	private String firstName;
-	private String lastName;
-	private String login;
-	private String password;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String login;
+    private String password;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	...
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    ...
 }
 {% endhighlight %}
 
@@ -54,46 +54,46 @@ Nous allons utiliser les annotations d'ORMLite pour enrichir notre POJO :
 @DatabaseTable(daoClass = UserDaoImpl.class, tableName = User.TABLE_NAME)
 public final class User implements Serializable {
 
-	private static final long serialVersionUID = -3366808703621227882L;
+    private static final long serialVersionUID = -3366808703621227882L;
 
-	public static final String TABLE_NAME = "users";
-	
-	@DatabaseField(generatedId = true, columnName = Schema.ID)
-	private long id;
-	
-	@DatabaseField(columnName = Schema.FIRST_NAME)
-	private String firstName;
-	
-	@DatabaseField(columnName = Schema.LAST_NAME)
-	private String lastName;
-	
-	@DatabaseField(columnName = Schema.LOGIN)
-	private String login;
-	
-	@DatabaseField(columnName = Schema.PASSWORD)
-	private String password;
-	
-	public User(long id) {
-		this.id = id;
-	}
-	
-	public long getId() {
-		return id;
-	}
+    public static final String TABLE_NAME = "users";
+    
+    @DatabaseField(generatedId = true, columnName = Schema.ID)
+    private long id;
+    
+    @DatabaseField(columnName = Schema.FIRST_NAME)
+    private String firstName;
+    
+    @DatabaseField(columnName = Schema.LAST_NAME)
+    private String lastName;
+    
+    @DatabaseField(columnName = Schema.LOGIN)
+    private String login;
+    
+    @DatabaseField(columnName = Schema.PASSWORD)
+    private String password;
+    
+    public User(long id) {
+        this.id = id;
+    }
+    
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	
-	...
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    ...
 }
 {% endhighlight %}
 
@@ -123,7 +123,7 @@ accountDao.refresh(user.getAccount());
 La gestion des relations entre objets est une des bases d'un ORM et c'est un vrai plus par rapport à de l'android natif.
 
 
-## Les DAO
+### Les DAO
 
 ORMLite s'occupe du cycle de vie des DAO :
 
@@ -142,37 +142,37 @@ Il est également possible (et conseillé) de définir ses propres DAO avec une 
 {% highlight java %}
 // UserDao inteface that extends Dao
 public interface UserDao extends Dao<User, Integer> {
-	ConnectionSource getConnectionSource();
-	User findByLogin(String login);
+    ConnectionSource getConnectionSource();
+    User findByLogin(String login);
 }
 
 // The UserDaoImpl must also extends BaseDaoImpl
 public class UserDaoImpl extends BaseDaoImpl<User, Integer> implements UserDao {
 
-	private ConnectionSource connectionSource;
+    private ConnectionSource connectionSource;
 
-	public UserDaoImpl(ConnectionSource connectionSource, DatabaseTableConfig<User> tableConfig) throws SQLException {
-		super(connectionSource, tableConfig);
-		this.connectionSource = connectionSource;
-	}
+    public UserDaoImpl(ConnectionSource connectionSource, DatabaseTableConfig<User> tableConfig) throws SQLException {
+        super(connectionSource, tableConfig);
+        this.connectionSource = connectionSource;
+    }
 
-	@Override
-	public ConnectionSource getConnectionSource() {
-		return connectionSource;
-	}
+    @Override
+    public ConnectionSource getConnectionSource() {
+        return connectionSource;
+    }
 
-	@Override
-	public User findByLogin(String login) {
-		try {
-			List<User> users = this.queryForEq(Schema.LOGIN, login);
-			if(!users.isEmpty()) {
-				return users.get(0);
-			}
-		} catch (SQLException e) {
-			Log.e(C.LOG_TAG, "Error querying users for " + login + " login.", e);
-		}
-		return null;
-	}
+    @Override
+    public User findByLogin(String login) {
+        try {
+            List<User> users = this.queryForEq(Schema.LOGIN, login);
+            if(!users.isEmpty()) {
+                return users.get(0);
+            }
+        } catch (SQLException e) {
+            Log.e(C.LOG_TAG, "Error querying users for " + login + " login.", e);
+        }
+        return null;
+    }
 }
 {% endhighlight %}
 
@@ -182,19 +182,19 @@ Un dernier petit détail : il est possible d'activer un cache au niveau des DAO 
 
 {% highlight java %}
 public HotelDao getHotelDao() {
-	if (hotelDao == null) {
-		try {
-			hotelDao = getDao(Hotel.class);
-			hotelDao.setObjectCache(true);
-		} catch (Exception e) {
-			Log.e(C.LOG_TAG, "unable to get hotel dao", e);
-		}
-	}
-	return (HotelDao) hotelDao;
+    if (hotelDao == null) {
+        try {
+            hotelDao = getDao(Hotel.class);
+            hotelDao.setObjectCache(true);
+        } catch (Exception e) {
+            Log.e(C.LOG_TAG, "unable to get hotel dao", e);
+        }
+    }
+    return (HotelDao) hotelDao;
 }
 {% endhighlight %}
 
-## Les transactions
+### Les transactions
 
 ORMLite fournit un mécanisme de transactions simple (voir la [doc](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_5.html#SEC52)) :
 
@@ -202,22 +202,22 @@ ORMLite fournit un mécanisme de transactions simple (voir la [doc](http://ormli
 final Hotel hotel = new Hotel();
 TransactionManager.callInTransaction(connectionSource,
   new Callable<Void>() {
-	public Void call() throws Exception {
-		// new hotel
-		hotelDao.create(hotel);
-		
-		// set the hotel to the booking
-		booking.setHotel(hotel);
-		
-		// update our booking
-		bookingDao.update(booking);
-		
-		return null;
-	}
+    public Void call() throws Exception {
+        // new hotel
+        hotelDao.create(hotel);
+        
+        // set the hotel to the booking
+        booking.setHotel(hotel);
+        
+        // update our booking
+        bookingDao.update(booking);
+        
+        return null;
+    }
 });
 {% endhighlight %}
 
-## Le QueryBuilder
+### Le QueryBuilder
 
 Le QueryBuilder a pour but de construire des requêtes SQL sans faire du SQL (ou presque). Il permet de chaîner les appels de méthodes afin de rendre plus lisible la requête :
 
@@ -227,13 +227,13 @@ queryBuilder.where().eq(User.Schema.LOGIN, "demo").and().eq(User.Schema.PASSWORD
 
 Pas besoin de s'étaler sur cette fonctionnalité qui n'est pas spécifique à Android. [La documentation](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_3.html#SEC32) est d'ailleurs très complète à ce sujet.  
 
-# L'intégration à Android
+## L'intégration à Android
 
-## Création et mise à jour de schémas
+### Création et mise à jour de schémas
 
 ORMLite fournit un **OrmLiteSqliteOpenHelper** qui étend le SQLiteOpenHelper d'Android et qui permet de créer automatiquement le schéma SQLite et de le mettre à jour. Cette classe surcharge les onCreate et onUpgrade pour les besoins de SQLite. D'autres outils sont disponibles comme **TableUtils** qui permet de créer, vider et supprimer des tables.
 
-## Accès aux DAO dans les activités
+### Accès aux DAO dans les activités
 
 ORMLite fournit une classe qui surcharge Activity pour fournir à nos activités un accès direct à la couche de persistence : **OrmLiteBaseActivity**.
 Pour faire court, elle fournit un Helper qui nous permet de récupérer le OrmLiteSqliteOpenHelper du chapitre précédent. Ce helper est géré par la classe OpenHelperManager qui permet de gérer le cycle de vie du helper afin qu'une seule instance soit présente au sein de l'application.
@@ -241,11 +241,11 @@ Pour faire court, elle fournit un Helper qui nous permet de récupérer le OrmLi
 {% highlight java %}
 // MyOrmLiteSqliteOpenHelper is our implementation of OrmLiteSqliteOpenHelper
 public class LoginActivity extends OrmLiteBaseActivity<MyOrmLiteSqliteOpenHelper> {
-	
-	public void onCreate(Bundle savedInstanceState) {
-		int userId = 42;
-		User user = ((UserDao) getHelper().getDao(User.class)).queryForId((int) userId);
-	}
+    
+    public void onCreate(Bundle savedInstanceState) {
+        int userId = 42;
+        User user = ((UserDao) getHelper().getDao(User.class)).queryForId((int) userId);
+    }
 }
 {% endhighlight %}
 
@@ -258,9 +258,9 @@ OpenHelperManager.getHelper(context, MyOrmLiteSqliteOpenHelper.class);
 Par contre, il faudra bien prendre soin de libérer le helper afin de fermer la connection à la bdd (OpenHelperManager.release()).  
 
 
-# Performances
+## Performances
 
-## Les trucs à savoir
+### Les trucs à savoir
 
 - Il peut y avoir un temps de chargement très long des DAO au démarrage de l'application. Afin de contrer ça, ORMLite fournit un utilitaire permettant de générer un fichier plat de description de votre schéma qui sera ensuite utilisé au démarrage de l'application pour charger les DAO au lieu d'utiliser la réflexion qui est extrêment coûteuse sur Android. Le fichier généré s'appelle ormlite_config.txt et sera stocké dans le répertoire res/raw/. Il faudra ensuite le référencer dans votre classe OrmLiteSqliteOpenHelper (pour de plus amples informations, voir [la doc d'ORMLite](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_4.html#SEC41)).
 
@@ -272,7 +272,7 @@ Par contre, il faudra bien prendre soin de libérer le helper afin de fermer la 
 
 Ceci permettra d'éviter à ORMLite la recherche de cette classe par réflexion (encore une fois).
 
-## Benchmarks
+### Benchmarks
 
 J'ai testé l'insertion de 1000 objets simples avec et sans transaction :
 
@@ -288,12 +288,12 @@ Reste à comparer avec du Android natif :
 
 Ces chiffres donnent juste un ordre d'idée car il faudrait beaucoup plus de tests pour avoir un benchmark plus précis, mais ils me confortent dans l'idée qu'ORMLite ne pénalise mon application en terme de performances.
 
-## Le ressenti utilisateur
+### Le ressenti utilisateur
 
 Comme écrit dans le chapitre précédent, je ne ressens aucune différence notable en terme d'utilisation de l'application.  
 
 
-# Conclusion
+## Conclusion
 
 ORMLite est donc un outil assez complet et assez léger (310 Ko) pour nos applications Android. Il nous permet d'écrire un code plus propre, plus lisible et plus léger. Il nous rapproche aussi de l'architecture utilisée dans nos développements Java côté serveur.
 
