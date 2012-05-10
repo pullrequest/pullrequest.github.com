@@ -1,7 +1,7 @@
-﻿---
+---
 layout: post
 title: ORMLite pour Android
-author: dst17
+author: johanpoirier
 tags: [ormlite, android, orm]
 ---
 
