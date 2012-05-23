@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: RoboGuice 2.0
 author: johanpoirier
@@ -17,6 +17,7 @@ Dans le cadre de mon étude des divers frameworks pour le développement java su
 L'injection dans RoboGuice (et Google Guice) se fait via la description du graph de dépendances. Cela se fait via la déclaration de modules :
 
 {% highlight java %}
+// Main module for the app
 public class BookingModule extends AbstractModule {
 
     private Context context;
@@ -55,6 +56,7 @@ Dans l'exemple précédent, nous pouvons voir deux types de binding différents 
 - Les **provider bindings** : un provider lie une interface à une instance selon certains paramètres
 
 {% highlight java %}
+// DAO provider for ORMLite
 public class DaoProvider<T, D extends Dao<T, ?>> implements Provider<D> {
 	protected ConnectionSource conn;
 	protected Class<T> clazz;
@@ -89,6 +91,7 @@ Pour que l'injection ait lieu, il faut que l'injector de RoboGuice soit appelé.
 #### L'injection dans les "beans" déjà pris en charge par RoboGuice
 
 {% highlight java %}
+// Main service for the app
 public class BookingServiceImpl implements BookingService {
 
 	@Inject
@@ -117,6 +120,7 @@ RoboGuice est une version de Google Guice pour Android, il a donc quelques spéc
 Les classes surchargées sont donc prises en compte par RoboGuice et l'injection aura donc lieu, comme dans l'exemple suivant :
 
 {% highlight java %}
+// Display bookings
 public class MyBookings extends RoboActivity {
 
 	@Inject
@@ -137,6 +141,7 @@ public class MyBookings extends RoboActivity {
 Dans certains cas, il n'est pas possible d'hériter directement d'une classe de RoboGuice et il va falloir appeler l'injecteur manuellement :
 
 {% highlight java %}
+// Inject only members, no ui available
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     RoboGuice.getInjector(this).injectMembersWithoutViews(this);
@@ -167,6 +172,7 @@ La liste complète est disponible [ici](http://code.google.com/p/roboguice/wiki/
 ### La vue de l'activité
 
 {% highlight java %}
+// Replaces setContent
 @ContentView(R.layout.my_bookings)
 public class MyBookings extends RoboActivity {
 	...
