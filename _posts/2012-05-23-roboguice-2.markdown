@@ -8,7 +8,7 @@ tags: [roboguice, google, guice, di, ioc, android, framework]
 Dans le cadre de mon étude des divers frameworks pour le développement java sur Android (voir mes articles précedents : [Tour d'horizon des frameworks pour Android](http://pullrequest.org/2012/02/29/tour-d-horizon-des-frameworks-java-pour-android.html) et [ORMLite pour Android](http://ormlite.com/sqlite_java_android_orm.shtml)), et après avoir introduit ORMLite pour Android dans mon application démo (à voir [ici](https://github.com/johanpoirier/Android-Booking-Demo) sur Github), j'ai ajouté le framework **RoboGuice** dans sa version 2.0. [RoboGuice](http://code.google.com/p/roboguice/) est un framework d'injection de dépendance basé sur le fameux Google Guice 3.0 et adapté pour les besoins d'Android.
 
 <p class="center">
-  <img src="http://roboguice.googlecode.com/files/roboguice.png" border="0" />
+  <img src="http://roboguice.googlecode.com/files/roboguice.png" border="0" width="220" />
 </p>
 
 
@@ -175,29 +175,29 @@ La liste complète est disponible [ici](http://code.google.com/p/roboguice/wiki/
 // Replaces setContent
 @ContentView(R.layout.my_bookings)
 public class MyBookings extends RoboActivity {
-	...
+    ...
 }
 {% endhighlight %}
 
 ### Les widgets
 
 {% highlight java %}
-	@InjectView(R.id.hotelsButton)
-	private Button hotelsButton;
+@InjectView(R.id.hotelsButton)
+private Button hotelsButton;
 {% endhighlight %}
 
 ### Les ressources
 
 {% highlight java %}
-	@InjectResource(R.drawable.ic_book_hotel)
-	private Drawable bookHotelImage;
+@InjectResource(R.drawable.ic_book_hotel)
+private Drawable bookHotelImage;
 {% endhighlight %}
 
 ### Les services systèmes d'Android (WifiManager, LocationManager, ...)
 
 {% highlight java %}
-	@Inject
-	private LocationManager locationManager;
+@Inject
+private LocationManager locationManager;
 {% endhighlight %}
 
 
