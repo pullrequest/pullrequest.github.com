@@ -37,7 +37,7 @@ public class BookingModule extends AbstractModule {
 {% endhighlight %}
 
 Pour faire court, on dit à RoboGuice quels sont nos "beans" à instancier et comment les instancier.
-Pour qu'Android connaisse nos modules, il faut lui indiquer où les chercher via un seul fichier de configuration XML roboguice.xml situé dans res/values :
+Pour qu'Android connaisse nos modules, il faut lui indiquer où les chercher via un seul fichier de configuration XML **roboguice.xml** situé dans res/values :
 
 {% highlight xml %}
 <resources>
@@ -111,7 +111,7 @@ BookingServiceImpl est l'implémentation de BookingService qui est déclaré dan
 
 #### L'injection dans les Activity, Service, AsyncTask et autres classes d'Android
 
-RoboGuice est une version de Google Guice pour Android, il a donc quelques spécificités. Il surcharge donc certaines classes de base du framework de développement natif indispensables à lcréation d'une application. Pour en citer quelques unes (voir la [liste complète](http://code.google.com/p/roboguice/wiki/InheritingFromRoboGuice)) :
+RoboGuice est une version de Google Guice pour Android, il a donc quelques spécificités. Il surcharge donc certaines classes de base du framework de développement natif indispensables à la création d'une application. Pour en citer quelques unes (voir la [liste complète](http://code.google.com/p/roboguice/wiki/InheritingFromRoboGuice)) :
 
 - RoboActivity
 - RoboService
@@ -208,7 +208,7 @@ L'utilisation d'un tel framework sur un mobile nous pousse bien évidemment à n
 - **oui** car le temps de démarrage de mon application en a pris un coup (nous allons voir les chiffres juste après)
 - **non** car après le démarrage, je n'ai pas vu ni mesuré de latences dans l'utilisation de l'application
 
-En chiffres donc, j'ai utilisé traceview pour mesurer le temps de démarrage de l'application sur mon Nexus S. J'ai utilisé 2 versions de l'application, une avec RoboGuice et l'autre sans :
+En chiffres donc, j'ai utilisé [traceview](http://developer.android.com/guide/developing/debugging/debugging-tracing.html) pour mesurer le temps de démarrage de l'application sur mon Nexus S. J'ai utilisé 2 versions de l'application, une avec RoboGuice et l'autre sans :
 
 - avec : environ 2,2 secondes (dont 1,4s alloué à la création de l'injecteur)
 - sans : environ 0,2 seconde
@@ -219,4 +219,5 @@ On voit donc qu'au démarrage de l'application, l'instanciation du framework pre
 ## Conclusion
 
 RoboGuice est un très bon framework, qui nous facilite l'écriture de nos applications. Il apporte l'injection de dépendances à laquelle nous sommes tant habitués en tant qu'utilisateur de Spring. [Spring for Android](http://www.springsource.org/spring-android) n'apportant pas cette fonctionnalité, RoboGuice est la meilleure alternative sur Android.
+
 Pourtant l'impact de RoboGuice sur le temps de démarrage de l'application me fait émettre quelques réserves. Tout dépendera de l'utilisation cible de votre application. Si elle doit être utilisée souvent mais pour une durée brève (prendre des notes par exemple), je ne recommande pas RoboGuice. Pour des applications plus complexes et qui nécessitent une utilisation plus longue, quelques secondes de démarrage bien gérées (tout est une histoire de ressenti, n'est-ce pas Apple ?) ne devraient pas poser de problème.
