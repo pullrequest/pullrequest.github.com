@@ -1,0 +1,223 @@
+---
+layout: post
+title: RoboGuice 2.0
+author: johanpoirier
+tags: [roboguice, google, guice, di, ioc, android, framework]
+---
+
+Dans le cadre de mon étude des divers frameworks pour le développement java sur Android (voir mes articles précedents : [Tour d'horizon des frameworks pour Android](http://pullrequest.org/2012/02/29/tour-d-horizon-des-frameworks-java-pour-android.html) et [ORMLite pour Android](http://ormlite.com/sqlite_java_android_orm.shtml)), et après avoir introduit ORMLite pour Android dans mon application démo (à voir [ici](https://github.com/johanpoirier/Android-Booking-Demo) sur Github), j'ai ajouté le framework **RoboGuice** dans sa version 2.0. [RoboGuice](http://code.google.com/p/roboguice/) est un framework d'injection de dépendance basé sur le fameux Google Guice 3.0 et adapté pour les besoins d'Android.
+
+<p class="center">
+  <img src="http://roboguice.googlecode.com/files/roboguice.png" border="0" width="220" />
+</p>
+
+
+## L'injection de dépendances
+
+L'injection dans RoboGuice (et Google Guice) se fait via la description du graph de dépendances. Cela se fait via la déclaration de modules :
+
+{% highlight java %}
+// Main module for the app
+public class BookingModule extends AbstractModule {
+
+    private Context context;
+
+    public BookingModule(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    protected void configure() {
+        bind(UserDao.class).toProvider(new DaoProvider<User, UserDao>(OpenHelperManager.getHelper(context, DatabaseHelper.class).getConnectionSource(), User.class));
+        bind(HotelDao.class).toProvider(new DaoProvider<Hotel, HotelDao>(OpenHelperManager.getHelper(context, DatabaseHelper.class).getConnectionSource(), Hotel.class));
+        bind(BookingDao.class).toProvider(new DaoProvider<Booking, BookingDao>(OpenHelperManager.getHelper(context, DatabaseHelper.class).getConnectionSource(), Booking.class));
+        bind(BookingService.class).to(BookingServiceImpl.class);
+    }
+}
+{% endhighlight %}
+
+Pour faire court, on dit à RoboGuice quels sont nos "beans" à instancier et comment les instancier.
+Pour qu'Android connaisse nos modules, il faut lui indiquer où les chercher via un seul fichier de configuration XML **roboguice.xml** situé dans res/values :
+
+{% highlight xml %}
+<resources>
+    <string-array name="roboguice_modules">
+        <item>org.pullrequest.android.bookingnative.module.BookingModule</item>
+    </string-array>
+</resources>
+{% endhighlight %}
+
+
+### La configuration : les "bindings"
+
+Dans l'exemple précédent, nous pouvons voir deux types de binding différents (et les plus courrament utilisés) :
+
+- Les **linked bindings** : on lie une interface à une implémation
+- Les **provider bindings** : un provider lie une interface à une instance selon certains paramètres
+
+{% highlight java %}
+// DAO provider for ORMLite
+public class DaoProvider<T, D extends Dao<T, ?>> implements Provider<D> {
+	protected ConnectionSource conn;
+	protected Class<T> clazz;
+
+	public DaoProvider(ConnectionSource conn, Class<T> clazz) {
+		this.conn = conn;
+		this.clazz = clazz;
+	}
+
+	@Override
+	public D get() {
+		try {
+			D dao = DaoManager.createDao(conn, clazz);
+			return dao;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+}
+{% endhighlight %}
+
+Dans l'exemple ci-dessus, nous avons besoin d'un provider pour créer nos DAOs car ORMLite nous fournit une fabrique de DAO. Le provider prend simplement la source de connexion à la bdd et la classe de l'objet du modèle pour générer le DAO correspondant (UserDaoImpl) et le lier à l'interface en question (UserDao). Nous ne pouvons pas utiliser un linked binding ici car la ConnectionSource ne peut pas être injectée.
+
+Vous trouverez toute la documentation sur les bindings sur le site de [Google Guice](http://code.google.com/p/google-guice/wiki/Bindings).
+
+
+### L'utilisation dans nos classes
+
+Pour que l'injection ait lieu, il faut que l'injector de RoboGuice soit appelé. Nous pouvons distinguer 3 cas de figures :
+
+#### L'injection dans les "beans" déjà pris en charge par RoboGuice
+
+{% highlight java %}
+// Main service for the app
+public class BookingServiceImpl implements BookingService {
+
+	@Inject
+	private UserDao userDao;
+
+	@Inject
+	private BookingDao bookingDao;
+
+	@Inject
+	private HotelDao hotelDao;
+	
+	...
+}
+{% endhighlight %}
+
+BookingServiceImpl est l'implémentation de BookingService qui est déclaré dans mes modules. Il est donc déjà pris en charge par RoboGuice et l'injection de champs via les **@Inject** est effectué à l'instantiation de celui-ci. D'autres type d'injections sont possibles comme l'injection de constructeurs, de méthodes ou encore l'injection statique (voir la doc [ici](http://code.google.com/p/google-guice/wiki/Injections)).
+
+#### L'injection dans les Activity, Service, AsyncTask et autres classes d'Android
+
+RoboGuice est une version de Google Guice pour Android, il a donc quelques spécificités. Il surcharge donc certaines classes de base du framework de développement natif indispensables à la création d'une application. Pour en citer quelques unes (voir la [liste complète](http://code.google.com/p/roboguice/wiki/InheritingFromRoboGuice)) :
+
+- RoboActivity
+- RoboService
+- RoboAsyncTask
+
+Les classes surchargées sont donc prises en compte par RoboGuice et l'injection aura donc lieu, comme dans l'exemple suivant :
+
+{% highlight java %}
+// Display bookings
+public class MyBookings extends RoboActivity {
+
+	@Inject
+	private UserDao userDao;
+	
+	@InjectView(R.id.buttonHotels)
+	private Button hotelsButton;
+	
+	@InjectResource(R.drawable.ic_book_hotel)
+	private Drawable newContentImg;
+	
+	...
+}
+{% endhighlight %}
+
+#### L'injection manuelle
+
+Dans certains cas, il n'est pas possible d'hériter directement d'une classe de RoboGuice et il va falloir appeler l'injecteur manuellement :
+
+{% highlight java %}
+// Inject only members, no ui available
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    RoboGuice.getInjector(this).injectMembersWithoutViews(this);
+    super.onCreate(savedInstanceState);
+}
+
+@Override
+public void onContentChanged() {
+    super.onContentChanged();
+    RoboGuice.getInjector(this).injectViewMembers(this);
+}
+
+@Override
+protected void onDestroy() {
+    try {
+        RoboGuice.destroyInjector(this);
+    } finally {
+        super.onDestroy();
+    }
+}
+{% endhighlight %}
+
+
+## Les injections spécifiques à Android
+
+La liste complète est disponible [ici](http://code.google.com/p/roboguice/wiki/ProvidedInjections) mais en voilà quelques exemples :
+
+### La vue de l'activité
+
+{% highlight java %}
+// Replaces setContent
+@ContentView(R.layout.my_bookings)
+public class MyBookings extends RoboActivity {
+    ...
+}
+{% endhighlight %}
+
+### Les widgets
+
+{% highlight java %}
+@InjectView(R.id.hotelsButton)
+private Button hotelsButton;
+{% endhighlight %}
+
+### Les ressources
+
+{% highlight java %}
+@InjectResource(R.drawable.ic_book_hotel)
+private Drawable bookHotelImage;
+{% endhighlight %}
+
+### Les services systèmes d'Android (WifiManager, LocationManager, ...)
+
+{% highlight java %}
+@Inject
+private LocationManager locationManager;
+{% endhighlight %}
+
+
+## Les performances
+
+L'utilisation d'un tel framework sur un mobile nous pousse bien évidemment à nus intéresser aux performances. RoboGuice va-t-il pénaliser l'expérience utilisateur de mon application ? et bien... oui et non. Je m'explique :
+
+- **oui** car le temps de démarrage de mon application en a pris un coup (nous allons voir les chiffres juste après)
+- **non** car après le démarrage, je n'ai pas vu ni mesuré de latences dans l'utilisation de l'application
+
+En chiffres donc, j'ai utilisé [traceview](http://developer.android.com/guide/developing/debugging/debugging-tracing.html) pour mesurer le temps de démarrage de l'application sur mon Nexus S. J'ai utilisé 2 versions de l'application, une avec RoboGuice et l'autre sans :
+
+- avec : environ 2,2 secondes (dont 1,4s alloué à la création de l'injecteur)
+- sans : environ 0,2 seconde
+
+On voit donc qu'au démarrage de l'application, l'instanciation du framework prend quelques secondes si l'application n'est pas en mémoire (pour des utilisations ultérieurs et si le process n'a pas été tué par Android, le démarrage sera quasi immédiat).
+
+
+## Conclusion
+
+RoboGuice est un très bon framework, qui nous facilite l'écriture de nos applications. Il apporte l'injection de dépendances à laquelle nous sommes tant habitués en tant qu'utilisateur de Spring. [Spring for Android](http://www.springsource.org/spring-android) n'apportant pas cette fonctionnalité, RoboGuice est la meilleure alternative sur Android.
+
+Pourtant l'impact de RoboGuice sur le temps de démarrage de l'application me fait émettre quelques réserves. Tout dépendera de l'utilisation cible de votre application. Si elle doit être utilisée souvent mais pour une durée brève (prendre des notes par exemple), je ne recommande pas RoboGuice. Pour des applications plus complexes et qui nécessitent une utilisation plus longue, quelques secondes de démarrage bien gérées (tout est une histoire de ressenti, n'est-ce pas Apple ?) ne devraient pas poser de problème.
