@@ -54,7 +54,7 @@ public class MyService extends IntentService {
 
 L'utilisation de ces 2 annotations nous facilite la création et l'utilisation de widgets personnalisés.
 
-- @EView permet de redéfinir un bouton par exemple :
+- `@EView` permet de redéfinir un bouton par exemple :
 
 {% highlight java %}
 // ...
@@ -70,7 +70,7 @@ public class MyButton extends Button {
 }
 {% endhighlight %}
 
-- @EViewGroup permet de définir un composant complet composé de plusieurs widgets dont des @EView :
+- `@EViewGroup` permet de définir un composant complet composé de plusieurs widgets dont des @EView :
 
 {% highlight java %}
 // ...
@@ -164,9 +164,9 @@ Hotel hotel;
 
 #### @AfterViews, @AfterInject
 
-- \@AfterViews annote une méthode pour indiquer qu'elle doit être appelée après que les vues aient été récupéré (via les @ViewId). Très pratique quand on doit manipuler ces vues avant l'affichage. La méthode annotée est souvent utilisée à la place de onResume().
+- `@AfterViews` annote une méthode pour indiquer qu'elle doit être appelée après que les vues aient été récupéré (via les @ViewId). Très pratique quand on doit manipuler ces vues avant l'affichage. La méthode annotée est souvent utilisée à la place de onResume().
 
-- \@AfterInject annote également une méthode mais est appelée après l'injection dans la classe annotée par un @EBean
+- `@AfterInject` annote également une méthode mais est appelée après l'injection dans la classe annotée par un @EBean
 
 ### La gestion des évènements
 
