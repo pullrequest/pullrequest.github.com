@@ -19,7 +19,7 @@ AA fonctionne par génération de code à la compilation (JAPT) en créant des c
 
 ## Les annotations
 
-Nous allons voir les principales annoations regroupées par thème.
+Nous allons voir les principales annotations regroupées par thème.
 La [liste](https://github.com/excilys/androidannotations/wiki/AvailableAnnotations) complète est disponible sur la [documentation](https://github.com/excilys/androidannotations/wiki) du projet sur Github.
 
 
@@ -51,7 +51,7 @@ public class MyService extends IntentService {
 
 L'utilisation de ces 2 annotations nous facilite la création et l'utilisation de widgets personnalisés.
 
-@EView permet de redéfinir un bouton par exemple :
+- @EView permet de redéfinir un bouton par exemple :
 
 {% highlight java %}
 @EView
@@ -66,7 +66,8 @@ public class MyButton extends Button {
 }
 {% endhighlight %}
 
-@EViewGroup permet de définir un composant complet composé de plusieurs widgets dont des @EView :
+- @EViewGroup permet de définir un composant complet composé de plusieurs widgets dont des @EView :
+
 {% highlight java %}
 @EViewGroup(R.layout.title_with_subtitle)
 public class TitleWithSubtitle extends RelativeLayout {
@@ -160,13 +161,13 @@ Hotel hotel;
 
 - @AfterViews annote une méthode pour indiquer qu'elle doit être appelée après que les vues aient été récupéré (via les @ViewId). Très pratique quand on doit manipuler ces vues avant l'affichage. La méthode annotée est souvent utilisée à la place de onResume().
 
--  @AfterInject annote également une méthode mais est appelée après l'injection dans la classe annotée par un @EBean
+- @AfterInject annote également une méthode mais est appelée après l'injection dans la classe annotée par un @EBean
 
 ### La gestion des évènements
 
 #### @Click, @LongClick et @Touch
 
-Ces annoations nous débarasse des listener d'events. Plus besoin d'implémenter d'interfaces, il suffit d'annoter une méthode @Click :
+Ces annotations nous débarasse des listener d'events. Plus besoin d'implémenter d'interfaces, il suffit d'annoter une méthode @Click :
 
 {% highlight java %}
 @Click(R.id.buttonHotels)
@@ -239,7 +240,7 @@ public interface BookingPrefs {
 }
 {% endhighlight %}
 
-Puis tout simplement dons une activité :
+Puis tout simplement dans une activité :
 
 {% highlight java %}
 @EActivity(R.layout.my_bookings)
@@ -305,7 +306,7 @@ Je préfère personellement n'utiliser que AA même si cela implique une injecti
 
 Rien de prévu nativement pour l'intégration à ORMLite mais voici ce qui peut être réalisé :
 
-- créer une classe générique Service<T> :
+- créer une classe générique Service :
 
 {% highlight java %}
 @EBean(scope = Scope.Singleton)
