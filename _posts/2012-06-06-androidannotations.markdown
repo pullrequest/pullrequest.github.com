@@ -3,6 +3,7 @@ layout: post
 title: AndroidAnnotations
 author: johanpoirier
 tags: [android, androidannotations, framework, annotations]
+published: false
 ---
 
 Dans le monde des [frameworks pour le développement Android](http://androidannotations.org/), je vous présente [AndroidAnnotations](http://androidannotations.org/) (mon coup de coeur). Comme son nom l’indique, ce framework apporte un bon nombre d'annotations qui nous permettent d'éliminer beaucoup de code boilerplate. Il simplifie le code et améliore sa lisibilité. Nous allons voir comment : 
@@ -14,7 +15,7 @@ Dans le monde des [frameworks pour le développement Android](http://androidanno
 
 ## Le principe
 
-AA fonctionne par génération de code à la compilation (JAPT) en créant des classes suffixées d'un **_**. Une activity **MyActivity** devient donc **MyActivity_** et doit être déclarée telle quelle dans le AndroidManifest.xml. Ce qui peut paraître au premier abord un gros point négatif apporte un avantage non négligeable : pas d'injection au runtime, le code généré ressemble beaucoup à du code Android "classique".
+AA fonctionne par génération de code à la compilation (JAPT) en créant des classes suffixées d'un **\_**. Une activity **MyActivity** devient donc **MyActivity\_** et doit être déclarée telle quelle dans le AndroidManifest.xml. Ce qui peut paraître au premier abord un gros point négatif apporte un avantage non négligeable : pas d'injection au runtime, le code généré ressemble beaucoup à du code Android "classique".
 
 
 ## Les annotations
@@ -28,9 +29,10 @@ La [liste](https://github.com/excilys/androidannotations/wiki/AvailableAnnotatio
 #### @EActivity
 
 {% highlight java %}
+// ...
 @EActivity(R.layout.my_bookings)
 public class MyBookings extends Activity {
-	...
+    ...
 }
 {% endhighlight %}
 
@@ -41,9 +43,10 @@ Il s'agit de l'annotation principale. Elle permet la génèration de l'actvité 
 La même chose pour les Service, IntentService, ContentProvider, BroadcastReceiver et autres fragments.
 
 {% highlight java %}
+// ...
 @EService
 public class MyService extends IntentService {
-	...
+    ...
 }
 {% endhighlight %}
 
@@ -51,59 +54,63 @@ public class MyService extends IntentService {
 
 L'utilisation de ces 2 annotations nous facilite la création et l'utilisation de widgets personnalisés.
 
-@EView permet de redéfinir un bouton par exemple :
+\@EView permet de redéfinir un bouton par exemple :
 
 {% highlight java %}
+// ...
 @EView
 public class MyButton extends Button {
 
     @StringRes
-	String someStringResource;
+    String someStringResource;
 
-	public MyButton(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    public MyButton(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 }
 {% endhighlight %}
 
-@EViewGroup permet de définir un composant complet composé de plusieurs widgets dont des @EView :
+\@EViewGroup permet de définir un composant complet composé de plusieurs widgets dont des @EView :
+
 {% highlight java %}
+// ...
 @EViewGroup(R.layout.title_with_subtitle)
 public class TitleWithSubtitle extends RelativeLayout {
 
-	@ViewById
-	protected TextView title, subtitle;
+    @ViewById
+    protected TextView title, subtitle;
 
-	public TitleWithSubtitle(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    public TitleWithSubtitle(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	public void setTexts(String titleText, String subTitleText) {
-		title.setText(titleText);
-		subtitle.setText(subTitleText);
-	}
+    public void setTexts(String titleText, String subTitleText) {
+        title.setText(titleText);
+        subtitle.setText(subTitleText);
+    }
 }
 {% endhighlight %}
 
-Il faut comme toujours bien penser à utiliser le nom des classes générées avec le **_** dans les layout.
+Il faut comme toujours bien penser à utiliser le nom des classes générées avec le **\_** dans les layout.
 
 #### @EBean
 
 Une simple classe peut bénéficier d'AA grâce à cette annotation. Cela nous permet de pouvoir faire de l'injection partout où cela est nécessaire :
 
 {% highlight java %}
+// ...
 @EBean(scope = Scope.Singleton)
 public class HotelService {
 
-	@RootContext
-	Context context;
-	
-	@Bean
-	HotelDao hotelDao;
-	
-	public HotelService() {
-		
-	}
+    @RootContext
+    Context context;
+    
+    @Bean
+    HotelDao hotelDao;
+    
+    public HotelService() {
+        
+    }
 }
 {% endhighlight %}
 
@@ -118,19 +125,20 @@ On peut quasiment tout injecter dans nos classes annotées, des vues, des ressou
 #### @ViewById, @StringRes, @DrawableRes, ...
 
 {% highlight java %}
+// ...
 @EActivity(R.layout.my_bookings)
 public class MyBookings extends SearchableActivity {
 
-	@Pref
-	BookingPrefs_ prefs;
+    @Pref
+    BookingPrefs_ prefs;
 
-	@Bean
-	UserService userService;
-	
-	@ViewById(R.id.buttonHotels)
-	Button hotelsButton;
+    @Bean
+    UserService userService;
+    
+    @ViewById(R.id.buttonHotels)
+    Button hotelsButton;
 
-	...
+    ...
 }
 {% endhighlight %}
 
@@ -152,15 +160,16 @@ L'accès au contexte est essentiel dans une application Android, et l'annotation
 Permet de récupérer les valeurs passées dans un Intent. Encore une fois, ça simplifie la vie :
 
 {% highlight java %}
+// ...
 @Extra(C.EXTRA_HOTEL_KEY)
 Hotel hotel;
 {% endhighlight %}
 
 #### @AfterViews, @AfterInject
 
-- @AfterViews annote une méthode pour indiquer qu'elle doit être appelée après que les vues aient été récupéré (via les @ViewId). Très pratique quand on doit manipuler ces vues avant l'affichage. La méthode annotée est souvent utilisée à la place de onResume().
+- \@AfterViews annote une méthode pour indiquer qu'elle doit être appelée après que les vues aient été récupéré (via les @ViewId). Très pratique quand on doit manipuler ces vues avant l'affichage. La méthode annotée est souvent utilisée à la place de onResume().
 
--  @AfterInject annote également une méthode mais est appelée après l'injection dans la classe annotée par un @EBean
+- \@AfterInject annote également une méthode mais est appelée après l'injection dans la classe annotée par un @EBean
 
 ### La gestion des évènements
 
@@ -169,9 +178,10 @@ Hotel hotel;
 Ces annoations nous débarasse des listener d'events. Plus besoin d'implémenter d'interfaces, il suffit d'annoter une méthode @Click :
 
 {% highlight java %}
+// ...
 @Click(R.id.buttonHotels)
 public void buttonHotelsClick() {
-	startActivity(new Intent(this, HotelsList_.class));
+    startActivity(new Intent(this, HotelsList_.class));
 }
 {% endhighlight %}
 
@@ -182,21 +192,22 @@ Simple, non ?
 Idem pour la gestion des options de la touche menu. Le @OptionsMenu déclare le layout du menu pour l'activité et les @OptionItem gère l'évènement de l'option sélectionnée :
 
 {% highlight java %}
+// ...
 @EActivity(R.layout.my_bookings)
 @OptionsMenu(R.menu.bookings)
 public class MyBookings extends Activity {
 
-	@OptionsItem(R.id.menu_search)
-	public void searchOption() {
-		onSearchRequested();
-	}
+    @OptionsItem(R.id.menu_search)
+    public void searchOption() {
+        onSearchRequested();
+    }
 
-	@OptionsItem(R.id.menu_bench)
-	public void benchmarkOption() {
-		benchmark();
-	}
-	
-	...
+    @OptionsItem(R.id.menu_bench)
+    public void benchmarkOption() {
+        benchmark();
+    }
+    
+    ...
 }
 {% endhighlight %}
 
@@ -210,15 +221,16 @@ Cette annotation s'applique à une méthode qui, une fois appelée, s'exécute c
 #### @UiThread
 
 {% highlight java %}
+// ...
 @Background
 public void benchmark() {
-	// benchmark some stuff
-	displayToast("Benchmark done !");
+    // benchmark some stuff
+    displayToast("Benchmark done !");
 }
 
 @UiThread
 public void displayToast(String text) {
-	Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 }
 {% endhighlight %}
 
@@ -231,32 +243,34 @@ Cette annotation permet d'utiliser les SharedPreferences de façon typesafe.
 Il suffit de déclarer une interface :
 
 {% highlight java %}
+// ...
 @SharedPref(value=Scope.UNIQUE)
 public interface BookingPrefs {
-	
-	@DefaultLong(-1L)
-	long loggedUserId();
+    
+    @DefaultLong(-1L)
+    long loggedUserId();
 }
 {% endhighlight %}
 
 Puis tout simplement dons une activité :
 
 {% highlight java %}
+// ...
 @EActivity(R.layout.my_bookings)
 public class MyBookings extends Activity {
 
-	@Pref
-	BookingPrefs_ prefs;
-	
-	@Override
-	protected void onResume() {
-		if (prefs.loggedUserId().get() == -1L) {
-			// show login activity
-			startActivityForResult(new Intent(this, Login_.class), LOGIN_ACTIVITY_CODE);
-		} else {
-			displayBookings();
-		}
-	}
+    @Pref
+    BookingPrefs_ prefs;
+    
+    @Override
+    protected void onResume() {
+        if (prefs.loggedUserId().get() == -1L) {
+            // show login activity
+            startActivityForResult(new Intent(this, Login_.class), LOGIN_ACTIVITY_CODE);
+        } else {
+            displayBookings();
+        }
+    }
 }
 {% endhighlight %}
 
@@ -265,18 +279,19 @@ public class MyBookings extends Activity {
 [@Rest](https://github.com/excilys/androidannotations/wiki/Rest%20API) permet de déclarer une interface d'accès à une API Rest. Il est très courant d'appeler une API Rest dans nos applications, cette annotation se charge de générer toute l'implémentation nécessaire. Par contre, cela nécessite l'utilisation de RestTemplate du framework [Spring for Android](http://www.springsource.org/spring-android).
 
 {% highlight java %}
+// ...
 @Rest("http://pullrequest.org/booking/api")
 public interface BookingRestApi {
-	
-	@Get("/hotels")
-	@Accept(MediaType.APPLICATION_JSON)
-	HotelList getHotels();
-	
-	@Get("/hotel/{id}")
-	@Accept(MediaType.APPLICATION_JSON)
-	Hotel getHotel(long id);
-	
-	void setRestTemplate(RestTemplate restTemplate);
+    
+    @Get("/hotels")
+    @Accept(MediaType.APPLICATION_JSON)
+    HotelList getHotels();
+    
+    @Get("/hotel/{id}")
+    @Accept(MediaType.APPLICATION_JSON)
+    Hotel getHotel(long id);
+    
+    void setRestTemplate(RestTemplate restTemplate);
 }
 {% endhighlight %}
 
@@ -305,21 +320,22 @@ Je préfère personellement n'utiliser que AA même si cela implique une injecti
 
 Rien de prévu nativement pour l'intégration à ORMLite mais voici ce qui peut être réalisé :
 
-- créer une classe générique Service<T> :
+- créer une classe générique Service&lt;T&gt; :
 
 {% highlight java %}
+// ...
 @EBean(scope = Scope.Singleton)
 public class UserService extends Service<User> {
 
-	@RootContext
-	Context context;
+    @RootContext
+    Context context;
 
-	public UserService() { }
-	
-	@AfterInject
-	public void setDao() {
-		this.setDao(context, User.class);
-	}
+    public UserService() { }
+    
+    @AfterInject
+    public void setDao() {
+        this.setDao(context, User.class);
+    }
 }
 {% endhighlight %}
 
@@ -328,32 +344,33 @@ public class UserService extends Service<User> {
 {% highlight java %}
 public abstract class Service<T> {
 
-	protected Dao<T, Long> dao;
+    protected Dao<T, Long> dao;
 
-	public void setDao(Context context, Class<T> clazz) {
-		try {
-			dao = DaoManager.createDao(OpenHelperManager.getHelper(context, DatabaseHelper.class).getConnectionSource(), clazz);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public Dao<T, Long> getDao() {
-		return this.dao;
-	}
+    public void setDao(Context context, Class<T> clazz) {
+        try {
+            dao = DaoManager.createDao(OpenHelperManager.getHelper(context, DatabaseHelper.class).getConnectionSource(), clazz);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public Dao<T, Long> getDao() {
+        return this.dao;
+    }
 }
 {% endhighlight %}
 
 - injecter le bean UserService dans une activité :
 
 {% highlight java %}
+// ...
 @EActivity(R.layout.my_bookings)
 public class MyBookings extends Activity {
 
-	@Bean
-	UserService userService;
-	
-	...
+    @Bean
+    UserService userService;
+    
+    ...
 }
 {% endhighlight %}
 
