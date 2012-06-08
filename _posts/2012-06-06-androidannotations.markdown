@@ -20,7 +20,7 @@ AA fonctionne par génération de code à la compilation (JAPT) en créant des c
 
 ## Les annotations
 
-Nous allons voir les principales annoations regroupées par thème.
+Nous allons voir les principales annotations regroupées par thème.
 La [liste](https://github.com/excilys/androidannotations/wiki/AvailableAnnotations) complète est disponible sur la [documentation](https://github.com/excilys/androidannotations/wiki) du projet sur Github.
 
 
@@ -54,7 +54,7 @@ public class MyService extends IntentService {
 
 L'utilisation de ces 2 annotations nous facilite la création et l'utilisation de widgets personnalisés.
 
-`@EView` permet de redéfinir un bouton par exemple :
+- `@EView` permet de redéfinir un bouton par exemple :
 
 {% highlight java %}
 // ...
@@ -70,7 +70,7 @@ public class MyButton extends Button {
 }
 {% endhighlight %}
 
-`@EViewGroup` permet de définir un composant complet composé de plusieurs widgets dont des @EView :
+- `@EViewGroup` permet de définir un composant complet composé de plusieurs widgets dont des @EView :
 
 {% highlight java %}
 // ...
@@ -127,10 +127,7 @@ On peut quasiment tout injecter dans nos classes annotées, des vues, des ressou
 {% highlight java %}
 // ...
 @EActivity(R.layout.my_bookings)
-public class MyBookings extends SearchableActivity {
-
-    @Pref
-    BookingPrefs_ prefs;
+public class MyBookings extends Activity {
 
     @Bean
     UserService userService;
@@ -160,8 +157,8 @@ L'accès au contexte est essentiel dans une application Android, et l'annotation
 Permet de récupérer les valeurs passées dans un Intent. Encore une fois, ça simplifie la vie :
 
 {% highlight java %}
-// ...
-@Extra(C.EXTRA_HOTEL_KEY)
+// get value from extra bundle
+@Extra("hotel_key")
 Hotel hotel;
 {% endhighlight %}
 
@@ -175,10 +172,10 @@ Hotel hotel;
 
 #### @Click, @LongClick et @Touch
 
-Ces annoations nous débarasse des listener d'events. Plus besoin d'implémenter d'interfaces, il suffit d'annoter une méthode @Click :
+Ces annotations nous débarasse des listener d'events. Plus besoin d'implémenter d'interfaces, il suffit d'annoter une méthode @Click :
 
 {% highlight java %}
-// ...
+// replace onClick method
 @Click(R.id.buttonHotels)
 public void buttonHotelsClick() {
     startActivity(new Intent(this, HotelsList_.class));
@@ -192,7 +189,7 @@ Simple, non ?
 Idem pour la gestion des options de la touche menu. Le @OptionsMenu déclare le layout du menu pour l'activité et les @OptionItem gère l'évènement de l'option sélectionnée :
 
 {% highlight java %}
-// ...
+// options declaration with layout
 @EActivity(R.layout.my_bookings)
 @OptionsMenu(R.menu.bookings)
 public class MyBookings extends Activity {
@@ -221,7 +218,7 @@ Cette annotation s'applique à une méthode qui, une fois appelée, s'exécute c
 #### @UiThread
 
 {% highlight java %}
-// ...
+// background and async task
 @Background
 public void benchmark() {
     // benchmark some stuff
@@ -252,7 +249,7 @@ public interface BookingPrefs {
 }
 {% endhighlight %}
 
-Puis tout simplement dons une activité :
+Puis tout simplement dans une activité :
 
 {% highlight java %}
 // ...
