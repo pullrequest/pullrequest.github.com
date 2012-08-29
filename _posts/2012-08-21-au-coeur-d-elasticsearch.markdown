@@ -4,7 +4,13 @@ title: Au coeur d'ElasticSearch
 author: filirom1
 tags: [index, elasticsearch, lucene]
 ---
-Au cœur d'[ElasticSearch](http://www.elasticsearch.org/) il y a le moteur d'indexation [Lucene](http://lucene.apache.org/), et autour de Lucene il y a plusieurs mécanismes afin de rendre le système scalable et tolérant aux pannes. Commençons par comprendre comment Lucene fonctionne, et nous finirons par les mécanismes de distribution et de tolérance aux pannes mis en place dans ElasticSearch:
+Au cœur d'[ElasticSearch](http://www.elasticsearch.org/) il y a le moteur d'indexation [Lucene](http://lucene.apache.org/), 
+et autour de Lucene il y a plusieurs mécanismes afin de rendre le système scalable et tolérant aux pannes.
+Ce sont ces deux parties qui m'ont intéressé pour cet article.
+
+Je ne suis pas contributeur sur le projet, ma vision est donc limitée à ce que j'ai compris en utilisant ElasticSearch, 
+ou simplement en lisant [la mailing list](https://groups.google.com/forum/?fromgroups#!forum/elasticsearch), le [site officiel](http://www.elasticsearch.org/) ou des articles de blog.
+Vous trouverez dans cet article un certain nombre de lien pointant sur les ressources m'ayant éclairée.
 
 <p class="center">
   <img src="/public/img/2012-08-21-au-coeur-d-elasticsearch/eslogo.png" border="0" />
