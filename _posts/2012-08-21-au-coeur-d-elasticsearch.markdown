@@ -101,8 +101,7 @@ Il faut donc interroger les deux bases : l'index inversé puis la base clé-vale
     Get from index: "engine" => {Doc1,Doc2}
     Get from storage: Doc1 AND Doc2 => ["Road to a Distributed Search Engine", "ElasticSearch a distributed, RESTful Search Engine"]
 
-
-Mais le fait de stocker le document en plus de l'index est couteux en mémoire. Nous pouvons donc imaginer fonctionner sans stockage de documents : [ElasticSearch-source-field](http://www.elasticsearch.org/guide/reference/mapping/source-field.html), [Lucene-store-field](http://lucene.apache.org/core/3_6_0/api/all/org/apache/lucene/document/Field.Store.html)
+Par défaut ElasticSearch [index et stocke](http://www.elasticsearch.org/guide/reference/mapping/source-field.html) la donnée de manière completement transparente pour l'utilisateur, mais ceci est [configurable](https://groups.google.com/d/msg/elasticsearch/k_YgO8xspXE/eqY_SHEwgCMJ).
 
 
 ## Requêtes et Analysers
