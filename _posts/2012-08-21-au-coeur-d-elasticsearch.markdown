@@ -4,11 +4,11 @@ title: Au coeur d'ElasticSearch
 author: filirom1
 tags: [index, elasticsearch, lucene]
 ---
-Au cœur d'[ElasticSearch](http://www.elasticsearch.org/) il y a le moteur d'indexation [Lucene](http://lucene.apache.org/), 
+Au cœur d'[ElasticSearch](http://www.elasticsearch.org/) il y a le moteur d'indexation [Lucene](http://lucene.apache.org/),
 et autour de Lucene il y a plusieurs mécanismes afin de rendre le système scalable et tolérant aux pannes.
 Ce sont ces deux parties qui m'ont intéressé pour cet article.
 
-Je ne suis pas contributeur sur le projet, ma vision est donc limitée à ce que j'ai compris en utilisant ElasticSearch, 
+Je ne suis pas contributeur sur le projet, ma vision est donc limitée à ce que j'ai compris en utilisant ElasticSearch,
 ou simplement en lisant [la mailing list](https://groups.google.com/forum/?fromgroups#!forum/elasticsearch), le [site officiel](http://www.elasticsearch.org/) ou des articles de blog.
 Vous trouverez dans cet article un certain nombre de lien pointant sur les ressources m'ayant éclairée.
 
@@ -174,7 +174,7 @@ Mais en réalité Lucene permet d'indexer des objets complexes, et faire des rec
     }
 
 Lucene permet d'indexer du texte mais pas seulement; il permet aussi d'indexer des nombres, des tableaux, des objets de géo-distances, ...
-Voici la liste des [types primitifs](http://lucene.apache.org/core/3_6_1/fileformats.html#Primitive Types) indexables dans Lucene.
+Voici la liste des [types primitifs](http://lucene.apache.org/core/3_6_1/fileformats.html#Primitive_Types) indexables dans Lucene.
 
 
 ### Structuration des fichiers Lucene
@@ -219,7 +219,7 @@ Ces fichiers qui constituent [un segment](http://lucene.apache.org/core/3_6_0/fi
 
 Tout ajout de données sera fait dans un nouveau segment.
 
-Le premier segment s'appelle _1.extention, puis ensuite _2.extension, ..., _a.extension, ..., _z.extension, _11.extension, ... suivant une [base 36](http://en.wikipedia.org/wiki/Base_36).
+Le premier segment s'appelle \_1.extention, puis ensuite \_2.extension, ..., \_a.extension, ..., \_z.extension, \_11.extension, ... suivant une [base 36](http://en.wikipedia.org/wiki/Base_36).
 
 Lorsque le nombre de segments devient trop important, il devient nécessaire de merger plusieurs segments.
 
@@ -316,7 +316,7 @@ Avoir beaucoup de shards implique interroger beaucoup de serveurs à chaque requ
 Lorsque l'on indexe une nouvelle donnée dans ElasticSearch, on lui [spécifie un index, un type, et un ID](http://www.elasticsearch.org/guide/reference/api/index_.html).
 
 C'est à partir d'un hash sur le type et sur l'ID que l'on va définir quel shard lui sera attribué (shard = HASH(type, id) MOD nodes ). L'ID étant unique la répartition sur les shards est relativement uniforme.
-Il est également possible de forcer l'emplacement de la donnée sur un nœud en fonction de [plusieurs](http://www.elasticsearch.org/guide/reference/modules/cluster.html) [critère](http://www.elasticsearch.org/guide/reference/api/index_.html#Parents & Children)[s](http://www.elasticsearch.org/guide/reference/api/index_.html#Routing).
+Il est également possible de forcer l'emplacement de la donnée sur un nœud en fonction de [plusieurs](http://www.elasticsearch.org/guide/reference/modules/cluster.html) [critère](http://www.elasticsearch.org/guide/reference/api/index_.html#Parents_&_Children)[s](http://www.elasticsearch.org/guide/reference/api/index_.html#Routing).
 
 <http://blog.sematext.com/2012/05/29/elasticsearch-shard-placement-control/>
 
@@ -386,7 +386,7 @@ ElasticSearch a besoin d'un nœud maître qui sera [le seul à prendre des déci
 Au démarrage du cluster, il y a élection du nœud maître.
 Si l'état du cluster a déjà été persisté par un local gateway (Cf redémarrage complet du cluster), le nœud maître [attend ou pas](http://www.elasticsearch.org/guide/reference/modules/gateway/) que l'ensemble des nœuds aient démarré afin de charger l'état du cluster le plus récent.
 
-Tant que le nœud maître est vivant, il s'occupera d'assigner les shards dès qu'un nœud rejoint ou part du cluster. C'est le [nœud maître qui ping les autres nœuds](http://www.elasticsearch.org/guide/reference/modules/discovery/zen.html#Master Election) pour décider s'il les déclare vivants ou morts.
+Tant que le nœud maître est vivant, il s'occupera d'assigner les shards dès qu'un nœud rejoint ou part du cluster. C'est le [nœud maître qui ping les autres nœuds](http://www.elasticsearch.org/guide/reference/modules/discovery/zen.html#Master_Election) pour décider s'il les déclare vivants ou morts.
 
 Sinon son rôle se limite à maintenir l'état du cluster et à informer les autres nœuds lorsque l'état change. Les autres nœuds connaissent donc l'état du cluster, ils n'ont pas besoin d'interroger le nœud maître à chaque requête. [Le nœud maître n'est pas un goulot d'étranglement](http://blog.sematext.com/2010/05/03/elastic-search-distributed-lucene/).
 
@@ -408,7 +408,7 @@ Sans nœud maître le cluster ne fonctionne pas.
 
 Pendant l'élection chaque nœud connecté fait un vote, et [le broadcast à tout le monde](https://groups.google.com/forum/#!msg/elasticsearch/epdPQ7L9phM/p5xLPco7rX0J). Tous les nœuds reçoivent l'ensemble des résultats, le nœud ayant le plus de points devient le nœud maître.
 
-Chaque nœud ping le nœud maître, et si le maître ne répond plus [pendant un certain temps](http://www.elasticsearch.org/guide/reference/modules/discovery/zen.html#Fault Detection), alors les nœuds recommencent le processus d'élection.
+Chaque nœud ping le nœud maître, et si le maître ne répond plus [pendant un certain temps](http://www.elasticsearch.org/guide/reference/modules/discovery/zen.html#Fault_Detection), alors les nœuds recommencent le processus d'élection.
 
 ### ElasticSearch et le CAP
 
@@ -419,11 +419,11 @@ Par défaut ElasticSearch a choisi de privilégier la cohérence des données.
 
 #### Sans partitionnement
 
-Par défaut ElasticSearch attend avant de répondre à une requête d'indexation qu'[un certain nombre de réplicas](http://www.elasticsearch.org/guide/reference/api/index_.html#Write Consistency) aient indexé la donnée. C'est ce que l'on appelle une réplication synchrone.
+Par défaut ElasticSearch attend avant de répondre à une requête d'indexation qu'[un certain nombre de réplicas](http://www.elasticsearch.org/guide/reference/api/index_.html#Write_Consistency) aient indexé la donnée. C'est ce que l'on appelle une réplication synchrone.
 
 Sans partitionnement ElasticSearch a donc choisi la cohérence des données au détriment de la latence.
 
-Mais la réplication peut être [configurée en asynchrone afin de favoriser la latence](http://www.elasticsearch.org/guide/reference/api/index_.html#Asynchronous réplication)
+Mais la réplication peut être [configurée en asynchrone afin de favoriser la latence](http://www.elasticsearch.org/guide/reference/api/index_.html#Asynchronous_replication)
 
 
 #### Avec partionnement
@@ -445,7 +445,7 @@ Nous pouvons dire à ElasticSearch d'arrêter les clusters ayant [moins de `zen.
 Nous nous retrouvons donc avec une moitié de cluster disponible.
 Dans cette situation il se peut qu'un rebalancing soit en cours, les index n'auront pas encore tous leurs shards actifs.
 
-ElasticSearch peut être configuré pour [bloquer l'indexation s'il manque des shards](http://www.elasticsearch.org/guide/reference/api/index_.html#Write Consistency), et ainsi garantir une cohérence des données au prix d'une indisponibilité.
+ElasticSearch peut être configuré pour [bloquer l'indexation s'il manque des shards](http://www.elasticsearch.org/guide/reference/api/index_.html#Write_Consistency), et ainsi garantir une cohérence des données au prix d'une indisponibilité.
 
 
 ## Prévenir et corriger les erreurs ElasticSearch
