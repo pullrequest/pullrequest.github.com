@@ -54,7 +54,7 @@ Une fois le texte analysé et transformé, il faut maintenant le stocker dans un
 
 Le contenu de l'index inversé ressemblera à ça:
 
-Inverted Index:
+Index Inversé:
 
     "road" : {Doc1}
     "distributed" : {Doc1}
@@ -67,7 +67,7 @@ Maintenant opérons de même pour la phrase suivante : Doc2 = 'ElasticSearch a d
 
 L'index inversé ressemble maintenant à ça:
 
-Inverted Index:
+Index Inversé:
 
     "road" : {Doc1}
     "distributed" : {Doc1, Doc2}
@@ -83,7 +83,7 @@ Un index inversé peut être vu comme une base [clé: multiples valeurs](http://
 
 Maintenant que nous avons une base clé - multiple valeurs, il est assez facile de faire une recherche sur un terme:
 
-    Get from index: "engine" => {Doc1,Doc2}
+    Récupérer dans l'index: "engine" => {Doc1,Doc2}
 
 Les IDs des documents nous sont retournés.
 
@@ -91,15 +91,15 @@ Les IDs des documents nous sont retournés.
 
 Si nous souhaitons que ce soit le document et non l'ID qui soit retourné, il faut stocker le document à côté.
 
-Storage:
+Stockage:
 
     "Doc1":"Road to a Distributed Search Engine"
     "Doc2":"ElasticSearch a distributed, RESTful Search Engine"
 
 Il faut donc interroger les deux bases : l'index inversé puis la base clé-valeur contenant les documents.
 
-    Get from index: "engine" => {Doc1,Doc2}
-    Get from storage: Doc1 AND Doc2 => ["Road to a Distributed Search Engine", "ElasticSearch a distributed, RESTful Search Engine"]
+    Récupérer dans l'index: "engine" => {Doc1,Doc2}
+    Récupérer dans la base de stockage: Doc1 ET Doc2 => ["Road to a Distributed Search Engine", "ElasticSearch a distributed, RESTful Search Engine"]
 
 Par défaut ElasticSearch [index et stocke](http://www.elasticsearch.org/guide/reference/mapping/source-field.html) la donnée de manière completement transparente pour l'utilisateur, mais ceci est [configurable](https://groups.google.com/d/msg/elasticsearch/k_YgO8xspXE/eqY_SHEwgCMJ).
 
@@ -110,15 +110,15 @@ Lors de l'indexation du premier document : 'Road to a Distributed Search Engine'
 
 Si nous recherchons les mots initiaux dans l'index inversé, nous n'obtiendrons aucun résultat:
 
-    Get from index: "Road" => {}
-    Get from index: "Distributed" => {}
+    Récupérer dans l'index: "Road" => {}
+    Récupérer dans l'index: "Distributed" => {}
 
 Les mots avaient été indexés en minuscule.
 
 Il est donc important d'appliquer les mêmes Analysers pour l'indexation et la recherche. C'est le comportement par défaut dans ElasticSearch.
 
-    Search: "Road" => {}
-    Get from index: "road => {Doc1}
+    Recherche: "Road" => {}
+    Récupérer dans l'index: "road => {Doc1}
 
 
 ## Syntaxe de requête
@@ -126,7 +126,7 @@ Il est donc important d'appliquer les mêmes Analysers pour l'indexation et la r
 
 Et si nous cherchions "(road OR path) AND search"
 
-Inverted Index:
+Index Inversé:
 
     "road" : {Doc1}
     "distributed" : {Doc1, Doc2}
@@ -137,12 +137,12 @@ Inverted Index:
 
 Query:
 
-    Get from index: "road => {Doc1}
-    Get from index: "path => {}
-    Evaluate: (road OR path) => {Doc1}
-    Get from index: "search => {Doc1, Doc2}
-    Evaluate: (road OR path) AND search => {Doc1}
-    Return => {Doc1}
+    Récupérer dans l'index: "road => {Doc1}
+    Récupérer dans l'index: "path => {}
+    Evaluer: (road OU path) => {Doc1}
+    Récupérer dans l'index: "search => {Doc1, Doc2}
+    Evaluer: (road OU path) ET search => {Doc1}
+    Retourner => {Doc1}
 
 A partir d'un index inversé nous pouvons commencer à construire des requêtes complexes
 [Syntaxe des requêtes Lucene](http://lucene.apache.org/core/3_6_1/queryparsersyntax.html).
