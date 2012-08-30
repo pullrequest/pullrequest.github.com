@@ -9,13 +9,13 @@ Au cœur d'[ElasticSearch](http://www.elasticsearch.org/) il y a le moteur d'ind
 et autour de Lucene il y a plusieurs mécanismes afin de rendre le système scalable et tolérant aux pannes.
 Ce sont ces deux parties qui m'ont intéressées pour cet article.
 
-Je ne suis pas contributeur sur le projet, ma vision est donc limitée à ce que j'ai compris en utilisant ElasticSearch,
-ou simplement en lisant [la mailing list](https://groups.google.com/forum/?fromgroups#!forum/elasticsearch), le [site officiel](http://www.elasticsearch.org/) ou des articles de blog.
-Vous trouverez dans cet article un certain nombre de liens pointant sur les ressources m'ayant éclairé.
-
 <p class="center">
   <img src="/public/img/2012-08-21-au-coeur-d-elasticsearch/eslogo.png" border="0" />
 </p>
+
+Je ne suis pas contributeur sur le projet, ma vision est donc limitée à ce que j'ai compris en utilisant ElasticSearch,
+ou simplement en lisant [la mailing list](https://groups.google.com/forum/?fromgroups#!forum/elasticsearch), le [site officiel](http://www.elasticsearch.org/) ou des articles de blog.
+Vous trouverez dans cet article un certain nombre de liens pointant sur les ressources m'ayant éclairé.
 
 ## Analyser
 
