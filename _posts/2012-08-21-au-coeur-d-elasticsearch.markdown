@@ -4,34 +4,33 @@ title: Au coeur d'ElasticSearch
 author: filirom1
 tags: [index, elasticsearch, lucene]
 ---
+
 Au cœur d'[ElasticSearch](http://www.elasticsearch.org/) il y a le moteur d'indexation [Lucene](http://lucene.apache.org/),
 et autour de Lucene il y a plusieurs mécanismes afin de rendre le système scalable et tolérant aux pannes.
-Ce sont ces deux parties qui m'ont intéressé pour cet article.
+Ce sont ces deux parties qui m'ont intéressées pour cet article.
 
 Je ne suis pas contributeur sur le projet, ma vision est donc limitée à ce que j'ai compris en utilisant ElasticSearch,
 ou simplement en lisant [la mailing list](https://groups.google.com/forum/?fromgroups#!forum/elasticsearch), le [site officiel](http://www.elasticsearch.org/) ou des articles de blog.
-Vous trouverez dans cet article un certain nombre de lien pointant sur les ressources m'ayant éclairée.
+Vous trouverez dans cet article un certain nombre de liens pointant sur les ressources m'ayant éclairé.
 
 <p class="center">
   <img src="/public/img/2012-08-21-au-coeur-d-elasticsearch/eslogo.png" border="0" />
 </p>
 
-
-
 ## Analyser
 
-Pour comprendre Lucene, il faut comprendre ce qui se passe lorsque l'on indexe un texte.
+Pour comprendre Lucene, il faut comprendre ce qui se passe lorsque l'on index un texte.
 
 Prenons une phrase :
 
     Doc1 = 'Road to a Distributed Search Engine'.
 
 
-Avant d'indexer cette phrase Lucène lui faire subir quelques modifications
+Avant d'indexer cette phrase Lucène lui fait subir quelques modifications :
 
 [Transformons la en minuscule](http://www.elasticsearch.org/guide/reference/index-modules/analysis/lowercase-tokenizer.html) : Doc1 = 'road to a distributed search engine'
 
-[Enlevons les mots de liaisons](http://www.elasticsearch.org/guide/reference/index-modules/analysis/stop-tokenfilter.html) : Doc1 = 'road distributed search engine'
+[Enlevons les mots de liaison](http://www.elasticsearch.org/guide/reference/index-modules/analysis/stop-tokenfilter.html) : Doc1 = 'road distributed search engine'
 
 Ce type d'analyse est très basique mais nous pourrions imaginer des choses plus complexes :
 
@@ -39,22 +38,21 @@ Ce type d'analyse est très basique mais nous pourrions imaginer des choses plus
 * [remplacer certains mots par un synonyme](http://www.elasticsearch.org/guide/reference/index-modules/analysis/synonym-tokenfilter.html)
 * [remplacer les mots par un équivalent phonétique](http://www.elasticsearch.org/guide/reference/index-modules/analysis/phonetic-tokenfilter.html)
 * [remplacer les mots par leurs racines](http://www.elasticsearch.org/guide/reference/index-modules/analysis/stemmer-tokenfilter.html)
-* Supprimer les numéros de carte bancaire à l'aide d'une expression régulière.
+* Supprimer les numéros de cartes bancaires à l'aide d'une expression régulière.
 
 Vous aurez compris que le rôle des `Analyser` est de transformer un texte avant l'indexation.
-
 
 NB: avec ElasticSearch il est possible de [tester les Analysers simplement](http://www.elasticsearch.org/guide/reference/api/admin-indices-analyze.html)
 
 ## Index Inversé
 
-Une fois le texte analysé et transformé, il faut maintenant le stocker dans une structure de données: l'index inversé.
+Une fois le texte analysé et transformé, il faut maintenant le stocker dans une structure de données : l'index inversé.
 
 [Créons un index inversé](http://fr.wikipedia.org/wiki/Index_invers%C3%A9) à partir du document précédent après analyse (Doc1 = 'road distributed search engine'):
 
-Le contenu de l'index inversé ressemblera à ça:
+Le contenu de l'index inversé ressemblera à ça :
 
-Index Inversé:
+Index Inversé :
 
     "road" : {Doc1}
     "distributed" : {Doc1}
@@ -67,7 +65,7 @@ Maintenant opérons de même pour la phrase suivante : Doc2 = 'ElasticSearch a d
 
 L'index inversé ressemble maintenant à ça:
 
-Index Inversé:
+Index inversé :
 
     "road" : {Doc1}
     "distributed" : {Doc1, Doc2}
@@ -81,7 +79,7 @@ Un index inversé peut être vu comme une base [clé: multiples valeurs](http://
 
 ## Requêtes
 
-Maintenant que nous avons une base clé - multiple valeurs, il est assez facile de faire une recherche sur un terme:
+Maintenant que nous avons une base clé - multiples valeurs, il est assez facile de faire une recherche sur un terme :
 
     Récupérer dans l'index: "engine" => {Doc1,Doc2}
 
@@ -91,38 +89,35 @@ Les IDs des documents nous sont retournés.
 
 Si nous souhaitons que ce soit le document et non l'ID qui soit retourné, il faut stocker le document à côté.
 
-Stockage:
+Stockage :
 
     "Doc1":"Road to a Distributed Search Engine"
     "Doc2":"ElasticSearch a distributed, RESTful Search Engine"
 
-Il faut donc interroger les deux bases : l'index inversé puis la base clé-valeur contenant les documents.
+Il faut donc interroger les deux bases : l'index inversé puis la base clé-valeurs contenant les documents.
 
-    Récupérer dans l'index: "engine" => {Doc1,Doc2}
-    Récupérer dans la base de stockage: Doc1 ET Doc2 => ["Road to a Distributed Search Engine", "ElasticSearch a distributed, RESTful Search Engine"]
+    Récupérer dans l'index : "engine" => {Doc1,Doc2}
+    Récupérer dans la base de stockage : Doc1 ET Doc2 => ["Road to a Distributed Search Engine", "ElasticSearch a distributed, RESTful Search Engine"]
 
-Par défaut ElasticSearch [index et stocke](http://www.elasticsearch.org/guide/reference/mapping/source-field.html) la donnée de manière completement transparente pour l'utilisateur, mais ceci est [configurable](https://groups.google.com/d/msg/elasticsearch/k_YgO8xspXE/eqY_SHEwgCMJ).
-
+Par défaut ElasticSearch [index et stocke](http://www.elasticsearch.org/guide/reference/mapping/source-field.html) la donnée de manière complètement transparente pour l'utilisateur, mais ceci est [configurable](https://groups.google.com/d/msg/elasticsearch/k_YgO8xspXE/eqY_SHEwgCMJ).
 
 ## Requêtes et Analysers
 
-Lors de l'indexation du premier document : 'Road to a Distributed Search Engine', seulement les mots suivant avaient été indexés 'road distributed search engine'.
+Lors de l'indexation du premier document : 'Road to a Distributed Search Engine', seulement les mots suivants avaient été indexés 'road distributed search engine'.
 
-Si nous recherchons les mots initiaux dans l'index inversé, nous n'obtiendrons aucun résultat:
+Si nous recherchons les mots initiaux dans l'index inversé, nous n'obtiendrons aucun résultat :
 
-    Récupérer dans l'index: "Road" => {}
-    Récupérer dans l'index: "Distributed" => {}
+    Récupérer dans l'index : "Road" => {}
+    Récupérer dans l'index : "Distributed" => {}
 
 Les mots avaient été indexés en minuscule.
 
 Il est donc important d'appliquer les mêmes Analysers pour l'indexation et la recherche. C'est le comportement par défaut dans ElasticSearch.
 
-    Rechercher: "Road" => {}
-    Récupérer dans l'index: "road => {Doc1}
-
+    Rechercher : "Road" => {}
+    Récupérer dans l'index : "road => {Doc1}
 
 ## Syntaxe de requête
-
 
 Et si nous cherchions "(road OR path) AND search"
 
@@ -144,11 +139,10 @@ Query:
     Evaluer: (road OU path) ET search => {Doc1}
     Retourner => {Doc1}
 
-A partir d'un index inversé nous pouvons commencer à construire des requêtes complexes
+A partir d'un index inversé nous pouvons commencer à construire des requêtes complexes :
 [Syntaxe des requêtes Lucene](http://lucene.apache.org/core/3_6_1/queryparsersyntax.html).
 
 Mais ce n'est rien comparé à ce que Lucene est capable de faire.
-
 
 ## Lucene
 
@@ -157,11 +151,11 @@ Lucene est un moteur d'indexation écrit en Java qui supporte l'ensemble des fon
 
 ### Indexation d'un objet
 
-Nous avons vu précédemment que Lucene pouvait indexer du texte
+Nous avons vu précédemment que Lucene pouvait indexer du texte.
 
     Doc1 = 'Road to a Distributed Search Engine'.
 
-Mais en réalité Lucene permet d'indexer des objets complexes, et faire des recherches en ne sélectionnant que certains champs.
+Mais en réalité Lucene permet d'indexer des objets complexes et faire des recherches en ne sélectionnant que certains champs.
 
     Doc1 = {
       "aText": "Road to a Distributed Search Engine",
@@ -175,7 +169,6 @@ Mais en réalité Lucene permet d'indexer des objets complexes, et faire des rec
 
 Lucene permet d'indexer du texte mais pas seulement; il permet aussi d'indexer des nombres, des tableaux, des objets de géo-distances, ...
 Voici la liste des [types primitifs](http://lucene.apache.org/core/3_6_1/fileformats.html#Primitive_Types) indexables dans Lucene.
-
 
 ### Structuration des fichiers Lucene
 
@@ -201,7 +194,7 @@ Voici la liste des [types primitifs](http://lucene.apache.org/core/3_6_1/filefor
  * .tii : Fichier complètement chargé en mémoire qui permettra de lire le fichier .tis
  * .tis : Dictionnaire des termes
 
-Si le nombre de fichiers ouverts devient trop important (supérieur à la limite indiquée par 'ulimit -n' ) il est possible de grouper la plupart de ces fichiers: [compound_format avec ElasticSearch](http://www.elasticsearch.org/guide/reference/index-modules/index.html).
+Si le nombre de fichiers ouverts devient trop important (supérieur à la limite indiquée par 'ulimit -n' ) il est possible de grouper la plupart de ces fichiers : [compound_format avec ElasticSearch](http://www.elasticsearch.org/guide/reference/index-modules/index.html).
 
 [Un aperçu du format des fichiers Lucene](http://lucene.apache.org/core/3_6_1/fileformats.html#Overview) nous permet de comprendre les possibilités offertes par Lucene:
 
@@ -209,7 +202,6 @@ Si le nombre de fichiers ouverts devient trop important (supérieur à la limite
  * Prendre en compte la proximité des mots lors de la recherche
  * Prendre en compte le nombre d'occurrences d'un mot dans un texte
  * Prendre en compte la longueur du texte
-
 
 ### Notion de segments
 
@@ -225,7 +217,7 @@ Lorsque le nombre de segments devient trop important, il devient nécessaire de 
 
 Lorsqu'un document doit être supprimé, le segment n'est pas modifié, une entrée est ajoutée dans un autre fichier afin d'ignorer ce document pendant les recherches. Pendant les merges, les documents marqués comme à supprimer sont enlevés.
 
-Dans cet exemple je liste les différents segments trouvés dans un index Lucene (en n'affichant que les .tis)
+Dans cet exemple je liste les différents segments trouvés dans un index Lucene (en n'affichant que les .tis) :
 
     $ ls -lh *.tis
     -rw------- 1 www server  20M Jul 19 18:17 _1a.tis
@@ -255,7 +247,7 @@ Nous venons de voir que l'indexation de nouvelles données provoque la création
 
 La technique est de [bufferiser les indexations](http://lucene.apache.org/core/3_6_0/api/all/org/apache/lucene/index/IndexWriter.html) [en RAM](http://www.elasticsearch.org/guide/reference/modules/indices.html) afin de créer des segments plus gros et moins souvent.
 
-Lorsque le nombre ou la taille des documents indexés en RAM sont trop importants, [un commit est effectué pour persister les données sur le disque](http://lucene.apache.org/core/3_6_0/api/all/org/apache/lucene/index/IndexWriter.html#commit()) ce qui aura pour conséquence de créer un nouveau segment.
+Lorsque le nombre ou la taille des documents indexés en RAM est trop important, [un commit est effectué pour persister les données sur le disque](http://lucene.apache.org/core/3_6_0/api/all/org/apache/lucene/index/IndexWriter.html#commit()) ce qui aura pour conséquence de créer un nouveau segment.
 
 Dans ElasticSearch on peut [forcer un commit](http://www.elasticsearch.org/guide/reference/api/admin-indices-flush.html)(cette opération peut être pratique avant de faire un backup), ou [empêcher les commits](http://www.elasticsearch.org/guide/reference/api/admin-indices-update-settings.html#disable_flush) (pratique pendant un backup).
 
@@ -263,18 +255,15 @@ Dans ElasticSearch on peut [forcer un commit](http://www.elasticsearch.org/guide
 
 Il n'est pas obligatoire d'attendre qu'un commit soit effectué pour faire des requêtes sur des données en RAM, Lucene propose un mécanisme appelé [Near Real Time Search](http://lucene.apache.org/core/3_6_0/api/all/org/apache/lucene/index/IndexWriter.html#getReader()) qui permet de requêter à la fois les données commitées et les données en RAM.
 
-Néanmoins rafraichir l'IndexReader est une opération coûteuse qui [ne doit pas être fait après chaque indexation](http://www.elasticsearch.org/guide/reference/api/index_.html#Refresh).
+Néanmoins rafraichir l'IndexReader est une opération coûteuse qui [ne doit pas être faite après chaque indexation](http://www.elasticsearch.org/guide/reference/api/index_.html#Refresh).
 
 C'est pour cela qu'il est préférable de le faire [périodiquement](http://www.elasticsearch.org/guide/reference/index-modules/index.html) ou [manuellement](http://www.elasticsearch.org/guide/reference/api/admin-indices-refresh.html).
-
-
 
 ## ElasticSearch
 
 ElasticSearch est une solution permettant de distribuer Lucene sur plusieurs serveurs et d'interagir avec via une API REST.
 
-
-### Mécanisme de tolérance aux pannes: Translog
+### Mécanisme de tolérance aux pannes : Translog
 
 Nous avons vu précédemment que la création de segment est bufferisée en RAM. Mais que se passe-t-il s'il y a une coupure de courant à ce moment-là ? Toute la donnée en RAM est perdue.
 
@@ -300,23 +289,21 @@ Cela signifie que le refresh ElasticSearch (commit Lucene) n'a aucun impact lors
 
 ElasticSearch permet de répartir une base Lucene sur plusieurs serveurs à des fins de scalabilité.
 
-Une base Lucene est découpée en segments. Lorsque l'on interroge une base Lucene, on interroge l'ensemble des segments indépendamment. Pour rendre une base Lucene scalable, il suffit donc de repartir l'ensemble des segments sur les différentes machines.
+Une base Lucene est découpée en segments. Lorsque l'on interroge une base Lucene, on interroge l'ensemble des segments indépendamment. Pour rendre une base Lucene scalable, il suffit donc de répartir l'ensemble des segments sur les différentes machines.
 
-Comme les segments sont régulièrement mergé par Lucene, nous ne pouvons pas répartir les segments sur les différentes machines (les merges ne fonctionnent que sur des segments locaux).
+Comme les segments sont régulièrement mergés par Lucene, nous ne pouvons pas répartir les segments sur les différentes machines (les merges ne fonctionnent que sur des segments locaux).
 ElasticSearch découpe ses index en shards. Un shard est un index Lucene contenant plusieurs segments. Le shard pourra être déplacé sur n'importe quel nœud.
 Si nous découpons un index ElasticSearch en N shards, il sera possible de répartir cet index sur N serveurs différents.
 Comme un shard est l'unité la plus petite pouvant être distribuée (il ne sera pas possible de découper ce shard par la suite), il est important d'anticiper le nombre de shards souhaité.
-
 
 Lorsque l'on interroge un index ElasticSearch, on interroge un nœud en particulier. Chaque nœud connaît la distribution des shards sur les différents nœuds. Interroger un index consiste donc à interroger l'ensemble des nœuds ayant un shard (Map Reduce).
 
 Avoir beaucoup de shards implique interroger beaucoup de serveurs à chaque requête ce qui peut fortement augmenter la latence. Pour éviter cela, il est possible d'interroger seulement certains nœuds [suivant des critères](http://www.elasticsearch.org/guide/reference/api/search/preference.html). Une autre technique consiste à créer beaucoup d'index, par exemple un index par jours, et de faire [des requêtes sur un groupement d'index](http://www.elasticsearch.org/guide/reference/api/multi-index.html).
 
-
 Lorsque l'on indexe une nouvelle donnée dans ElasticSearch, on lui [spécifie un index, un type, et un ID](http://www.elasticsearch.org/guide/reference/api/index_.html).
 
 C'est à partir d'un hash sur le type et sur l'ID que l'on va définir quel shard lui sera attribué (shard = HASH(type, id) MOD nodes ). L'ID étant unique la répartition sur les shards est relativement uniforme.
-Il est également possible de forcer l'emplacement de la donnée sur un nœud en fonction de [plusieurs](http://www.elasticsearch.org/guide/reference/modules/cluster.html) [critère](http://www.elasticsearch.org/guide/reference/api/index_.html#Parents_&_Children)[s](http://www.elasticsearch.org/guide/reference/api/index_.html#Routing).
+Il est également possible de forcer l'emplacement de la donnée sur un nœud en fonction de [plusieurs](http://www.elasticsearch.org/guide/reference/modules/cluster.html) [critères](http://www.elasticsearch.org/guide/reference/api/index_.html#Parents_&_Children)[s](http://www.elasticsearch.org/guide/reference/api/index_.html#Routing).
 
 <http://blog.sematext.com/2012/05/29/elasticsearch-shard-placement-control/>
 
@@ -324,7 +311,7 @@ Il est également possible de forcer l'emplacement de la donnée sur un nœud en
 
 Lorsque l'on ajoute un nœud, ElasticSearch va répartir ses shards de manière équilibrée sur l'ensemble des machines disponibles. C'est ce qu'ElasticSearch appelle du rebalancing.
 
-Pendant la phase de rebalancing, lorsque l'on veut déplacer un shard d'un nœud A à un nœud B, ElasticSearch ne va pas supprimer les segments, il va désactiver les flushs et ainsi empêcher les commits Lucene de se faire. Le shard en cours de rebalancing n'est pas bloqué, les opérations sur ce shard sont simplement écrites dans le Translog, indexé en RAM mais pas persisté. Lorsque le transfert du shard est terminé (tous les segments Lucene ont été copié) le Translog est rejoué sur le nouveau nœud.
+Pendant la phase de rebalancing, lorsque l'on veut déplacer un shard d'un nœud A à un nœud B, ElasticSearch ne va pas supprimer les segments, il va désactiver les flushs et ainsi empêcher les commits Lucene de se faire. Le shard en cours de rebalancing n'est pas bloqué, les opérations sur ce shard sont simplement écrites dans le Translog, indexé en RAM mais pas persisté. Lorsque le transfert du shard est terminé (tous les segments Lucene ont été copiés) le Translog est rejoué sur le nouveau nœud.
 
 Pendant tout le temps de rebalancing, on peut continuer à indexer et rechercher de la donnée, il y a seulement une courte période de temps où l'on bloque Lucene pour finaliser le changement.
 
@@ -346,10 +333,9 @@ Il arrive des fois où l'on est obligé d'arrêter complètement le cluster pour
 
 Lorsque l'on arrête le cluster, et si un [local gateway a été mis en place (par défaut)](http://www.elasticsearch.org/guide/reference/modules/gateway/local.html), les données complètes du cluster (l'état du cluster, la répartition des shards par exemples) sont persistées sur chaque nœud.
 
-Il peut y avoir des incohérences entre les nœuds s'ils n'ont pas tous été arrêté en même temps. Le nœud A s'arrête, le cluster change d'état (ajout d'un nouvel index), les autres nœuds s'arrêtent avec un autre état que le nœud A.
+Il peut y avoir des incohérences entre les nœuds s'ils n'ont pas tous été arrêtés en même temps. Le nœud A s'arrête, le cluster change d'état (ajout d'un nouvel index), les autres nœuds s'arrêtent avec un autre état que le nœud A.
 
-Il est important lors du redémarrage d'[attendre que la plupart des nœuds soit démarré](http://www.elasticsearch.org/guide/reference/modules/gateway/) afin de restaurer l'état du cluster le plus récent possible.
-
+Il est important lors du redémarrage d'[attendre que la plupart des nœuds soient démarrés](http://www.elasticsearch.org/guide/reference/modules/gateway/) afin de restaurer l'état du cluster le plus récent possible.
 
 ### Réplicas
 
@@ -359,25 +345,23 @@ Un réplica est simplement une copie d'un shard.
 On distingue donc les shards primaires des réplicas.
 Les shards primaires et les réplicas répondent aux recherches ce qui permet d'améliorer les performances.
 
-Par contre, lors de l'indexation d'une nouvelle données, c'est le shard primaire qui récupère la requête d'indexation, index la donnée en locale et transfert la requête d'indexation aux réplicas. Chaque shard (primaire et réplicas) indexe la donnée.
+Par contre, lors de l'indexation d'une nouvelle données, c'est le shard primaire qui récupère la requête d'indexation, index la donnée en locale et transfert la requête d'indexation aux réplicas. Chaque shard (primaire et réplicas) index la donnée.
 
 En cas d'indexation concurrente de la même donnée (mise à jour de la donnée), il se peut que l'ordre d'indexation entre les shards ne soit pas le même. C'est pour cela qu'ElasticSearch propose de [versionner les documents indexés afin de détecter les incohérences](http://www.elasticsearch.org/blog/2011/02/08/versioning.html) pendant les mises à jour.
-
 
 #### Perte d'un nœud
 
 Si le shard primaire tombe, un [réplica sera choisi pour devenir le shard primaire](http://elasticsearch-users.115913.n3.nabble.com/How-does-a-recovering-node-validate-any-shard-information-data-during-recover-td3215028.html).
 
-C'est le rôle du [timeout de faire patienter la requête pendant 1 minute](http://www.elasticsearch.org/guide/reference/api/index_.html#Timeout) le temps qu'un shard primaire soit accessible, et que les autres replicas soit présents ([réglable](http://www.elasticsearch.org/guide/reference/api/admin-indices-update-settings.html)).
+C'est le rôle du [timeout de faire patienter la requête pendant 1 minute](http://www.elasticsearch.org/guide/reference/api/index_.html#Timeout) le temps qu'un shard primaire soit accessible, et que les autres replicas soient présents ([réglable](http://www.elasticsearch.org/guide/reference/api/admin-indices-update-settings.html)).
 
-Un nouveau réplica va être créé sur un autre nœud en faisant une copie des donnés du shard primaire, et ainsi le mécanisme d'indexation pourra reprendre son cours.
-
+Un nouveau réplica va être créé sur un autre nœud en faisant une copie des données du shard primaire, et ainsi le mécanisme d'indexation pourra reprendre son cours.
 
 ### Découverte des nœuds du cluster & nœud maître
 
 La découverte des nœuds du cluster peut se faire à partir de plusieurs protocoles:
 
-* [Zen](http://www.elasticsearch.org/guide/reference/modules/discovery/zen.html): Multicast ou Unicast
+* [Zen](http://www.elasticsearch.org/guide/reference/modules/discovery/zen.html) : Multicast ou Unicast
 * [EC2](http://www.elasticsearch.org/guide/reference/modules/discovery/ec2.html)
 * [ZooKeeper](https://github.com/sonian/elasticsearch-zookeeper)
 
@@ -429,18 +413,17 @@ Mais la réplication peut être [configurée en asynchrone afin de favoriser la 
 #### Avec partionnement
 
 Si un cluster ElasticSearch se retrouve divisé en deux, on subit un partitionnement ou split-brain.
-Ce problème arrive lorsque les deux partitions n'arrivent plus à dialoguer entre elle (problème réseau par exemple).
+Ce problème arrive lorsque les deux partitions n'arrivent plus à dialoguer entre elles (problème réseau par exemple).
 
 Cependant, si ces deux partitions restent accessibles aux clients, il est possible qu'une donnée soit modifiée sur une partition, mais pas sur l'autre.
 Les données entre les deux partitions ne sont plus cohérentes.
 
-ElasticSearch ne possède pas de solution pour déterminer la bonne donnée de la mauvaise.
-Lorsque les deux partitions vont de nouveaux dialoguer entre elle, il sera impossible pour ElasticSearch faire le choix entre les deux données.
+ElasticSearch ne possède pas de solution pour distinguer la bonne donnée de la mauvaise.
+Lorsque les deux partitions vont de nouveau dialoguer entre elles, il sera impossible pour ElasticSearch de faire le choix entre les deux données.
 
 Cette solution n'est pas acceptable. Il est donc possible de forcer le système à rester cohérent pendant un partitionnement quitte à [rendre une partition indisponible](https://github.com/elasticsearch/elasticsearch/issues/1079).
 
 Nous pouvons dire à ElasticSearch d'arrêter les clusters ayant [moins de `zen.discovery.minimum_master_node` nœuds](https://github.com/elasticsearch/elasticsearch/issues/1079).
-
 
 Nous nous retrouvons donc avec une moitié de cluster disponible.
 Dans cette situation il se peut qu'un rebalancing soit en cours, les index n'auront pas encore tous leurs shards actifs.
@@ -458,7 +441,7 @@ Il faut tout d'abord [désactiver le flush du Translog](http://www.elasticsearch
 
 Il est possible de corrompre les données persistées par ElasticSearch (index Lucene, metadata du cluster, transaction log) à cause de [bugs](http://elasticsearch-users.115913.n3.nabble.com/corrupted-indexes-td3501368.html), [full disk](http://elasticsearch-users.115913.n3.nabble.com/corrupted-segment-td3860349.html), [coupure de courant pendant un commit](https://groups.google.com/d/msg/elasticsearch/HtgNeUJ5uao/H2KLhns2YkIJ), ...).
 
-Il peut être préférable de stocker la donnée en dehors d'ElasticSearch afin de pouvoir tout réindexer en cas de problème. Sinon il existe des outils pour [réparer les index corrompus](http://elasticsearch-users.115913.n3.nabble.com/corrupted-segment-td3860349.html), et des techniques pour [corriger le Translog](https://groups.google.com/d/msg/elasticsearch/HtgNeUJ5uao/H2KLhns2YkIJ)
+Il peut être préférable de stocker la donnée en dehors d'ElasticSearch afin de pouvoir tout réindexer en cas de problème. Sinon il existe des outils pour [réparer les index corrompus](http://elasticsearch-users.115913.n3.nabble.com/corrupted-segment-td3860349.html), et des techniques pour [corriger le Translog](https://groups.google.com/d/msg/elasticsearch/HtgNeUJ5uao/H2KLhns2YkIJ).
 
 ## A ne pas oublier pour la production
 
