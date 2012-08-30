@@ -117,7 +117,7 @@ Les mots avaient été indexés en minuscule.
 
 Il est donc important d'appliquer les mêmes Analysers pour l'indexation et la recherche. C'est le comportement par défaut dans ElasticSearch.
 
-    Recherche: "Road" => {}
+    Rechercher: "Road" => {}
     Récupérer dans l'index: "road => {Doc1}
 
 
