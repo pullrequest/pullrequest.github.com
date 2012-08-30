@@ -179,7 +179,7 @@ Voici la liste des [types primitifs](http://lucene.apache.org/core/3_6_1/filefor
 
 ### Structuration des fichiers Lucene
 
-Une base Lucene est constituée d'un certain nombre de [fichiers](http://lucene.apache.org/core/3_6_1/fileformats.html#file-names):
+[Une base Lucene est constituée d'un certain nombre de fichiers](http://lucene.apache.org/core/3_6_1/fileformats.html#file-names):
 
     $ cd /DATA/smartdata/search-bench/nodes/0/indices/4e60bb2aeea3ef8c39000001/0/index
     $ ls -lh _2u*
@@ -196,7 +196,7 @@ Une base Lucene est constituée d'un certain nombre de [fichiers](http://lucene.
  * .fdx : Index permettant de retrouver les champs dans le fichier .fdt
  * .fnm : Contient le nom des champs
  * .frq : Index inversé qui contient également la fréquence d'occurrence de chaque terme
- * .nrm : Normalise l'importance de chaque terme relativement à la longueur du texte, ou via un facteur de [boost](http://lucene.apache.org/core/3_6_1/queryparsersyntax.html#Boosting%20a%20Term)
+ * .nrm : Normalise l'importance de chaque terme relativement à la longueur du texte, ou via un [facteur de boost](http://lucene.apache.org/core/3_6_1/queryparsersyntax.html#Boosting%20a%20Term)
  * .prx : Stocke la position des termes dans le texte initiale
  * .tii : Fichier complètement chargé en mémoire qui permettra de lire le fichier .tis
  * .tis : Dictionnaire des termes
@@ -284,7 +284,7 @@ La donnée est d'abord écrite dans un fichier de log avant d'être indexée en 
 
 Ainsi, si une coupure de courant a lieu lorsque des données sont en RAM, au redémarrage, ElasticSearch charge en RAM le contenu du Translog. Ainsi, le nœud se retrouve dans le même état qu'avant.
 
-ElasticSearch a des [options](http://www.elasticsearch.org/guide/reference/index-modules/Translog.html) pour configurer la fréquence des commits en fonction de l'état du Translog.
+ElasticSearch a des [options pour configurer la fréquence des commits](http://www.elasticsearch.org/guide/reference/index-modules/Translog.html) en fonction de l'état du Translog.
 
 Par défaut le [Translog ne fsync pas à chaque opération mais toute les 5s](https://github.com/elasticsearch/elasticsearch/blob/master/src/main/java/org/elasticsearch/index/gateway/local/LocalIndexShardGateway.java#L75). Mais ceci est [réglable](http://markmail.org/thread/lg2rdevj75fh77sy#query:+page:1+mid:pxda5eqquae2ylfm+state:results).
 
@@ -368,7 +368,7 @@ En cas d'indexation concurrente de la même donnée (mise à jour de la donnée)
 
 Si le shard primaire tombe, un [réplica sera choisi pour devenir le shard primaire](http://elasticsearch-users.115913.n3.nabble.com/How-does-a-recovering-node-validate-any-shard-information-data-during-recover-td3215028.html).
 
-C'est le rôle du [timeout](http://www.elasticsearch.org/guide/reference/api/index_.html#Timeout) de faire patienter la requête pendant 1 minute le temps qu'un shard primaire soit accessible, et que les autres replicas soit présents ([réglable](http://www.elasticsearch.org/guide/reference/api/admin-indices-update-settings.html)).
+C'est le rôle du [timeout de faire patienter la requête pendant 1 minute](http://www.elasticsearch.org/guide/reference/api/index_.html#Timeout) le temps qu'un shard primaire soit accessible, et que les autres replicas soit présents ([réglable](http://www.elasticsearch.org/guide/reference/api/admin-indices-update-settings.html)).
 
 Un nouveau réplica va être créé sur un autre nœud en faisant une copie des donnés du shard primaire, et ainsi le mécanisme d'indexation pourra reprendre son cours.
 
