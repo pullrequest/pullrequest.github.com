@@ -115,7 +115,7 @@ Les mots avaient été indexés en minuscule.
 Il est donc important d'appliquer les mêmes Analysers pour l'indexation et la recherche. C'est le comportement par défaut dans ElasticSearch.
 
     Rechercher : "Road" => {}
-    Récupérer dans l'index : "road => {Doc1}
+    Récupérer dans l'index : "road" => {Doc1}
 
 ## Syntaxe de requête
 
@@ -132,7 +132,7 @@ Index Inversé:
 
 Query:
 
-    Récupérer dans l'index: "road => {Doc1}
+    Récupérer dans l'index: "road" => {Doc1}
     Récupérer dans l'index: "path => {}
     Evaluer: (road OU path) => {Doc1}
     Récupérer dans l'index: "search => {Doc1, Doc2}
@@ -160,7 +160,7 @@ Mais en réalité Lucene permet d'indexer des objets complexes et faire des rech
     Doc1 = {
       "aText": "Road to a Distributed Search Engine",
       "anInt": 42,
-      "anGeoLoc": {
+      "aGeoLoc": {
         "lat": 45.5,
         "lon": 7.02
       },
