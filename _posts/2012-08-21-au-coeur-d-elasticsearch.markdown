@@ -133,10 +133,10 @@ Index Inversé:
 Query:
 
     Récupérer dans l'index: "road" => {Doc1}
-    Récupérer dans l'index: "path => {}
-    Evaluer: (road OU path) => {Doc1}
-    Récupérer dans l'index: "search => {Doc1, Doc2}
-    Evaluer: (road OU path) ET search => {Doc1}
+    Récupérer dans l'index: "path" => {}
+    Evaluer: ("road" OU "path") => {Doc1}
+    Récupérer dans l'index: "search" => {Doc1, Doc2}
+    Evaluer: ("road" OU "path") ET "search" => {Doc1}
     Retourner => {Doc1}
 
 A partir d'un index inversé nous pouvons commencer à construire des requêtes complexes :
