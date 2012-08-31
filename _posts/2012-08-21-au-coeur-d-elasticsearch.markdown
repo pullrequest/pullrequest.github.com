@@ -167,7 +167,7 @@ Mais en réalité Lucene permet d'indexer des objets complexes et faire des rech
       "anArray": ["tata", "toto", "titi"]
     }
 
-Lucene permet d'indexer du texte mais pas seulement; il permet aussi d'indexer des nombres et des tableaux d'octets. Voici la liste des [types primitifs](http://lucene.apache.org/core/3_6_1/fileformats.html#Primitive%20Types) indexables dans Lucene.
+Lucene permet d'indexer du texte mais pas seulement, il peut aussi indexer des nombres.
 
 ElasticSearch permet de gérer bien plus de types de données en ajoutant une couche d'abstraction au-dessus de l'index Lucene. Par exemple, Lucene n'a pas de type de donnée pour les positions géographiques. Quand on indexe [une position géographique dans ElasticSearch](http://www.elasticsearch.org/guide/reference/mapping/geo-point-type.html), pour Lucene il s'agit de l'indexation de 2 flottants (latitude et longitude).
 
