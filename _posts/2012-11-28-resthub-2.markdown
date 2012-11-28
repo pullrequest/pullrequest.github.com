@@ -3,7 +3,7 @@ layout: post
 title: RESThub 2.0 released
 author: bclozel
 tags: [resthub, java]
-published: false
+published: true
 ---
 
 We are pleased to announce the second major release of RESThub!
@@ -38,7 +38,7 @@ It provides the following features:
 
 Backbone Spring stack 2.0 artifacts are available on Maven Central.
 
-[Reference documentation](http://resthub.org/backbone-stack.html) | [Javadoc](http://resthub.org/javadoc/2.0) | [Tutorial](http://resthub.org/tutorial/spring.html) | [Sources](https://github.com/resthub/resthub-spring-stack)
+[Reference documentation](http://resthub.org/spring-stack.html) | [Javadoc](http://resthub.org/javadoc/2.0) | [Tutorial](http://resthub.org/tutorial/spring.html) | [Sources](https://github.com/resthub/resthub-spring-stack)
 
 Backbone.js stack
 -----------------
