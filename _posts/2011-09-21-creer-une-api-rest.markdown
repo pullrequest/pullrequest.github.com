@@ -90,7 +90,7 @@ API?) et quels services nous souhaitons leur rendre.
 Définir quelques priorités sur les items suivants permet de concentrer
 ses efforts sur les aspects importants pour notre API:
 
-![APIs REST](public/img/2011-09-21-creer-une-api-rest/api-rest.png)
+![APIs REST](/public/img/2011-09-21-creer-une-api-rest/api-rest.png)
 
 Ce schéma identifie des zones où répartir ses efforts, selon l'API REST
 que l'on souhaite créer. Un exemple avec l'item "usage": si l'API doit

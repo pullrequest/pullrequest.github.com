@@ -9,7 +9,7 @@ Dans le cadre de mon étude des divers frameworks pour le développement java su
 [ORMLite](http://ormlite.com/sqlite_java_android_orm.shtml) pour Object Relational Mapping Lite est un ORM léger pour Java supportant plusieurs bases de données dont SQLite qui nous intéresse directement pour nos développements Android.
 
 <p class="center">
-  <img src="public/img/2012-05-09-ormlite-pour-android/ORMLite_logo.png" border="0" />
+  <img src="/public/img/2012-05-09-ormlite-pour-android/ORMLite_logo.png" border="0" />
 </p>
   
 

@@ -14,7 +14,7 @@ l'aide et aux côtés de l'[équipe de
 contributeurs](https://github.com/travis-ci/).
 
 <p class="center">
-  <img src="public/img/2012-01-25-travis-ci/travis.png" border="0" />
+  <img src="/public/img/2012-01-25-travis-ci/travis.png" border="0" />
 </p>
 
 Sa devise ? "A distributed build system for the open source community."
