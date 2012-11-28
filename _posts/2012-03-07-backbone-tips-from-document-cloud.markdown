@@ -15,7 +15,7 @@ de lignes, un ensemble de bonnes pratiques qui rendra votre code bien plus lisib
 compréhensible par les autres développeurs.
 
 <p class="center">
-  <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/backbone.png" border="0" />
+  <img src="public/img/2012-02-25-backbone-tips-from-document-cloud/backbone.png" border="0" />
 </p>
 
 Mais Backbone comme jQuery,
@@ -242,7 +242,7 @@ c'est pour cela que l'on instanciera ces modules dans un fichier unique, par exe
 Ces modules seront accessibles par toute l'application.
 
 <p class="center">
-  <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/dependences-globales.png" border="0"  />
+  <img src="public/img/2012-02-25-backbone-tips-from-document-cloud/dependences-globales.png" border="0"  />
 </p>
 
 [js/app/workspace.js](https://github.com/lyonjs/documentcloud/blob/master/public/javascripts/app/workspace.js) :
@@ -300,7 +300,7 @@ Mais comme cette relation est du type parent - enfant, ce sera toujours via le m
 discuter entre eux ou avec le parent.
 
 <p class="center">
-  <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/dependences-hierarchiques.png" border="0" />
+  <img src="public/img/2012-02-25-backbone-tips-from-document-cloud/dependences-hierarchiques.png" border="0" />
 </p>
 
 Nous allons donc attacher les instances des enfants aux parents.
@@ -465,7 +465,7 @@ avec le DOM. Non seulement vous gagnez en performance (les sélecteurs jQuery so
 vous empêche de modifier des éléments qui n'appartiennent pas à votre vue.
 
 <p class="center">
-  <img src="/public/img/2012-02-25-backbone-tips-from-document-cloud/DocumentCloud.png" border="0" width="600" />
+  <img src="public/img/2012-02-25-backbone-tips-from-document-cloud/DocumentCloud.png" border="0" width="600" />
 </p>
 
 

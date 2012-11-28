@@ -59,7 +59,7 @@ suite de l'article, nous allons suivre les maillons de cette chaîne pour
 trouver les problèmes d'encodage.
 
 ![Architecture d'une
-webapp](/public/img/2011-10-12-problemes-d-encodage/encoding_problems.png)
+webapp](public/img/2011-10-12-problemes-d-encodage/encoding_problems.png)
 
 
 ### Encodage côté base de données

@@ -9,7 +9,7 @@ published: true
 Dans le monde des [frameworks pour le développement Android](http://androidannotations.org/), je vous présente [AndroidAnnotations](http://androidannotations.org/) (mon coup de coeur). Comme son nom l’indique, ce framework apporte un bon nombre d'annotations qui nous permettent d'éliminer beaucoup de code boilerplate. Il simplifie le code et améliore sa lisibilité. Nous allons voir comment : 
 
 <p class="center">
-  <img src="/public/img/2012-06-06-androidannotations/androidannotations.png" border="0" />
+  <img src="public/img/2012-06-06-androidannotations/androidannotations.png" border="0" />
 </p>
 
 

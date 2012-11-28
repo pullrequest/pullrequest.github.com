@@ -10,7 +10,7 @@ et autour de Lucene il y a plusieurs mécanismes afin de rendre le système scal
 Ce sont ces deux parties qui m'ont intéressées pour cet article.
 
 <p class="center">
-  <img src="/public/img/2012-08-21-au-coeur-d-elasticsearch/eslogo.png" border="0" />
+  <img src="public/img/2012-08-21-au-coeur-d-elasticsearch/eslogo.png" border="0" />
 </p>
 
 Je ne suis pas contributeur sur le projet, ma vision est donc limitée à ce que j'ai compris en utilisant ElasticSearch,
