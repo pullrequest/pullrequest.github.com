@@ -75,7 +75,7 @@ If provides the following features:
 Try it now!
 -----------
 
-You can try now the [example "Todo application" live](http://resthub.org/todo) and [take a look at the code](https://github.com/resthub/todo-backbone-example).
+You can try now the [example "Todo application" live](http://resthub.org/todo/) and [take a look at the code](https://github.com/resthub/todo-backbone-example).
 
 [Reference documentation](http://resthub.org/) is available for both Spring and Backbone stacks.
 
