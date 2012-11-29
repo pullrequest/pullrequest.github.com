@@ -7,7 +7,9 @@ published: false
 ---
 
 Ayant eu la chance d'aller au [Devoxx](http://devoxx.com) encore une fois cette année, j'ai pu assister à la conférence de [Jake Wharton](https://github.com/JakeWharton) (créateur de [ActionBarSherlock](http://actionbarsherlock.com/)) intitulée [Bootstrapping Android Apps with Open Source](http://devoxx.com/display/DV12/Bootstrapping+Android+Apps+with+Open+Source). Il s'agissait en fait d'une présentation de toutes les librairies développées et utilisées par [Square](https://github.com/square) pour développer leur [application de paiement par mobile](https://squareup.com/).
+
 Le principal message que Jake a voulu faire passer était de nous inciter à partager nos projets ou nos divers développements en Open Source si cela peut avoir un intérêt pour la communauté. Square s'appuyant très largement sur des projets Open Source, ils se doivent de partager à leur tour leur travail.
+
 Nous allons donc voir quelque unes de ces librairies illustrées dans une petite applicaton Android : Dagger, Otto et Retrofit.
 
 <p class="center">
@@ -359,6 +361,6 @@ Nous utilisons Gson comme librairie de sérialisation/désérialisation et le cl
 
 ## Conclusion
 
-Dagger, Otto et Retrofit sont de petites librairies, encore jeunes mais très prometteuses. Elles sont parfaitement adpatées à un contexte d'utilisation mobile car elles ont été pensé pour. Si vous ne devez en retenir qu'une, je vous conseille Otto qui est un merveilleux petit outil pour découpler les composants de votre application.
+Dagger, Otto et Retrofit sont de petites librairies, encore jeunes mais très prometteuses. Elles sont parfaitement adpatées à un contexte d'utilisation mobile car elles ont été pensé pour. ELles fonctionnent parfaitement ensemble mais si vous ne devez en retenir qu'une, je vous conseille Otto qui est un merveilleux petit outil pour découpler les composants de votre application Android.
 
 Par ailleurs, [Pierre-Yves Ricau](https://github.com/pyricau), le créateur du projet AndroidAnnotations, a fourni un exemple d'intégration de Dagger, Otto et AndroidAnnotations sur Github : [CleanAndroidCode](https://github.com/pyricau/CleanAndroidCode).
