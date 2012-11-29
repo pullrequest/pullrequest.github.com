@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: Les libs Android de Square
 author: johanpoirier
