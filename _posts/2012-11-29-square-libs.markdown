@@ -1,4 +1,4 @@
----
+﻿---
 layout: post
 title: Les libs Android de Square
 author: johanpoirier
@@ -21,7 +21,7 @@ Nous allons donc voir quelque unes de ces librairies illustrées dans une petite
 
 Dagger se veut comme un successeur de Guice dont le créateur [Bob Lee](https://twitter.com/crazybob) est justement le CTO de Square. Il a voulu créer un framework d'injection de dépendances rapide et moderne qui fonctionne aussi bien en java "classique" que sur Android avec sa JVM Dalvik adapté au mobile.
 
-A l'instar d'[AndroidAnnotations](http://androidannotations.org/), Dagger s'appuie sur la génération de code à la compilation (JSR 269 : Annotation Processing). Pour chaque classe gérée par Dagger, une classe est créee contenant toute la logique d'injection en se basant sur le graph d'objet. C'est cette classe qui s'occupera d'invoquer les constructeurse t injecter les variables annotées en @Inject (JSR 330).
+A l'instar d'[AndroidAnnotations](http://androidannotations.org/), Dagger s'appuie sur la génération de code à la compilation (JSR 269 : Annotation Processing). Pour chaque classe gérée par Dagger, une classe est créee contenant toute la logique d'injection en se basant sur le graph d'objets. C'est cette classe qui s'occupera d'invoquer les constructeurs et injecter les variables annotées en @Inject (JSR 330).
 
 Dagger se passe donc de tout usage de réflexion contrairement à Guice (et sa version pour Android : RoboGuice). Et ceci est une bonne chose pour nos applications Android car le principal défaut de Guice était bien le temps de construire le graph au démarrage de l'application.
 
@@ -66,14 +66,14 @@ public class DaggerModule {
 }
 {% endhighlight %}
 
-Ce module est indispensable pour construire le graph d'objet :
+Ce module est indispensable pour construire le graph d'objets :
 
 {% highlight java %}
 // graph construction from the module and its entry points
 ObjectGraph objectGraph = ObjectGraph.create(new DaggerModule());
 {% endhighlight %}
 
-Grâce à ce graph d'objet, nous pouvons injecter les classes gérées par Dagger :
+Grâce à ce graph d'objets, nous pouvons injecter les classes gérées par Dagger :
 
 {% highlight java %}
 // self inject
@@ -97,7 +97,7 @@ public abstract class DaggerActivity extends Activity {
 }
 {% endhighlight %}
 
-Le module de mon application s'occupe de fournir les instances via des @Provides et sert de point d'entrée à toute mon application pour fournir le graph d'objet :
+Le module de mon application s'occupe de fournir les instances via des @Provides et sert de point d'entrée à toute mon application pour fournir le graph d'objets :
 
 {% highlight java %}
 // the entry point is where the graph begins
@@ -138,7 +138,7 @@ Otto est un bus d'évènements permettant de découpler les différentes parties
 
 ### Le principe
 
-Le principe est simple.
+Il est extrêmement simple.
 
 Pour publier un évènement, il faut poster un évènement sur le bus :
 
@@ -171,7 +171,7 @@ Pour ne plus recevoir les évènements, il suffit de se désenregistrer :
 bus.unregister(this);
 {% endhighlight %}
 
-Enfin, il est possible de fournir une valeur dès l'enregistrement sur le bus via des @Produce. Cela peut permettre ainsi de fournir le dernier évènement publié sur le bus au client qui vient de s'enregistrer.
+Enfin, il est possible de fournir une valeur dès l'enregistrement sur le bus via des @Produce. Cela peut permettre ainsi de fournir le dernier évènement publié sur le bus au client qui vient juste de s'enregistrer.
 
 {% highlight java %}
 // useful when you need to know what was going on before you listened
@@ -182,7 +182,7 @@ public AwesomeEvent produceAwesomeEvent() {
 }
 {% endhighlight %}
 
-Les producteurs comme les clients souscripteurs doivent s'enregistrer sur le bus.
+Les producteurs comme les clients souscripteurs doivent s'enregistrer auprès du bus.
 
 
 ### En pratique sur Android
@@ -238,7 +238,7 @@ public class MainActivity extends Activity {
 
     @Subscribe
     public void displayNetworks(final NetworksAvailableEvent event) {
-        // event is coming from the background, requestiing UI thread
+        // event is coming from the background, requesting UI thread
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -251,7 +251,7 @@ public class MainActivity extends Activity {
 }
 {% endhighlight %}
 
-L'évènement NetworksAvailableEvent est produit par un BroadcastReceiver qui tourne en background :
+L'évènement NetworksAvailableEvent est produit par un BroadcastReceiver qui tourne en background. C'est lui qui va poster des évènements sur le bus.
 
 {% highlight java %}
 // event post on the bus
@@ -284,7 +284,7 @@ public class WifiInfoReceiver extends DaggerBroadcastReceiver {
 {% endhighlight %}
 
 
-## [Retrofit](https://github.com/square/retrofit) : une interface REST
+## [Retrofit](https://github.com/square/retrofit) : un client REST
 
 Retrofit est un client REST pour Android, dans le même esprit que Spring Android [RestTemplate](http://static.springsource.org/spring-android/docs/1.0.x/reference/html/rest-template.html).
 
@@ -301,14 +301,14 @@ public interface Github {
     @GET("orgs/square/repos")
     List<Repo> getSquareRepos();
 
-    @GET("orgs/square")
-    Org getSquare();
+    @GET("orgs/square/repos/{id}")
+    Repo getSquareRepo(@Named("id") String id);
 }
 {% endhighlight %}
 
 Les classes Repo et Org sont de simples POJOs qui ont les mêmes attributs (même partiellement) que ceux de l'API appelée.
 
-Pour utliser mon interface, il nous faut utiliser un RestAdapater :
+Pour utliser notre interface, il nous faut utiliser un RestAdapater :
 
 {% highlight java %}
 // the RestAdapter builder is nice
@@ -356,11 +356,11 @@ public class DaggerModule {
 }
 {% endhighlight %}
 
-Nous utilisons Gson comme librairie de sérialisation/désérialisation et le client HTTP par défaut d'Android. A ce propos, Square propose une autre librairie nommée [OkHttp](https://github.com/square/okhttp) qui est un client HTTP+SPDY pour Android. OkHttp permet de pouvoir compter sur le même client http sur toutes les versions d'Android et ne pas dépendre de la version d'Android. Il faudrait le tester et surtout attendre une version plus finalisée.
+Nous utilisons Gson comme librairie de sérialisation/désérialisation et le client HTTP par défaut d'Android. A ce propos, Square propose une autre librairie nommée [OkHttp](https://github.com/square/okhttp) qui est un client HTTP+SPDY pour Android. OkHttp permet de pouvoir compter sur le même client http sur toutes les versions d'Android et ne pas dépendre de la version de celui-ci. Il faudrait le tester et surtout attendre une version plus finalisée.
 
 
 ## Conclusion
 
-Dagger, Otto et Retrofit sont de petites librairies, encore jeunes mais très prometteuses. Elles sont parfaitement adpatées à un contexte d'utilisation mobile car elles ont été pensé pour. ELles fonctionnent parfaitement ensemble mais si vous ne devez en retenir qu'une, je vous conseille Otto qui est un merveilleux petit outil pour découpler les composants de votre application Android.
+Dagger, Otto et Retrofit sont de petites librairies, encore jeunes mais très prometteuses. Elles sont parfaitement adpatées à un contexte d'utilisation mobile car elles ont été pensé pour. Elles fonctionnent parfaitement ensemble mais si vous ne devez en retenir qu'une, je vous conseille Otto qui est un merveilleux petit outil pour découpler les composants de votre application Android.
 
-Par ailleurs, [Pierre-Yves Ricau](https://github.com/pyricau), le créateur du projet AndroidAnnotations, a fourni un exemple d'intégration de Dagger, Otto et AndroidAnnotations sur Github : [CleanAndroidCode](https://github.com/pyricau/CleanAndroidCode).
+Pour rappel, ces 3 librairies sont illustrées dans une application Android sur Github : [squarelibs-android-demo](https://github.com/johanpoirier/squarelibs-android-demo). Dans le même registre, [Pierre-Yves Ricau](https://github.com/pyricau) a fourni un exemple d'intégration de Dagger, Otto et AndroidAnnotations sur Github : [CleanAndroidCode](https://github.com/pyricau/CleanAndroidCode).
