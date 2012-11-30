@@ -65,6 +65,7 @@ If provides the following features:
     - $root attribute used to specify the container root element where the view should be attached (since $el is the view itself)
     - Default template attribute with context management
     - Zombie view and event handler cleanup
+    - A new populateModel function that automatically populate a model objet from form values (mapped on element names)
  - A client to server Javascript  logger, a simple  but lifesaver feature when your application run in production
  - Additional Handlebars helpers
  - A Require.js/Handlebars plugin
