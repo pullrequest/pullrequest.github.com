@@ -6,7 +6,7 @@ tags: [resthub, java]
 published: true
 ---
 
-We are pleased to announce the second major release of RESThub!
+We are pleased to announce the second major release of [RESThub](http://resthub.org/)!
 
 ![RESThub 2](/public/img/2012-12-04-resthub-2/spring+backbone.png)
 
