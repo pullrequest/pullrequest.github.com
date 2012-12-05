@@ -19,13 +19,13 @@ Nous allons donc voir quelque unes de ces librairies illustrées dans une petite
 
 ## [Dagger](http://square.github.com/dagger/) : l'injection de dépendance
 
-Dagger se veut comme un successeur de Guice dont le créateur [Bob Lee](https://twitter.com/crazybob) est justement le CTO de Square. Il a voulu créer un framework d'injection de dépendances rapide et moderne qui fonctionne aussi bien en java "classique" que sur Android avec sa JVM Dalvik adapté au mobile.
+Dagger se veut être le successeur de Guice dont le créateur [Bob Lee](https://twitter.com/crazybob) est justement le CTO de Square. Il a voulu créer un framework d'injection de dépendances rapide et moderne qui fonctionne aussi bien en java "classique" que sur Android avec sa JVM Dalvik adapté au mobile.
 
-A l'instar d'[AndroidAnnotations](http://androidannotations.org/), Dagger s'appuie sur la génération de code à la compilation (JSR 269 : Annotation Processing). Pour chaque classe gérée par Dagger, une classe est créee contenant toute la logique d'injection en se basant sur le graph d'objets. C'est cette classe qui s'occupera d'invoquer les constructeurs et injecter les variables annotées en @Inject (JSR 330).
+A l'instar d'[AndroidAnnotations](http://androidannotations.org/), Dagger s'appuie sur la génération de code à la compilation (JSR 269 : Annotation Processing). Pour chaque classe gérée par Dagger, une classe est créée contenant toute la logique d'injection en se basant sur le graph d'objets. C'est cette classe qui s'occupera d'invoquer les constructeurs et d'injecter les variables annotées en @Inject (JSR 330).
 
 Dagger se passe donc de tout usage de réflexion contrairement à Guice (et sa version pour Android : RoboGuice). Et ceci est une bonne chose pour nos applications Android car le principal défaut de Guice était bien le temps de construire le graph au démarrage de l'application.
 
-Place à l'illustration de la librairie par un peu de code :
+Place à l'illustration de la librairie par un peu de code pour Android :
 
 ### Les principes
 
@@ -89,7 +89,7 @@ Pour éviter d'appeler l'ObjectGraph pour injecter mes activités dans le onCrea
 {% highlight java %}
 // Parent of all activities
 public abstract class DaggerActivity extends Activity {
-    
+
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerModule.getObjectGraph().inject(this);
@@ -105,7 +105,7 @@ Le module de mon application s'occupe de fournir les instances via des @Provides
 public class DaggerModule {
 
     private static ObjectGraph graph;
-    
+
     @Provides
     @Singleton
     public MyService provideUserService() {
@@ -129,7 +129,7 @@ public class DaggerModule {
 }
 {% endhighlight %}
 
-J'ai réalisé une petit application de test disponible sur Github : [squarelibs-android-demo](https://github.com/johanpoirier/squarelibs-android-demo). Au lancement de l'application, c'est immédiat, pas de temps de création du graph décelable par l'utilisateur.
+J'ai réalisé une petite application de test disponible sur Github : [squarelibs-android-demo](https://github.com/johanpoirier/squarelibs-android-demo). Au lancement de l'application, c'est immédiat, pas de temps de création du graph décelable par l'utilisateur.
 
 
 ## [Otto](http://square.github.com/otto/) : le bus d'évènements
@@ -140,7 +140,7 @@ Otto est un bus d'évènements permettant de découpler les différentes parties
 
 Il est extrêmement simple.
 
-Pour publier un évènement, il faut poster un évènement sur le bus :
+Pour publier un évènement, il suffit de poster un évènement sur le bus :
 
 {% highlight java %}
 // AwesomeEvent could be anything
@@ -262,14 +262,14 @@ public class WifiInfoReceiver extends DaggerBroadcastReceiver {
 
     @Inject
     protected Bus bus;
-    
+
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
         DaggerModule.getObjectGraph().inject(this);
-        
+
         // scan results available : post event to the bus to display on the main activity
         if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
             scanResults = wifiManager.getScanResults();
@@ -356,11 +356,11 @@ public class DaggerModule {
 }
 {% endhighlight %}
 
-Nous utilisons Gson comme librairie de sérialisation/désérialisation et le client HTTP par défaut d'Android. A ce propos, Square propose une autre librairie nommée [OkHttp](https://github.com/square/okhttp) qui est un client HTTP+SPDY pour Android. OkHttp permet de pouvoir compter sur le même client http sur toutes les versions d'Android et ne pas dépendre de la version de celui-ci. Il faudrait le tester et surtout attendre une version plus finalisée.
+Nous utilisons Gson comme librairie de sérialisation/désérialisation et le client HTTP par défaut d'Android. A ce propos, Square propose une autre librairie nommée [OkHttp](https://github.com/square/okhttp) qui est un client HTTP+SPDY pour Android. OkHttp permet de pouvoir compter sur le même client HTTP sur toutes les versions d'Android et ne pas dépendre de la version de celui-ci. Il faudrait le tester et surtout attendre une version plus finalisée.
 
 
 ## Conclusion
 
-Dagger, Otto et Retrofit sont de petites librairies, encore jeunes mais très prometteuses. Elles sont parfaitement adpatées à un contexte d'utilisation mobile car elles ont été pensé pour. Elles fonctionnent parfaitement ensemble mais si vous ne devez en retenir qu'une, je vous conseille Otto qui est un merveilleux petit outil pour découpler les composants de votre application Android.
+Dagger, Otto et Retrofit sont de petites librairies, encore jeunes mais très prometteuses. Elles sont parfaitement adpatées à un contexte d'utilisation mobile car elles ont été pensées pour. Elles fonctionnent parfaitement ensemble mais si vous ne devez en retenir qu'une, je vous conseille Otto qui est un merveilleux petit outil pour découpler les composants de votre application Android.
 
 Pour rappel, ces 3 librairies sont illustrées dans une application Android sur Github : [squarelibs-android-demo](https://github.com/johanpoirier/squarelibs-android-demo). Dans le même registre, [Pierre-Yves Ricau](https://github.com/pyricau) a fourni un exemple d'intégration de Dagger, Otto et AndroidAnnotations sur Github : [CleanAndroidCode](https://github.com/pyricau/CleanAndroidCode).
