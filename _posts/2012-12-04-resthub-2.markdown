@@ -1,0 +1,109 @@
+---
+layout: post
+title: RESThub 2.0 Spring and Backbone.js stack released
+author: bclozel
+tags: [resthub, java]
+published: true
+---
+
+We are pleased to announce the second major release of [RESThub](http://resthub.org/)!
+
+![RESThub 2](/public/img/2012-12-04-resthub-2/spring+backbone.png)
+
+RESThub 2.0 stack is based on **Spring and Backbone.js**, and is designed to build HTML5 applications easily and efficiently. RESThub focuses on modular web applications, made of **stateless REST web services** and **client-side state managed by MVVM JavaScript clients**.
+
+Spring stack
+------------
+
+RESThub Spring stack 2.0 is based on:
+ - Java 7 by default, but Java 6 is fine too
+ - Tomcat 7 
+ - Spring 3.1 including Profile and JavaConfig support
+ - Spring MVC 3.1 and Jackson 2 for REST webservices (including full handling of Object Graphs with cyclic references)
+ - SQL and NoSQL persistence with Spring Data
+ - Logging with SLF4J and Logback
+ - Maven 3.0 is the reference build tool used
+ - TestNG, FEST Fluent Assertions 2 and Mockito for testing
+
+It provides the following features:
+ - Guidelines for your project and configuration layout
+ - Project templates for Spring + Backbone.js web applications (simple or multi-module)
+ - Zero config support for JPA (with automatic JPA Entity scanning) or MongoDB databases
+ - Generic CRUD webservices (XML and JSON by default) with builtin Exception to HTTP response mapper
+ - Helpers for running web tests
+ - Easy to use HTTP client based on AsyncHttplient with OAuth 2.0 support
+ - Logging bridge allow to send Javascript logs to the server
+ - High performance and easy to monitore [RPC mechanism based on RabbitMQ and Hessian](https://github.com/resthub/spring-amqp-hessian)
+ - [Spring MVC router](https://github.com/resthub/springmvc-router) allow to use routes à la Ruby On Rails/Play Framework
+
+Backbone Spring stack 2.0 artifacts are available on Maven Central.
+
+[Reference documentation](http://resthub.org/spring-stack.html) | [Javadoc](http://resthub.org/javadoc/2.0) | [Tutorial](http://resthub.org/tutorial/spring.html) | [Sources](https://github.com/resthub/resthub-spring-stack)
+
+Backbone.js stack
+-----------------
+
+RESThub Backbone.js stack 2.0 is based on:
+ - Backbone.js 0.9.2 + carefully selected extensions
+    - Powerful Pageable/Sortable datagrig with Backbone Datagrid (made by Loïc Frering, a RESThub developer)
+    - Get and set relations (one-to-one, one-to-many, many-to-one) for Backbone models with Backbone relational
+    - Form validation with Backbone Validation
+    - Parameters support on view routing with Backbone Query Parameters
+ - Require.js 2.0 for script loading including JS/CSS optimizer
+ - Handlebars 1.0 for templating
+ - jQuery 1.7
+ - Twitter Bootstrap 2.1
+ - Asynchronous calls with Async
+ - Dispatching keyboard shortcuts with Keymaster
+ - Parsing, validating, manipulating, and formatting dates and times with Moment
+
+If provides the following features:
+ - Guidelines for your project layout
+ - Project templates for easy project bootstrapping
+ - Resthub.View extends Backbone.View to provide the following enhancements:
+    - Default rendering implementation based on Handlebars
+    - $root attribute used to specify the container root element where the view should be attached (since $el is the view itself)
+    - Default template attribute with context management
+    - Zombie view and event handler cleanup
+    - A new populateModel function that automatically populate a model objet from form values (mapped on element names)
+ - A client to server Javascript  logger, a simple  but lifesaver feature when your application run in production
+ - Additional Handlebars helpers
+ - A Require.js/Handlebars plugin
+ - A simple Publish/Subscribe mechanism
+
+[Download](https://github.com/downloads/resthub/resthub-backbone-stack/resthub-backbone-stack-2.0.0.zip) | [Reference documentation](http://resthub.org/backbone-stack.html) | [Tutorial](http://resthub.org/tutorial/backbone.html) | [Sources](https://github.com/resthub/resthub-backbone-stack)
+
+Try it now!
+-----------
+
+You can try now the [example "Todo application" live](http://resthub.org/todo/) and [take a look at the code](https://github.com/resthub/todo-backbone-example).
+
+[Reference documentation](http://resthub.org/) is available for both Spring and Backbone stacks.
+
+Feel free to contact us on [RESThub discussion group](https://groups.google.com/forum/?fromgroups=#!forum/resthub-dev) if you need help or want to send us some feedbacks.
+
+The rationale behind RESThub 2.0
+--------------------------------
+
+RESThub is all about **integrating and bundling frameworks with tools, best practices and documentation**. The RESThub team works everyday with those frameworks on high traffic, enterprise-grade applications for their customers.
+
+That's why **we value developer experience** on those libraries and despise the "Not Invented Here" syndrome above all.
+
+RESThub is a two-part web framework: you can use the JavaScript stack part with a Ruby-on-Rails or Node.js backend; or you could use the Java stack with an Angular.js frontend!
+
+We strongly believe in Open Source Software, so the whole thing is available under the Apache License 2.0 on [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.resthub%22) and [Github](http://github.com/resthub/).
+
+Roadmap
+-------
+
+Expected new features for upcoming RESThub 2.1 are :
+ - Uprade to Spring 3.2
+ - Upgrade to Backbone.js 1.0
+ - Bean Validation + Backbone Validation plugin : do not duplicate your validation anymore on client side
+ - RESThub Identity manager : User/Group/Role webapp with Backbone.js GUI (alpha version available [here](https://github.com/resthub/resthub-identity))
+ - ElasticSearch integration
+ - Websocket support
+ - Improved Exception to HTTP response mapper (JSON/XML serialization of i18n aware messages)
+ - More examples applications
+
+Contributions and feedbacks are welcomed !!!
