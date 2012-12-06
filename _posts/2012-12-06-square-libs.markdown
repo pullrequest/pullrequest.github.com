@@ -3,7 +3,7 @@ layout: post
 title: Les libs Android de Square
 author: johanpoirier
 tags: [android, square, libraries, bus, injection, rest, http]
-published: false
+published: true
 ---
 
 Ayant eu la chance d'aller au [Devoxx](http://devoxx.com) encore une fois cette année, j'ai pu assister à la conférence de [Jake Wharton](https://github.com/JakeWharton) (créateur de [ActionBarSherlock](http://actionbarsherlock.com/)) intitulée [Bootstrapping Android Apps with Open Source](http://devoxx.com/display/DV12/Bootstrapping+Android+Apps+with+Open+Source). Il s'agissait en fait d'une présentation de toutes les librairies développées et utilisées par [Square](https://github.com/square) pour développer leur [application de paiement par mobile](https://squareup.com/).
