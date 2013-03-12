@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swagger-jack: unleash your API
+title: "Swagger-jack: unleash your API"
 tags: [swagger, api, validation, nodejs, express, descriptor]
 author: feugy
 published: true
