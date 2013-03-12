@@ -3,6 +3,7 @@ layout: post
 title: Swagger-jack: unleash your API
 tags: [swagger, api, validation, nodejs, express, descriptor]
 author: feugy
+published: true
 ---
 
 Perhaps did you already heard about [Swagger](http://developers.helloreverb.com/swagger/). And if not, I can only beg you to check it out.
