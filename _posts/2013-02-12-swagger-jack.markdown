@@ -143,7 +143,7 @@ And that's how swagger-jack was born.
 
 It provides three middlewares, which you can enable or not.
 
-{% highlight json %}
+{% highlight js %}
   var express = require('express'),
       swagger = require('swagger');
 
@@ -222,7 +222,7 @@ Wether it's a string or an object, it will be serialized into a json response wi
 
 For example:
 
-{% highlight json %}
+{% highlight js %}
   .use(swagger.generator(app, 
       { // general descriptor ... }
       [{
@@ -248,7 +248,7 @@ You may not use the error middleware and provide your own.
 
 Use [js-yaml](http://nodeca.github.com/js-yaml/) to store your descriptor in a separate file, and split your code into other controller modules:
 
-{% highlight json %}
+{% highlight js %}
   var express = require('express'),
       swagger = require('swagger'),
       yaml = require('js-yaml');
